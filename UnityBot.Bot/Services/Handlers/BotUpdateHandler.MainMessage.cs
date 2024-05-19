@@ -1,6 +1,7 @@
 ﻿using Telegram.Bot.Types;
 using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
+using UnityBot.Bot.Models.Entities;
 
 namespace UnityBot.Bot.Services.Handlers
 {
@@ -8,7 +9,20 @@ namespace UnityBot.Bot.Services.Handlers
     {
         private async Task HandleSherikKerakAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
         {
+            if (_userService.GetUser(message.Chat.Id) == null)
+            {
+                var user = new UserModel()
+                {
+                    ChatId = message.Chat.Id,
+                    Username = message.From.Username,
+                    Status = Models.Enums.Status.MainPage
+                };
+                _userService.CreateUser(user);
+            }
             _userService.ChangeStatus(message.Chat.Id, Models.Enums.Status.SherikKerak);
+
+
+
             await client.SendTextMessageAsync(
                 chatId: message.Chat.Id,
                 text: "Bu sherik uchun",
@@ -17,7 +31,20 @@ namespace UnityBot.Bot.Services.Handlers
 
         private async Task HandleUstozkerakAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
         {
+            if (_userService.GetUser(message.Chat.Id) == null)
+            {
+                var user = new UserModel()
+                {
+                    ChatId = message.Chat.Id,
+                    Username = message.From.Username,
+                    Status = Models.Enums.Status.MainPage
+                };
+                _userService.CreateUser(user);
+            }
             _userService.ChangeStatus(message.Chat.Id, Models.Enums.Status.UstozKerak);
+
+
+
             await client.SendTextMessageAsync(
                 chatId: message.Chat.Id,
                 text: "Bu ustoz uchun",
@@ -26,7 +53,19 @@ namespace UnityBot.Bot.Services.Handlers
 
         private async Task HandleRezumeJoylashAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
         {
+            if (_userService.GetUser(message.Chat.Id) == null)
+            {
+                var user = new UserModel()
+                {
+                    ChatId = message.Chat.Id,
+                    Username = message.From.Username,
+                    Status = Models.Enums.Status.MainPage
+                };
+                _userService.CreateUser(user);
+            }
             _userService.ChangeStatus(message.Chat.Id, Models.Enums.Status.RezumeJoylash);
+
+
             await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
                        text: "Bu rezume joylash uchun",
@@ -35,7 +74,19 @@ namespace UnityBot.Bot.Services.Handlers
 
         private async Task HandleShogirtKerakAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
         {
+            if (_userService.GetUser(message.Chat.Id) == null)
+            {
+                var user = new UserModel()
+                {
+                    ChatId = message.Chat.Id,
+                    Username = message.From.Username,
+                    Status = Models.Enums.Status.MainPage
+                };
+                _userService.CreateUser(user);
+            }
             _userService.ChangeStatus(message.Chat.Id, Models.Enums.Status.ShogirtKerak);
+
+
             await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
                        text: "Bu shogirt uchun",
@@ -44,7 +95,23 @@ namespace UnityBot.Bot.Services.Handlers
 
         private async Task HandleIshJoylashAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
         {
-            _userService.ChangeStatus(message.Chat.Id, Models.Enums.Status.IshJoylash);
+
+            var user = await _userService.GetUser(message.Chat.Id);
+
+            if (user == null)
+            {
+                user = new UserModel
+                {
+                    ChatId = message.Chat.Id,
+                    Username = message.From.Username,
+                    Status = Models.Enums.Status.IshJoylash
+                };
+
+                await _userService.CreateUser(user);
+            }
+
+            await _userService.ChangeStatus(message.Chat.Id, Models.Enums.Status.IshJoylash);
+
 
             await client.SendTextMessageAsync(
                 chatId: message.Chat.Id,

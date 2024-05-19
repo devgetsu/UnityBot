@@ -7,30 +7,34 @@ namespace UnityBot.Bot.Services.UserServices
 {
     public class UserService : IUserService
     {
-        private readonly UnityDbContext _context;
+        private List<UserModel> _users;
 
-        public UserService(UnityDbContext context)
+        public UserService()
         {
-            _context = context;
+            _users = new List<UserModel>();
         }
 
-        public async void ChangeStatus(long ChatId,Status st)
+        public async Task ChangeStatus(long chatId, Status status)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == ChatId);
-            user.Status = st;
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
+            var user = _users.FirstOrDefault(x => x.ChatId == chatId);
+            if (user != null)
+            {
+                user.Status = status;
+            }
+            else
+            {
+                throw new Exception($"User with ChatId {chatId} not found.");
+            }
         }
 
-        public async void CreateUser(UserModel user)
+        public async Task CreateUser(UserModel user)
         {
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
+            _users.Add(user);
         }
 
-        public async Task<UserModel> GetUser(long ChatId)
+        public async Task<UserModel> GetUser(long chatId)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == ChatId);
+            var user = _users.FirstOrDefault(x => x.ChatId == chatId);
             return user;
         }
     }

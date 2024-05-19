@@ -30,16 +30,17 @@ namespace UnityBot.Bot.Services.ReplyKeyboards
 
         public static async ValueTask<InlineKeyboardMarkup> ForConfirmation()
         {
-            var inlineKeyboard = new InlineKeyboardMarkup(new[]
-            {
-            new[]
+             List<List<KeyboardButton>> keyboardButtons = new List<List<KeyboardButton>>{
+                new List<KeyboardButton>()
                 {
-                InlineKeyboardButton.WithCallbackData("✅ To'g'ri", "correct"),
-                InlineKeyboardButton.WithCallbackData("❌ Noto'g'ri", "incorrect")
+                    new KeyboardButton("🏢 Ish joylash"),
+                    new KeyboardButton("🧑🏻‍💼 Rezyume joylash"),
                 }
-            });
+            };
 
-            return inlineKeyboard;
+            ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(keyboardButtons);
+
+            return replyKeyboardMarkup;
         }
 
     }

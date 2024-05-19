@@ -15,11 +15,11 @@ namespace UnityBot.Bot
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddSingleton<IUpdateHandler, BotUpdateHandler>();
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddDbContext<UnityDbContext>(options =>
+            builder.Services.AddSingleton<IUserService, UserService>();
+           /* builder.Services.AddDbContext<UnityDbContext>(options =>
             {
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Db"));
-            });
+            });*/
             builder.Services.AddSingleton(t => new TelegramBotClient(builder.Configuration.GetValue("BotToken", string.Empty)));
             builder.Services.AddHostedService<BotBackgroundService>();
 
