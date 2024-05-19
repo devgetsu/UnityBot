@@ -6,6 +6,7 @@
         RezumeJoylash,
         SherikKerak,
         UstozKerak,
-        ShogirtKerak
+        ShogirtKerak,
+        MainPage,
     }
 }

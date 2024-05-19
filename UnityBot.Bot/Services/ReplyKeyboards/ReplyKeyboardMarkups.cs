@@ -28,5 +28,20 @@ namespace UnityBot.Bot.Services.ReplyKeyboards
             return replyKeyboardMarkup;
         }
 
+        public static async ValueTask<InlineKeyboardMarkup> ForConfirmation()
+        {
+            var inlineKeyboard = new InlineKeyboardMarkup(new[]
+            {
+            new[]
+                {
+                InlineKeyboardButton.WithCallbackData("✅ To'g'ri", "correct"),
+                InlineKeyboardButton.WithCallbackData("❌ Noto'g'ri", "incorrect")
+                }
+            });
+
+            return inlineKeyboard;
+        }
+
     }
+
 }

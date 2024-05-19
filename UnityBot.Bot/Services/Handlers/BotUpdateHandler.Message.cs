@@ -3,6 +3,8 @@ using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 using UnityBot.Bot.Services.ReplyKeyboards;
+using UnityBot.Bot.Services.UserServices;
+using UnityBot.Bot.Models.Entities;
 
 namespace UnityBot.Bot.Services.Handlers;
 
@@ -73,6 +75,15 @@ public partial class BotUpdateHandler
                     text: "Assalomu alaykum, \"EFFECT | Katta mehnat bozori\" @palonchi kanali uchun e'lon yaratuvchi botiga xush kelibsiz.",
                     replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
                     cancellationToken: cancellationToken);
+
+            var user = new UserModel()
+            {
+                ChatId = message.Chat.Id,
+                Username = message.From.Username,
+                Status = Models.Enums.Status.MainPage
+            };
+            _userService.CreateUser(user);
+
             return;
         }
 
@@ -98,6 +109,7 @@ public partial class BotUpdateHandler
 
     private async Task HandleRandomTextAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
+        _userService.ChangeStatus(message.Chat.Id, Models.Enums.Status.MainPage);
         await client.SendTextMessageAsync(
             chatId: message.Chat.Id,
             text: "This is random text?",

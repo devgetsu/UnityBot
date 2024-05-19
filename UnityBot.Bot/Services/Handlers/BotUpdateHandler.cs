@@ -2,16 +2,19 @@
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using UnityBot.Bot.Services.UserServices;
 
 namespace UnityBot.Bot.Services.Handlers
 {
     public partial class BotUpdateHandler : IUpdateHandler
     {
         private readonly ILogger<BotUpdateHandler> _logger;
+        private readonly IUserService _userService;
 
-        public BotUpdateHandler(ILogger<BotUpdateHandler> logger)
+        public BotUpdateHandler(ILogger<BotUpdateHandler> logger, UserServices.IUserService userService)
         {
             _logger = logger;
+            _userService = userService;
         }
         public Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
         {
