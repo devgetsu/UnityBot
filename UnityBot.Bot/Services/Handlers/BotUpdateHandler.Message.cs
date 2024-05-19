@@ -83,6 +83,7 @@ public partial class BotUpdateHandler
             "🧑🏻‍💼 Rezyume joylash" => HandleRezumeJoylashAsync(client, message, cancellationToken),
             "🧑🏻‍🏫 Ustoz kerak" => HandleUstozkerakAsync(client, message, cancellationToken),
             "🎗 Sherik kerak" => HandleSherikKerakAsync(client, message, cancellationToken),
+            _ => HandleRandomTextAsync(client, message, cancellationToken),
         };
 
         try
@@ -93,5 +94,14 @@ public partial class BotUpdateHandler
         {
             await HandlePollingErrorAsync(client, ex, cancellationToken);
         }
+    }
+
+    private async Task HandleRandomTextAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
+    {
+        await client.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: "This is random text?",
+            cancellationToken: cancellationToken);
+
     }
 }
