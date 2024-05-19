@@ -7,7 +7,7 @@ namespace UnityBot.Bot.Services.UserServices
     public interface IUserService
     {
         void CreateUser(UserModel user);
-        void GetUser(long ChatId);
-        void ChangeStatus(Status st);
+        Task<UserModel> GetUser(long ChatId);
+        void ChangeStatus(long ChatId,Status st);
     }
 }
