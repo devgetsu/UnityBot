@@ -36,7 +36,7 @@ namespace UnityBot.Bot.Services.Handlers
             }
             catch (Exception ex)
             {
-                await HandlePollingErrorAsync(botClient, ex, cancellationToken);
+                await handler;
             }
         }
 

@@ -5,6 +5,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 using UnityBot.Bot.Services.ReplyKeyboards;
 using UnityBot.Bot.Services.UserServices;
 using UnityBot.Bot.Models.Entities;
+using UnityBot.Bot.Models.Enums;
 
 namespace UnityBot.Bot.Services.Handlers;
 
@@ -82,7 +83,7 @@ public partial class BotUpdateHandler
                 Username = message.From.Username,
                 Status = Models.Enums.Status.MainPage
             };
-            _userService.CreateUser(user);
+            await _userService.CreateUser(user);
 
             return;
         }
@@ -103,17 +104,7 @@ public partial class BotUpdateHandler
         }
         catch (Exception ex)
         {
-            await HandlePollingErrorAsync(client, ex, cancellationToken);
+            await myMessage;
         }
-    }
-
-    private async Task HandleRandomTextAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
-    {
-        _userService.ChangeStatus(message.Chat.Id, Models.Enums.Status.MainPage);
-        await client.SendTextMessageAsync(
-            chatId: message.Chat.Id,
-            text: "This is random text?",
-            cancellationToken: cancellationToken);
-
     }
 }
