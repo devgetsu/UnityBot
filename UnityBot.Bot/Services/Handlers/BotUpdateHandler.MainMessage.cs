@@ -341,7 +341,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
         {
             if (user.ShogirtKerakCount == 1)
             {
-                Messages.Add(message.Text);
+                Messages.Add(message.Text!.ToString());
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
@@ -353,7 +353,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
             if (user.ShogirtKerakCount == 2)
             {
-                Messages.Add(message.Text);
+                Messages.Add(message.Text!.ToString());
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
@@ -365,7 +365,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
             if (user.ShogirtKerakCount == 3)
             {
-                Messages.Add(message.Text);
+                Messages.Add(message.Text!.ToString());
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
@@ -377,7 +377,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
             if (user.ShogirtKerakCount == 4)
             {
-                Messages.Add(message.Text);
+                Messages.Add(message.Text!.ToString());
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
@@ -390,7 +390,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
             if (user.ShogirtKerakCount == 5)
             {
 
-                Messages.Add(message.Text);
+                Messages.Add(message.Text!.ToString());
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
@@ -403,7 +403,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
             if (user.ShogirtKerakCount == 6)
             {
 
-                Messages.Add(message.Text);
+                Messages.Add(message.Text!.ToString());
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
@@ -417,7 +417,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
             if (user.ShogirtKerakCount == 7)
             {
 
-                Messages.Add(message.Text);
+                Messages.Add(message.Text!.ToString());
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
@@ -429,7 +429,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
             }
             if (user.ShogirtKerakCount == 8)
             {
-                Messages.Add(message.Text);
+                Messages.Add(message.Text!.ToString());
 
                 await client.SendTextMessageAsync(
                     chatId: message.Chat.Id,
