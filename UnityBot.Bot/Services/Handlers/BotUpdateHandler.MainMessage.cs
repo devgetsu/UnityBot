@@ -10,6 +10,7 @@ namespace UnityBot.Bot.Services.Handlers
 {
     public partial class BotUpdateHandler
     {
+        public List<string> Messages = new List<string>();
         private async Task HandleSherikKerakAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
         {
             if (_userService.GetUser(message.Chat.Id) == null)
@@ -92,7 +93,8 @@ namespace UnityBot.Bot.Services.Handlers
 
             await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "Bu shogirt uchun",
+                       text: @"Shogirt kerakligi haqida e'lon joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.\r\n\r\nSo'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa \"✅ To'g'ri\" tugmasini bosing, aksincha bo'lsa \"❌ Noto'g'ri\" tugmasini bosing va so'rovnomani qaytadan to'ldiring.\r\n\r\n1 VARIANT - E'lon tayor bo'lgandan kegin \"To'lov\" qadamiga o'tasiz. To'lov amalga oshirilgach e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.\r\n|\r\n2 VARIANT - E'lon tayor bo'lgandan kegin \"E'lonni joylash\" tugmasi bosilsa e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.",
+                       parseMode: ParseMode.Html,
                        cancellationToken: cancellationToken);
         }
 
@@ -166,6 +168,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
             else if (user.Status == Status.ShogirtKerak)
             {
                 await _userService.IncShogirtKerakCount(message.Chat.Id);
+                await HandleShogirtKerakBotAsync(client, message, user, cancellationToken);
             }
             else if (user.Status == Status.RezumeJoylash)
             {
@@ -259,7 +262,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
             {
                 user.IshJoylashModel.Qoshimcha = message.Text;
                 await client.SendTextMessageAsync(
-                    chatId:message.Chat.Id,
+                    chatId: message.Chat.Id,
                     text: @$"4. ISH JOYLASH (poster)
 
 🏢 ISH
@@ -284,11 +287,150 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     chatId: message.Chat.Id,
                     text: "Barcha ma'lumotlar to'g'rimi?",
                     replyMarkup: await ReplyKeyboardMarkups.ForConfirmation(),
-                    parseMode:ParseMode.Html,
+                    parseMode: ParseMode.Html,
                     cancellationToken: cancellationToken);
                 return;
             }
             if (user.IshJoylashCount == 8)
+            {
+
+                if (message.Text == "✅ To'g'ri")
+                {
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: @"E'lonni joylash narxi: ""BEPUL 🕑""
+
+ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
+
+Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
+                        replyMarkup: new ReplyKeyboardRemove(),
+                        cancellationToken: cancellationToken);
+                    await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
+                }
+                else if (message.Text == "❌ Noto'g'ri")
+                {
+                    await client.SendTextMessageAsync(
+                      chatId: message.Chat.Id,
+                      text: "❌ E'lon qabul qilinmadi.",
+                      replyMarkup: new ReplyKeyboardRemove(),
+                      cancellationToken: cancellationToken);
+
+                    await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
+                }
+                await _userService.NolIshJoylashCount(message.Chat.Id);
+                return;
+            }
+        }
+
+        private async Task HandleShogirtKerakBotAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
+        {
+            if (user.ShogirtKerakCount == 1)
+            {
+                Messages.Add(message.Text);
+
+                await client.SendTextMessageAsync(
+                  chatId: message.Chat.Id,
+                  text: "\U0001f9d1🏻‍🏫 Ustoz: (100 element)\r\nUstozning Ism Familiyasini yozing.",
+                  cancellationToken: cancellationToken);
+
+                return;
+            }
+
+            if (user.ShogirtKerakCount == 2)
+            {
+
+                user.IshJoylashModel.VakansiyaNomi = message.Text;
+                await client.SendTextMessageAsync(
+                  chatId: message.Chat.Id,
+                  text: "💰Ish haqi: (100 element)\r\nIsh haqi miqdori, valyutasi va davriyligini kiriting",
+                  cancellationToken: cancellationToken);
+                return;
+
+            }
+
+            if (user.ShogirtKerakCount == 3)
+            {
+                user.IshJoylashModel.IshHaqi = message.Text;
+
+                await client.SendTextMessageAsync(
+                  chatId: message.Chat.Id,
+                  text: "🌏Manzil: (500 element)\r\nIsh joyi manzilini kiriting. ",
+                  cancellationToken: cancellationToken);
+                return;
+
+            }
+
+            if (user.ShogirtKerakCount == 4)
+            {
+                user.IshJoylashModel.Location = message.Text;
+
+                await client.SendTextMessageAsync(
+                  chatId: message.Chat.Id,
+                  text: "📑Vakansiya haqida: ",
+                  cancellationToken: cancellationToken);
+                return;
+
+            }
+
+            if (user.ShogirtKerakCount == 5)
+            {
+
+                user.IshJoylashModel.VahansiyaHaqida = message.Text;
+                await client.SendTextMessageAsync(
+                  chatId: message.Chat.Id,
+                  text: "📞Aloqa: ",
+                  cancellationToken: cancellationToken);
+                return;
+
+            }
+
+            if (user.ShogirtKerakCount == 6)
+            {
+
+                user.IshJoylashModel.Aloqa = message.Text;
+
+                await client.SendTextMessageAsync(
+                  chatId: message.Chat.Id,
+                  text: "📌 Qo'shimcha ma'lumotlar: ",
+                  cancellationToken: cancellationToken);
+
+                return;
+
+            }
+            if (user.ShogirtKerakCount == 7)
+            {
+                user.IshJoylashModel.Qoshimcha = message.Text;
+                await client.SendTextMessageAsync(
+                    chatId: message.Chat.Id,
+                    text: @$"4. ISH JOYLASH (poster)
+
+🏢 ISH
+
+⭐️ Ish beruvchi: 
+📋 Vakansiya nomi: {user.IshJoylashModel.VakansiyaNomi}
+💰 Ish haqi: {user.IshJoylashModel.IshHaqi}
+🌏 Manzil: {user.IshJoylashModel.Location}
+
+📑 Vakansiya haqida: {user.IshJoylashModel.VahansiyaHaqida}
+
+📞 Aloqa: .{user.IshJoylashModel.Aloqa}
+✉️ Telegram: {user.Username}
+🕰 Murojaat qilish vaqti: {user.IshJoylashModel.MurojaatVaqti}
+
+📌 Qo'shimcha ma'lumotlar: {user.IshJoylashModel.Qoshimcha}
+
+#Ish
+
+🌐 ""-a href=""google.com"" Google EFFECT | Katta mehnat bozori/a"" kanaliga obuna bo'lish (link | so'zni ichida bo'lishi kerak)");
+                await client.SendTextMessageAsync(
+                    chatId: message.Chat.Id,
+                    text: "Barcha ma'lumotlar to'g'rimi?",
+                    replyMarkup: await ReplyKeyboardMarkups.ForConfirmation(),
+                    parseMode: ParseMode.Html,
+                    cancellationToken: cancellationToken);
+                return;
+            }
+            if (user.ShogirtKerakCount == 8)
             {
 
                 if (message.Text == "✅ To'g'ri")
