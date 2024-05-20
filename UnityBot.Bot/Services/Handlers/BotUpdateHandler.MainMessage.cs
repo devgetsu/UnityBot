@@ -152,34 +152,37 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
             if (user.Status == Status.IshJoylash)
             {
-                await _userService.IncIshCount(message.Chat.Id);
+                await _userService.IncIshJoylashCount(message.Chat.Id);
                 await HandleIshJoylashBotAsync(client, message, user, cancellationToken);
             }
             else if (user.Status == Status.UstozKerak)
             {
-                await _userService.IncUstCount(message.Chat.Id);
+                await _userService.IncUstozKerak(message.Chat.Id);
             }
             else if (user.Status == Status.SherikKerak)
             {
-                await _userService.IncShkCount(message.Chat.Id);
+                await _userService.IncSherikKerak(message.Chat.Id);
             }
             else if (user.Status == Status.ShogirtKerak)
             {
-                await _userService.IncShtCount(message.Chat.Id);
+                await _userService.IncShogirtKerakCount(message.Chat.Id);
             }
             else if (user.Status == Status.RezumeJoylash)
             {
-                await _userService.IncRezCount(message.Chat.Id);
+                await _userService.IncRezumeCount(message.Chat.Id);
             }
             else if (user.Status == Status.MainPage)
             {
+                await client.SendTextMessageAsync(
+                    chatId: message.Chat.Id,
+                    text: "Xush kelibsiz!");
                 await HandleTextMessageAsnyc(client, message, cancellationToken);
             }
 
         }
         private async Task HandleIshJoylashBotAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
         {
-            if (user.ishCount == 1)
+            if (user.IshJoylashCount == 1)
             {
 
                 await client.SendTextMessageAsync(
@@ -189,7 +192,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                 return;
             }
 
-            if (user.ishCount == 2)
+            if (user.IshJoylashCount == 2)
             {
 
                 await client.SendTextMessageAsync(
@@ -200,7 +203,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
             }
 
-            if (user.ishCount == 3)
+            if (user.IshJoylashCount == 3)
             {
 
                 await client.SendTextMessageAsync(
@@ -211,7 +214,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
             }
 
-            if (user.ishCount == 4)
+            if (user.IshJoylashCount == 4)
             {
 
                 await client.SendTextMessageAsync(
@@ -222,7 +225,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
             }
 
-            if (user.ishCount == 5)
+            if (user.IshJoylashCount == 5)
             {
 
                 await client.SendTextMessageAsync(
@@ -233,7 +236,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
             }
 
-            if (user.ishCount == 6)
+            if (user.IshJoylashCount == 6)
             {
 
                 await client.SendTextMessageAsync(
@@ -244,7 +247,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                 return;
 
             }
-            if (user.ishCount == 7)
+            if (user.IshJoylashCount == 7)
             {
 
                 await client.SendTextMessageAsync(
@@ -254,7 +257,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     cancellationToken: cancellationToken);
                 return;
             }
-            if (user.ishCount == 8)
+            if (user.IshJoylashCount == 8)
             {
 
                 if (message.Text == "✅ To'g'ri")
@@ -266,18 +269,21 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
 
 Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
+                        replyMarkup: new ReplyKeyboardRemove(),
                         cancellationToken: cancellationToken);
+                    await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
                 }
                 else if (message.Text == "❌ Noto'g'ri")
                 {
                     await client.SendTextMessageAsync(
                       chatId: message.Chat.Id,
                       text: "❌ E'lon qabul qilinmadi.",
+                      replyMarkup: new ReplyKeyboardRemove(),
                       cancellationToken: cancellationToken);
 
                     await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
                 }
-                await HandleTextMessageAsnyc(client, message, cancellationToken);
+                await _userService.NolIshJoylashCount(message.Chat.Id);
                 return;
             }
         }

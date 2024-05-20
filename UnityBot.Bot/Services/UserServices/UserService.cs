@@ -28,7 +28,7 @@ namespace UnityBot.Bot.Services.UserServices
             }
         }
 
-        public async Task CreateUser(UserModel user)
+        public async Task   CreateUser(UserModel user)
         {
             _users.Add(user);
         }
@@ -39,93 +39,93 @@ namespace UnityBot.Bot.Services.UserServices
             return user;
         }
 
-        public async Task IncIshCount(long ChatId)
+        public async Task IncIshJoylashCount(long ChatId)
         {
             var user = _users.FirstOrDefault(x => x.ChatId == ChatId);
             if (user != null)
             {
-                user.ishCount += 1;
+                user.IshJoylashCount += 1;
             }
         }
 
-        public async Task IncRezCount(long ChatId)
+        public async Task IncRezumeCount(long ChatId)
         {
             var user = _users.FirstOrDefault(x => x.ChatId == ChatId);
             if (user != null)
             {
-                user.rezumeCount += 1;
+                user.RezumeCount += 1;
             }
         }
 
-        public async Task IncShkCount(long ChatId)
+        public async Task IncSherikKerak(long ChatId)
         {
             var user = _users.FirstOrDefault(x => x.ChatId == ChatId);
             if (user != null)
             {
-                user.sherikCount += 1;
+                user.SherikKerakCount += 1;
             }
         }
 
-        public async Task IncShtCount(long ChatId)
+        public async Task IncShogirtKerakCount(long ChatId)
         {
             var user = _users.FirstOrDefault(x => x.ChatId == ChatId);
             if (user != null)
             {
-                user.shogirtCount += 1;
+                user.ShogirtKerakCount += 1;
             }
         }
 
-        public async Task IncUstCount(long ChatId)
+        public async Task IncUstozKerak(long ChatId)
         {
             var user = _users.FirstOrDefault(x => x.ChatId == ChatId);
             if (user != null)
             {
-                user.ustozCount += 1;
+                user.UstozkerakCount += 1;
             }
         }
 
-        public async Task NolIshCount(long ChatId)
+        public async Task NolIshJoylashCount(long ChatId)
         {
             var user = _users.FirstOrDefault(x => x.ChatId == ChatId);
             if (user != null)
             {
-                user.ishCount = 0;
+                user.IshJoylashCount = 0;
             }
         }
 
-        public async Task NolRezCount(long ChatId)
+        public async Task NolRuzumeCount(long ChatId)
         {
             var user = _users.FirstOrDefault(x => x.ChatId == ChatId);
             if (user != null)
             {
-                user.rezumeCount = 0;
+                user.RezumeCount = 0;
             }
         }
 
-        public async Task NolShkCount(long ChatId)
+        public async Task NolSherikKerakCount(long ChatId)
         {
             var user = _users.FirstOrDefault(x => x.ChatId == ChatId);
             if (user != null)
             {
-                user.sherikCount = 0;
+                user.SherikKerakCount = 0;
             }
         }
 
-        public async Task NolShtCount(long ChatId)
+        public async Task NolShogirtKerakCount(long ChatId)
         {
             var user = _users.FirstOrDefault(x => x.ChatId == ChatId);
             if (user != null)
             {
-                user.shogirtCount = 0;
+                user.ShogirtKerakCount = 0;
             }
         }
 
-        public async Task NolUstCount(long ChatId)
+        public async Task NolUstozKerakCount(long ChatId)
         {
             var user = _users.FirstOrDefault(x => x.ChatId == ChatId);
             if (user != null)
             {
-                user.ustozCount = 0;
+                user.UstozkerakCount = 0;
             }
         }
     }

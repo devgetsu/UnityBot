@@ -9,15 +9,15 @@ namespace UnityBot.Bot.Services.UserServices
         Task CreateUser(UserModel user);
         Task<UserModel> GetUser(long ChatId);
         Task ChangeStatus(long ChatId, Status st);
-        Task IncIshCount(long ChatId);
-        Task IncShtCount(long ChatId);
-        Task IncShkCount(long ChatId);
-        Task IncRezCount(long ChatId);
-        Task IncUstCount(long ChatId);
-        Task NolIshCount(long ChatId);
-        Task NolShtCount(long ChatId);
-        Task NolShkCount(long ChatId);
-        Task NolRezCount(long ChatId);
-        Task NolUstCount(long ChatId);
+        Task IncIshJoylashCount(long ChatId);
+        Task IncShogirtKerakCount(long ChatId);
+        Task IncSherikKerak(long ChatId);
+        Task IncRezumeCount(long ChatId);
+        Task IncUstozKerak(long ChatId);
+        Task NolIshJoylashCount(long ChatId);
+        Task NolShogirtKerakCount(long ChatId);
+        Task NolSherikKerakCount(long ChatId);
+        Task NolRuzumeCount(long ChatId);
+        Task NolUstozKerakCount(long ChatId);
     }
 }

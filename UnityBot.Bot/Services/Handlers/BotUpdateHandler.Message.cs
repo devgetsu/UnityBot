@@ -27,7 +27,7 @@ public partial class BotUpdateHandler
         }
         catch (Exception ex)
         {
-            await HandlePollingErrorAsync(client, ex, cancellationToken);
+            await messageType;
         }
 
     }
@@ -69,6 +69,17 @@ public partial class BotUpdateHandler
 
     private async Task HandleTextMessageAsnyc(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
+
+        var myMessage = message.Text switch
+        {
+            "🏢 Ish joylash" => HandleIshJoylashAsync(client, message, cancellationToken),
+            "🧑🏻 Shogirt kerak" => HandleShogirtKerakAsync(client, message, cancellationToken),
+            "🧑🏻‍💼 Rezyume joylash" => HandleRezumeJoylashAsync(client, message, cancellationToken),
+            "🧑🏻‍🏫 Ustoz kerak" => HandleUstozkerakAsync(client, message, cancellationToken),
+            "🎗 Sherik kerak" => HandleSherikKerakAsync(client, message, cancellationToken),
+            _ => HandleRandomTextAsync(client, message, cancellationToken),
+        };
+
         if (message.Text == "/start")
         {
             await client.SendTextMessageAsync(
@@ -87,16 +98,6 @@ public partial class BotUpdateHandler
 
             return;
         }
-
-        var myMessage = message.Text switch
-        {
-            "🏢 Ish joylash" => HandleIshJoylashAsync(client, message, cancellationToken),
-            "🧑🏻 Shogirt kerak" => HandleShogirtKerakAsync(client, message, cancellationToken),
-            "🧑🏻‍💼 Rezyume joylash" => HandleRezumeJoylashAsync(client, message, cancellationToken),
-            "🧑🏻‍🏫 Ustoz kerak" => HandleUstozkerakAsync(client, message, cancellationToken),
-            "🎗 Sherik kerak" => HandleSherikKerakAsync(client, message, cancellationToken),
-            _ => HandleRandomTextAsync(client, message, cancellationToken),
-        };
 
         try
         {
