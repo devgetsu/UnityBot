@@ -23,7 +23,12 @@ namespace UnityBot.Bot.Services.ReplyKeyboards
                 },
             };
 
-            ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(keyboardButtons);
+            ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(keyboardButtons)
+            {
+                ResizeKeyboard = true,
+                OneTimeKeyboard = true,
+                Selective = true
+            };
 
             return replyKeyboardMarkup;
         }
@@ -38,7 +43,12 @@ namespace UnityBot.Bot.Services.ReplyKeyboards
                 }
             };
 
-            ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(keyboardButtons);
+            ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(keyboardButtons)
+            {
+                ResizeKeyboard = true,
+                OneTimeKeyboard = true,
+                Selective = true
+            };
 
             return replyKeyboardMarkup;
         }

@@ -93,8 +93,15 @@ namespace UnityBot.Bot.Services.Handlers
 
             await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: @"Shogirt kerakligi haqida e'lon joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.\r\n\r\nSo'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa \"✅ To'g'ri\" tugmasini bosing, aksincha bo'lsa \"❌ Noto'g'ri\" tugmasini bosing va so'rovnomani qaytadan to'ldiring.\r\n\r\n1 VARIANT - E'lon tayor bo'lgandan kegin \"To'lov\" qadamiga o'tasiz. To'lov amalga oshirilgach e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.\r\n|\r\n2 VARIANT - E'lon tayor bo'lgandan kegin \"E'lonni joylash\" tugmasi bosilsa e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.",
-                       parseMode: ParseMode.Html,
+                       text: @"🧑🏻 SHOGIRT KERAK
+
+Shogirt kerakligi haqida e'lon joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.
+
+So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ To'g'ri"" tugmasini bosing, aksincha bo'lsa ""❌ Noto'g'ri"" tugmasini bosing va so'rovnomani qaytadan to'ldiring.
+
+1 VARIANT - E'lon tayor bo'lgandan kegin ""To'lov"" qadamiga o'tasiz. To'lov amalga oshirilgach e'lon o'sha zaxotiyoq ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylashtiriladi.
+|
+2 VARIANT - E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zaxotiyoq ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylashtiriladi.",
                        cancellationToken: cancellationToken);
         }
 
@@ -154,6 +161,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
             if (user.Status == Status.IshJoylash)
             {
+                user.IshJoylashModel.IshBeruvchi = message.Text;
                 await _userService.IncIshJoylashCount(message.Chat.Id);
                 await HandleIshJoylashBotAsync(client, message, user, cancellationToken);
             }
@@ -178,8 +186,9 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
             {
                 await client.SendTextMessageAsync(
                     chatId: message.Chat.Id,
-                    text: "Xush kelibsiz!");
-                await HandleTextMessageAsnyc(client, message, cancellationToken);
+                    text: "Yo'nalishlar:\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.",
+                    replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                    cancellationToken: cancellationToken);
             }
 
         }
@@ -196,8 +205,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
                 return;
             }
-
-            if (user.IshJoylashCount == 2)
+            else if (user.IshJoylashCount == 2)
             {
 
                 user.IshJoylashModel.VakansiyaNomi = message.Text;
@@ -208,8 +216,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                 return;
 
             }
-
-            if (user.IshJoylashCount == 3)
+            else if (user.IshJoylashCount == 3)
             {
                 user.IshJoylashModel.IshHaqi = message.Text;
 
@@ -220,8 +227,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                 return;
 
             }
-
-            if (user.IshJoylashCount == 4)
+            else if (user.IshJoylashCount == 4)
             {
                 user.IshJoylashModel.Location = message.Text;
 
@@ -230,35 +236,35 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                   text: "📑Vakansiya haqida: ",
                   cancellationToken: cancellationToken);
                 return;
-
             }
-
-            if (user.IshJoylashCount == 5)
+            else if (user.IshJoylashCount == 5)
             {
-
                 user.IshJoylashModel.VahansiyaHaqida = message.Text;
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
                   text: "📞Aloqa: ",
                   cancellationToken: cancellationToken);
                 return;
-
             }
-
-            if (user.IshJoylashCount == 6)
+            else if (user.IshJoylashCount == 6)
             {
-
+                user.IshJoylashModel.MurojaatVaqti = message.Text;
+                await client.SendTextMessageAsync(
+                  chatId: message.Chat.Id,
+                  text: "🕰 Murojaat qilish vaqti: (100 element)\r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting.",
+                  cancellationToken: cancellationToken);
+                return;
+            }
+            else if (user.IshJoylashCount == 7)
+            {
                 user.IshJoylashModel.Aloqa = message.Text;
-
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
                   text: "📌 Qo'shimcha ma'lumotlar: ",
                   cancellationToken: cancellationToken);
-
                 return;
-
             }
-            if (user.IshJoylashCount == 7)
+            else if (user.IshJoylashCount == 8)
             {
                 user.IshJoylashModel.Qoshimcha = message.Text;
                 await client.SendTextMessageAsync(
@@ -267,7 +273,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
 🏢 ISH
 
-⭐️ Ish beruvchi: 
+⭐️ Ish beruvchi: {user.IshJoylashModel.IshBeruvchi} 
 📋 Vakansiya nomi: {user.IshJoylashModel.VakansiyaNomi}
 💰 Ish haqi: {user.IshJoylashModel.IshHaqi}
 🌏 Manzil: {user.IshJoylashModel.Location}
@@ -275,14 +281,14 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 📑 Vakansiya haqida: {user.IshJoylashModel.VahansiyaHaqida}
 
 📞 Aloqa: .{user.IshJoylashModel.Aloqa}
-✉️ Telegram: {user.Username}
+✉️ Telegram: @{user.Username}
 🕰 Murojaat qilish vaqti: {user.IshJoylashModel.MurojaatVaqti}
 
 📌 Qo'shimcha ma'lumotlar: {user.IshJoylashModel.Qoshimcha}
 
 #Ish
 
-🌐 ""-a href=""google.com"" Google EFFECT | Katta mehnat bozori/a"" kanaliga obuna bo'lish (link | so'zni ichida bo'lishi kerak)");
+🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish (link | so'zni ichida bo'lishi kerak)");
                 await client.SendTextMessageAsync(
                     chatId: message.Chat.Id,
                     text: "Barcha ma'lumotlar to'g'rimi?",
@@ -291,7 +297,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     cancellationToken: cancellationToken);
                 return;
             }
-            if (user.IshJoylashCount == 8)
+            else if (user.IshJoylashCount == 9)
             {
 
                 if (message.Text == "✅ To'g'ri")
@@ -303,7 +309,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
 
 Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
-                        replyMarkup: new ReplyKeyboardRemove(),
+                        replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
                         cancellationToken: cancellationToken);
                     await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
                 }
