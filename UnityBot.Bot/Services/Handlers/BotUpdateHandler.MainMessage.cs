@@ -184,17 +184,20 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
         {
             if (user.IshJoylashCount == 1)
             {
+                user.IshJoylashModel.IshBeruvchi = message.Text.ToString();
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
                   text: "📋 Vakansiya nomi: (300 element)\r\nVakansiya nomini kiriting.",
                   cancellationToken: cancellationToken);
+
                 return;
             }
 
             if (user.IshJoylashCount == 2)
             {
 
+                user.IshJoylashModel.VakansiyaNomi = message.Text;
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
                   text: "💰Ish haqi: (100 element)\r\nIsh haqi miqdori, valyutasi va davriyligini kiriting",
@@ -205,6 +208,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
             if (user.IshJoylashCount == 3)
             {
+                user.IshJoylashModel.IshHaqi = message.Text;
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
@@ -216,6 +220,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
             if (user.IshJoylashCount == 4)
             {
+                user.IshJoylashModel.Location = message.Text;
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
@@ -228,6 +233,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
             if (user.IshJoylashCount == 5)
             {
 
+                user.IshJoylashModel.VahansiyaHaqida = message.Text;
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
                   text: "📞Aloqa: ",
@@ -239,6 +245,8 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
             if (user.IshJoylashCount == 6)
             {
 
+                user.IshJoylashModel.Aloqa = message.Text;
+
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
                   text: "📌 Qo'shimcha ma'lumotlar: ",
@@ -249,11 +257,34 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
             }
             if (user.IshJoylashCount == 7)
             {
+                user.IshJoylashModel.Qoshimcha = message.Text;
+                await client.SendTextMessageAsync(
+                    chatId:message.Chat.Id,
+                    text: @$"4. ISH JOYLASH (poster)
 
+🏢 ISH
+
+⭐️ Ish beruvchi: 
+📋 Vakansiya nomi: {user.IshJoylashModel.VakansiyaNomi}
+💰 Ish haqi: {user.IshJoylashModel.IshHaqi}
+🌏 Manzil: {user.IshJoylashModel.Location}
+
+📑 Vakansiya haqida: {user.IshJoylashModel.VahansiyaHaqida}
+
+📞 Aloqa: .{user.IshJoylashModel.Aloqa}
+✉️ Telegram: {user.Username}
+🕰 Murojaat qilish vaqti: {user.IshJoylashModel.MurojaatVaqti}
+
+📌 Qo'shimcha ma'lumotlar: {user.IshJoylashModel.Qoshimcha}
+
+#Ish
+
+🌐 ""-a href=""google.com"" Google EFFECT | Katta mehnat bozori/a"" kanaliga obuna bo'lish (link | so'zni ichida bo'lishi kerak)");
                 await client.SendTextMessageAsync(
                     chatId: message.Chat.Id,
                     text: "Barcha ma'lumotlar to'g'rimi?",
                     replyMarkup: await ReplyKeyboardMarkups.ForConfirmation(),
+                    parseMode:ParseMode.Html,
                     cancellationToken: cancellationToken);
                 return;
             }
