@@ -29,7 +29,7 @@ namespace UnityBot.Bot.Services.Handlers
 
             await client.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: "Bu sherik uchun",
+                text: "🎗 SHERIK KERAK\r\n\r\nSherik kerakligi haqida e'lon joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.\r\n\r\nSo'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa \"✅ To'g'ri\" tugmasini bosing, aksincha bo'lsa \"❌ Noto'g'ri\" tugmasini bosing va so'rovnomani qaytadan to'ldiring.\r\n\r\n1 VARIANT - E'lon tayor bo'lgandan kegin \"To'lov\" qadamiga o'tasiz. To'lov amalga oshirilgach e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.\r\n|\r\n2 VARIANT - E'lon tayor bo'lgandan kegin \"E'lonni joylash\" tugmasi bosilsa e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.",
                 cancellationToken: cancellationToken);
         }
 
@@ -51,7 +51,7 @@ namespace UnityBot.Bot.Services.Handlers
 
             await client.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: "Bu ustoz uchun",
+                text: "\U0001f9d1🏻‍🏫 USTOZ KERAK\r\n\r\nUstoz kerakligi haqida e'lon joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.\r\n\r\nSo'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa \"✅ To'g'ri\" tugmasini bosing, aksincha bo'lsa \"❌ Noto'g'ri\" tugmasini bosing va so'rovnomani qaytadan to'ldiring.\r\n\r\n1 VARIANT - E'lon tayor bo'lgandan kegin \"To'lov\" qadamiga o'tasiz. To'lov amalga oshirilgach e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.\r\n|\r\n2 VARIANT - E'lon tayor bo'lgandan kegin \"E'lonni joylash\" tugmasi bosilsa e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.\r\n",
                 cancellationToken: cancellationToken);
         }
 
@@ -72,7 +72,7 @@ namespace UnityBot.Bot.Services.Handlers
 
             await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "Bu rezume joylash uchun",
+                       text: "\U0001f9d1🏻‍💼 REZYUME\r\n\r\nRezyume joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.\r\n\r\nSo'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa \"✅ To'g'ri\" tugmasini bosing, aksincha bo'lsa \"❌ Noto'g'ri\" tugmasini bosing va so'rovnomani qaytadan to'ldiring.\r\n\r\n1 VARIANT - E'lon tayor bo'lgandan kegin \"To'lov\" qadamiga o'tasiz. To'lov amalga oshirilgach e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.\r\n|\r\n2 VARIANT - E'lon tayor bo'lgandan kegin \"E'lonni joylash\" tugmasi bosilsa e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.",
                        cancellationToken: cancellationToken);
         }
 
@@ -161,7 +161,6 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
             if (user.Status == Status.IshJoylash)
             {
-                user.IshJoylashModel.IshBeruvchi = message.Text;
                 await _userService.IncIshJoylashCount(message.Chat.Id);
                 await HandleIshJoylashBotAsync(client, message, user, cancellationToken);
             }
@@ -194,9 +193,14 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
         }
         private async Task HandleIshJoylashBotAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
         {
-            if (user.IshJoylashCount == 1)
+            if (user.IshJoylashCount == 0)
             {
-                user.IshJoylashModel.IshBeruvchi = message.Text.ToString();
+                user.IshJoylashModel.IshBeruvchi = message.Text;
+                await _userService.IncIshJoylashCount(message.Chat.Id);
+            }
+            else if (user.IshJoylashCount == 1)
+            {
+                user.IshJoylashModel.VakansiyaNomi = message.Text.ToString();
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
@@ -280,7 +284,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
 📑 Vakansiya haqida: {user.IshJoylashModel.VahansiyaHaqida}
 
-📞 Aloqa: .{user.IshJoylashModel.Aloqa}
+📞 Aloqa: {user.IshJoylashModel.Aloqa}
 ✉️ Telegram: @{user.Username}
 🕰 Murojaat qilish vaqti: {user.IshJoylashModel.MurojaatVaqti}
 
@@ -327,7 +331,6 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                 return;
             }
         }
-
         private async Task HandleShogirtKerakBotAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
         {
             if (user.ShogirtKerakCount == 1)
@@ -419,7 +422,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
 📑 Vakansiya haqida: {user.IshJoylashModel.VahansiyaHaqida}
 
-📞 Aloqa: .{user.IshJoylashModel.Aloqa}
+📞 Aloqa: {user.IshJoylashModel.Aloqa}
 ✉️ Telegram: {user.Username}
 🕰 Murojaat qilish vaqti: {user.IshJoylashModel.MurojaatVaqti}
 
