@@ -90,6 +90,12 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                        chatId: message.Chat.Id,
                        text: "\U0001f9d1🏻‍💼 REZYUME\r\n\r\nRezyume joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.\r\n\r\nSo'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa \"✅ To'g'ri\" tugmasini bosing, aksincha bo'lsa \"❌ Noto'g'ri\" tugmasini bosing va so'rovnomani qaytadan to'ldiring.\r\n\r\n1 VARIANT - E'lon tayor bo'lgandan kegin \"To'lov\" qadamiga o'tasiz. To'lov amalga oshirilgach e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.\r\n|\r\n2 VARIANT - E'lon tayor bo'lgandan kegin \"E'lonni joylash\" tugmasi bosilsa e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.",
                        cancellationToken: cancellationToken);
+            await client.SendTextMessageAsync(
+               chatId: message.Chat.Id,
+               text: "⭐️ Ish qidiruvchi: (100 element)\r\nIsh qidiruvchining Ism Familiyasini kiriting.",
+               replyMarkup: new ReplyKeyboardRemove(),
+               cancellationToken: cancellationToken
+                );
         }
 
         private async Task HandleShogirtKerakAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
@@ -203,7 +209,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
                 case Status.RezumeJoylash:
                     await _userService.IncRezumeCount(message.Chat.Id);
-                    await HandleShogirtKerakBotAsync(client, message, user, cancellationToken);
+                    await HandleRezumeJoylashBotAsync(client, message, user, cancellationToken);
                     break;
 
                 case Status.MainPage:
@@ -219,7 +225,6 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     break;
             }
         }
-
 
         private async Task HandleIshJoylashBotAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
         {
@@ -353,8 +358,6 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     return;
             }
         }
-
-
         private async Task HandleSherikKerakBotAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
         {
             switch (user.SherikKerakCount)
@@ -635,7 +638,6 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                 return;
             }
         }
-
         private async Task HandleUstozKerakBotAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
         {
             switch (user.UstozkerakCount)
@@ -786,6 +788,146 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     }
                     user.Messages.Clear();
                     await _userService.NolUstozKerakCount(message.Chat.Id);
+                    return;
+            }
+        }
+        private async Task HandleRezumeJoylashBotAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
+        {
+            switch (user.RezumeCount)
+            {
+                case 0:
+                    user.Messages.Add(message.Text!.ToString());
+                    await _userService.IncRezumeCount(message.Chat.Id);
+                    goto case 1;
+                case 1:
+                    user.Messages.Add(message.Text!.ToString());
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "🗓 Tug'ilgan sana: (50 element)\r\nIsh qidiruvchining tug'ilgan sanasini kiriting. ",
+                        cancellationToken: cancellationToken);
+                    return;
+
+                case 2:
+                    user.Messages.Add(message.Text!.ToString());
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "💠 Mutaxassislik:\r\nIsh qidiruvchining mutaxassisligini kiriting. ",
+                        cancellationToken: cancellationToken);
+                    return;
+
+                case 3:
+                    user.Messages.Add(message.Text!.ToString());
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "🌏 Manzil: (500 element)\r\nIsh qidiruvchining manzilini kiriting.",
+                        cancellationToken: cancellationToken);
+                    return;
+
+
+                case 4:
+                    user.Messages.Add(message.Text!.ToString());
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "💰 Ish haqi: (100 element)\r\nIsh qidiruvchiga maqul ish haqini kiriting. Ish haqi miqdori, valyutasi va davriyligini yozing.",
+                        cancellationToken: cancellationToken);
+                    return;
+
+                case 5:
+                    user.Messages.Add(message.Text!.ToString());
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "\U0001f9d1‍🎓 Talaba: (10 element)\r\nShogirt talaba bo'lsa \"Ha\" deb yozing, aksincha bo'lsa \"Yo'q\" deb yozing.",
+                        cancellationToken: cancellationToken);
+                    return;
+                case 6:
+                    user.Messages.Add(message.Text!.ToString());
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "📑 Ish qidiruvchi haqida: (500 element)\r\nIsh qidiruvchi haqida qisqacha ma'lumot bering. Misol uchun, qanday bilim va qibiliyatlarga ega ekanligi haqida yozing.",
+                        cancellationToken: cancellationToken);
+                    return;
+                case 7:
+                    user.Messages.Add(message.Text!.ToString());
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "📞 Aloqa: (100 element)\r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.",
+                        cancellationToken: cancellationToken);
+                    return;
+
+                case 8:
+                    user.Messages.Add(message.Text!.ToString());
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "🕰 Murojaat qilish vaqti: (100 element)\r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting.",
+                        cancellationToken: cancellationToken);
+                    return;
+
+                case 9:
+                    user.Messages.Add(message.Text!.ToString());
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "📌 Qo'shimcha ma'lumotlar: (500 element)\r\nQoshimcha ma'lumotlarni kiriting. ",
+                        cancellationToken: cancellationToken);
+                    return;
+                case 10:
+                    user.Messages.Add(message.Text!.ToString());
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: @$"
+🧑🏻‍💼 REZYUME
+
+⭐️ Ish qidiruvchi: {user.Messages[0]}
+🗓 Tug'ilgan sana: {user.Messages[1]}
+💠 Mutaxassislik: {user.Messages[2]}
+🌏 Manzil: {user.Messages[3]}
+💰 Ish haqi: {user.Messages[4]}
+
+🧑‍🎓 Talaba: {user.Messages[5]}
+📑 Ish qidiruvchi haqida: {user.Messages[6]}
+
+📞 Aloqa: {user.Messages[7]}
+✉️ Telegram: @{user.Username}
+🕰 Murojaat qilish vaqti: {user.Messages[8]}
+
+📌 Qo'shimcha ma'lumotlar: {user.Messages[9]}
+
+#Rezyume
+
+🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish (link | so'zni ichida bo'lishi kerak)");
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "Barcha ma'lumotlar to'g'rimi?",
+                        replyMarkup: await ReplyKeyboardMarkups.ForConfirmation(),
+                        parseMode: ParseMode.Html,
+                        cancellationToken: cancellationToken);
+                    await _userService.IncRezumeCount(message.Chat.Id);
+                    return;
+
+                case 11:
+                    if (message.Text == "✅ To'g'ri")
+                    {
+                        await client.SendTextMessageAsync(
+                            chatId: message.Chat.Id,
+                            text: @"E'lonni joylash narxi: ""BEPUL 🕑""
+
+ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
+
+Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
+                            replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                            cancellationToken: cancellationToken);
+                        await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
+                    }
+                    else if (message.Text == "❌ Noto'g'ri")
+                    {
+                        await client.SendTextMessageAsync(
+                            chatId: message.Chat.Id,
+                            text: "❌ E'lon qabul qilinmadi.",
+                            replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                            cancellationToken: cancellationToken);
+                        await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
+                    }
+                    user.Messages.Clear();
+                    await _userService.NolRuzumeCount(message.Chat.Id);
                     return;
             }
         }
