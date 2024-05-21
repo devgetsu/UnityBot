@@ -338,7 +338,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
 #Ish
 
-🌐 ""<a href=''>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
                         parseMode: ParseMode.Html);
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
@@ -363,7 +363,8 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "📋 Sheriklik yo'nalishi: \r\nQanday yo'nalish bo'yicha sherik qidirilayotgan bo'lsa, shu yo'nalishni kiriting",
+                       text: "📋 <strong>Sheriklik yo'nalishi:</strong> \r\nQanday yo'nalish bo'yicha sherik qidirilayotgan bo'lsa, shu yo'nalishni kiriting",
+                       parseMode: ParseMode.Html,
                        cancellationToken: cancellationToken);
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
@@ -372,7 +373,8 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "💰 Hisob-kitob: \r\nHisob-kitob alohida muzokara qilinsa \"Alohida muzokara qilinadi\" deb yozing. Hisob-kitob e'lon qilinsa ma'lumotlarini kiriting.",
+                       text: "💰 <strong>Hisob-kitob:</strong> \r\nHisob-kitob alohida muzokara qilinsa \"Alohida muzokara qilinadi\" deb yozing. Hisob-kitob e'lon qilinsa ma'lumotlarini kiriting.",
+                       parseMode: ParseMode.Html,
                        cancellationToken: cancellationToken);
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
@@ -381,8 +383,8 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "🌏Manzil: \r\nQaysi manzil bo'yicha sherik qidirilayotgan bo'lsa, shu manzilni kiriting.",
-                       cancellationToken: cancellationToken);
+                       text: "🌏 <strong>Manzil:</strong> \r\nQaysi manzil bo'yicha sherik qidirilayotgan bo'lsa, shu manzilni kiriting.",
+                       parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 4:
@@ -390,8 +392,8 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "📑Sheriklik haqida: \r\nSheriklik haqida qisqacha ma'lumot bering. Misol uchun, nimalar qilinishi haqida yozing.",
-                       cancellationToken: cancellationToken);
+                       text: "📑 <strong>Sheriklik haqida:</strong> \r\nSheriklik haqida qisqacha ma'lumot bering. Misol uchun, nimalar qilinishi haqida yozing.",
+                       parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 5:
@@ -399,8 +401,8 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "📞 Aloqa: \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.",
-                       cancellationToken: cancellationToken);
+                       text: "📞 <strong>Aloqa:</strong> \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.",
+                       parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 6:
@@ -408,8 +410,8 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "🕰 Murojaat qilish vaqti: \r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting. ",
-                       cancellationToken: cancellationToken);
+                       text: "🕰 <strong>Murojaat qilish vaqti:</strong> \r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting. ",
+                       parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 7:
@@ -417,8 +419,8 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "📌Qo'shimcha ma'lumotlar: ",
-                       cancellationToken: cancellationToken);
+                       text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> ",
+                       parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 8:
@@ -426,7 +428,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: @$" SHERIK KERAK 
+                       text: @$" <strong>SHERIK KERAK</strong> 
 
 🎗 SHERIK KERAK
 
@@ -444,9 +446,9 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 📌 Qo'shimcha ma'lumotlar: {user.Messages[7]}
 #SherikKerak
 
-🌐 ""EFFECT | Katta mehnat bozori"" kanalga obuna bo'lish (link | so'zni ichida bo'lishi kerak)",
+🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+                        parseMode: ParseMode.Html,
                        cancellationToken: cancellationToken);
-                    await _userService.IncSherikKerak(message.Chat.Id);
                     await client.SendTextMessageAsync(
                            chatId: message.Chat.Id,
                            text: "Barcha ma'lumotlar to'g'rimi?",
@@ -491,8 +493,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
-                  text: "📋 Ustozlik yo'nalishi: \r\nQanday yo'nalish bo'yicha shogirt olinsa, shu yo'nalishni kiriting.",
-                  cancellationToken: cancellationToken);
+                  text: "📋 <strong>Ustozlik yo'nalishi:</strong> \r\nQanday yo'nalish bo'yicha shogirt olinsa, shu yo'nalishni kiriting.",
+                  parseMode: ParseMode.Html, cancellationToken: cancellationToken);
 
                 return;
             }
@@ -503,8 +505,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
-                  text: "💰 Ish haqi: \r\nIsh haqi yo'q bo'lsa \"Yo'q\" deb yozing. Ish haqi bor bo'lsa miqdori, valyutasi va davriyligini kiriting.",
-                  cancellationToken: cancellationToken);
+                  text: "💰 <strong>Ish haqi:</strong> \r\nIsh haqi yo'q bo'lsa \"Yo'q\" deb yozing. Ish haqi bor bo'lsa miqdori, valyutasi va davriyligini kiriting.",
+                  parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                 return;
 
             }
@@ -515,8 +517,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
-                  text: "🌏 Manzil: \r\nFaoliyat yuritish manzilini kiriting.",
-                  cancellationToken: cancellationToken);
+                  text: "🌏 <strong>Manzil:</strong> \r\nFaoliyat yuritish manzilini kiriting.",
+                  parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                 return;
 
             }
@@ -527,8 +529,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
-                  text: "📑 Ustozlik haqida: \r\nUstozlik haqida qisqacha ma'lumot bering.",
-                  cancellationToken: cancellationToken);
+                  text: "📑 <strong>Ustozlik haqida:</strong> \r\nUstozlik haqida qisqacha ma'lumot bering.",
+                  parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                 return;
 
             }
@@ -540,8 +542,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
-                  text: "📞 Aloqa: \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.",
-                  cancellationToken: cancellationToken);
+                  text: "📞 <strong>Aloqa:</strong> \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.",
+                  parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                 return;
 
             }
@@ -567,8 +569,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
-                  text: "📌 Qo'shimcha ma'lumotlar: \r\nQoshimcha ma'lumotlarni kiriting.",
-                  cancellationToken: cancellationToken);
+                  text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> \r\nQoshimcha ma'lumotlarni kiriting.",
+                  parseMode: ParseMode.Html, cancellationToken: cancellationToken);
 
                 return;
 
@@ -579,7 +581,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
                 await client.SendTextMessageAsync(
                     chatId: message.Chat.Id,
-                    text: @$"22. SHOGIRT KERAK 
+                    text: @$"22. <strong>SHOGIRT KERAK</strong> 
 
 🧑🏻 SHOGIRT KERAK
 
@@ -598,7 +600,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
 #ShogirtKerak
 
-🌐 ""EFFECT | Katta mehnat bozori"" kanalga obuna bo'lish (link | so'zni ichida bo'lishi kerak)");
+🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+                        parseMode: ParseMode.Html);
 
                 await client.SendTextMessageAsync(
                     chatId: message.Chat.Id,
@@ -652,32 +655,32 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "🗓 Tug'ilgan sana:\r\nShogirtning tug'ilgan sanasini kiriting.",
-                        cancellationToken: cancellationToken);
+                        text: "🗓 <strong>Tug'ilgan sana:</strong>\r\nShogirtning tug'ilgan sanasini kiriting.",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
                 case 2:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "💠 Shogirtlik yo'nalishi:\r\nQanday yo'nalish bo'yicha ustoz qidirilayotgan bo'lsa, shu yo'nalishni kiriting.",
-                        cancellationToken: cancellationToken);
+                        text: "💠 <strong>Shogirtlik yo'nalishi:</strong>\r\nQanday yo'nalish bo'yicha ustoz qidirilayotgan bo'lsa, shu yo'nalishni kiriting.",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
                 case 3:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "🌏 Manzil: \r\nQaysi manzil bo'yicha ustoz qidirilayotgan bo'lsa, shu manzilni kiriting.",
-                        cancellationToken: cancellationToken);
+                        text: "🌏 <strong>Manzil: </strong>\r\nQaysi manzil bo'yicha ustoz qidirilayotgan bo'lsa, shu manzilni kiriting.",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
                 case 4:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "💰 Ish haqi:\r\nIsh haqi kerak bo'lmasa \"Ish haqi kerak emas\" deb yozing. Ish haqi kerak bo'lsa miqdori, valyutasi va davriyligini kiriting.",
-                        cancellationToken: cancellationToken);
+                        text: "💰 <strong>Ish haqi:</strong>\r\nIsh haqi kerak bo'lmasa \"Ish haqi kerak emas\" deb yozing. Ish haqi kerak bo'lsa miqdori, valyutasi va davriyligini kiriting.",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
                 case 5:
@@ -693,38 +696,38 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "📑 Shogirt haqida: \r\nShogirt haqida qisqacha ma'lumot bering.",
-                        cancellationToken: cancellationToken);
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
                 case 7:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "📞 Aloqa: \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.",
-                        cancellationToken: cancellationToken);
+                        text: "📞 <strong>Aloqa:</strong> \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
                 case 8:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "🕰 Murojaat qilish vaqti: \r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting.",
-                        cancellationToken: cancellationToken);
+                        text: "🕰 <strong>Murojaat qilish vaqti:</strong> \r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting.",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
                 case 9:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "📌 Qo'shimcha ma'lumotlar: \r\nQoshimcha ma'lumotlarni kiriting. ",
-                        cancellationToken: cancellationToken);
+                        text: "📌 <strong>Qo'shimcha ma'lumotlar: </strong>\r\nQoshimcha ma'lumotlarni kiriting. ",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
                 case 10:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: @$"31. USTOZ KERAK 
+                        text: @$"31. <strong>USTOZ KERAK</strong> 
 
 🧑🏻‍🏫 USTOZ KERAK
 
@@ -745,7 +748,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
 #UstozKerak
 
-🌐 ""EFFECT | Katta mehnat bozori"" kanalga obuna bo'lish (link | so'zni ichida bo'lishi kerak)");
+🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+                        parseMode: ParseMode.Html);
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "Barcha ma'lumotlar to'g'rimi?",
@@ -767,24 +771,24 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "🗓 Tug'ilgan sana: \r\nIsh qidiruvchining tug'ilgan sanasini kiriting. ",
-                        cancellationToken: cancellationToken);
+                        text: "🗓 <strong>Tug'ilgan sana: </strong>\r\nIsh qidiruvchining tug'ilgan sanasini kiriting. ",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
                 case 2:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "💠 Mutaxassislik:\r\nIsh qidiruvchining mutaxassisligini kiriting. ",
-                        cancellationToken: cancellationToken);
+                        text: "💠 <strong>Mutaxassislik:</strong>\r\nIsh qidiruvchining mutaxassisligini kiriting. ",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
                 case 3:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "🌏 Manzil: \r\nIsh qidiruvchining manzilini kiriting.",
-                        cancellationToken: cancellationToken);
+                        text: "🌏 <strong>Manzil:</strong> \r\nIsh qidiruvchining manzilini kiriting.",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
 
@@ -792,46 +796,46 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "💰 Ish haqi: \r\nIsh qidiruvchiga maqul ish haqini kiriting. Ish haqi miqdori, valyutasi va davriyligini yozing.",
-                        cancellationToken: cancellationToken);
+                        text: "💰 <strong>Ish haqi:</strong> \r\nIsh qidiruvchiga maqul ish haqini kiriting. Ish haqi miqdori, valyutasi va davriyligini yozing.",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
                 case 5:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "\U0001f9d1‍🎓 Talaba: \r\nShogirt talaba bo'lsa \"Ha\" deb yozing, aksincha bo'lsa \"Yo'q\" deb yozing.",
-                        cancellationToken: cancellationToken);
+                        text: "\U0001f9d1‍🎓 <strong>Talaba:</strong> \r\nShogirt talaba bo'lsa \"Ha\" deb yozing, aksincha bo'lsa \"Yo'q\" deb yozing.",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
                 case 6:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "📑 Ish qidiruvchi haqida: \r\nIsh qidiruvchi haqida qisqacha ma'lumot bering. Misol uchun, qanday bilim va qibiliyatlarga ega ekanligi haqida yozing.",
-                        cancellationToken: cancellationToken);
+                        text: "📑 <strong>Ish qidiruvchi haqida:</strong> \r\nIsh qidiruvchi haqida qisqacha ma'lumot bering. Misol uchun, qanday bilim va qibiliyatlarga ega ekanligi haqida yozing.",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
                 case 7:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "📞 Aloqa: \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.",
-                        cancellationToken: cancellationToken);
+                        text: "📞 <strong>Aloqa:</strong> \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
                 case 8:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "🕰 Murojaat qilish vaqti: \r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting.",
-                        cancellationToken: cancellationToken);
+                        text: "🕰 <strong>Murojaat qilish vaqti:</strong> \r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting.",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
                 case 9:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "📌 Qo'shimcha ma'lumotlar: \r\nQoshimcha ma'lumotlarni kiriting. ",
-                        cancellationToken: cancellationToken);
+                        text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> \r\nQoshimcha ma'lumotlarni kiriting. ",
+                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
                 case 10:
                     user.Messages.Add(message.Text!.ToString());
@@ -857,7 +861,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
 #Rezyume
 
-🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish (link | so'zni ichida bo'lishi kerak)");
+🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+                        parseMode: ParseMode.Html);
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "Barcha ma'lumotlar to'g'rimi?",
