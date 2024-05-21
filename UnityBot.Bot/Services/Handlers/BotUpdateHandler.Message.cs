@@ -12,6 +12,7 @@ namespace UnityBot.Bot.Services.Handlers;
 public partial class BotUpdateHandler
 {
     private const string LINK = "https://google.com";
+    private const string Moderator = "-1002019788238";
     private async Task HandleMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
         var messageType = message.Type switch
@@ -43,7 +44,6 @@ public partial class BotUpdateHandler
                     cancellationToken: cancellationToken);
         return;
     }
-
     private async Task HandleLocationMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
         var letitude = message.Location.Latitude;
@@ -54,7 +54,6 @@ public partial class BotUpdateHandler
                text: $"Your Latitude {letitude} and Longitude {longitude}",
                cancellationToken: cancellationToken);
     }
-
     private async Task HandlePhotoMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
         await client.SendTextMessageAsync(
@@ -62,7 +61,6 @@ public partial class BotUpdateHandler
                text: "You Send Unknown Message",
                cancellationToken: cancellationToken);
     }
-
     private async Task HandleStickerMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
         await client.SendTextMessageAsync(
@@ -70,7 +68,6 @@ public partial class BotUpdateHandler
                text: "You Send Sticker Message",
                cancellationToken: cancellationToken);
     }
-
     private async Task HandleTextMessageAsnyc(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
         if (message.Text == "/start")
@@ -85,7 +82,7 @@ public partial class BotUpdateHandler
                     chatId: message.Chat.Id,
                     text: $"Assalomu alaykum, <a href='{LINK}'>EFFECT | Katta mehnat bozori</a> @palonchi kanali uchun e'lon yaratuvchi botiga xush kelibsiz.",
                     replyMarkup: await InlineKeyBoards.ForMainState(),
-                    parseMode:ParseMode.Html,
+                    parseMode: ParseMode.Html,
                     cancellationToken: cancellationToken);
 
             var user = new UserModel()

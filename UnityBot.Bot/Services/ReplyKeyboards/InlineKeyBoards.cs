@@ -40,7 +40,19 @@ namespace UnityBot.Bot.Services.ReplyKeyboards
             InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboardButtons);
             return Task.FromResult(inlineKeyboardMarkup);
         }
+
+        public static Task<InlineKeyboardMarkup> ForSendToChanel()
+        {
+            List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>{
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData("✅Elonni Joylash", "joyla"),
+                InlineKeyboardButton.WithCallbackData("❌ O'tkazib yuboarish", "skip"),
+            }
+        };
+
+            InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboardButtons);
+            return Task.FromResult(inlineKeyboardMarkup);
+        }
     }
-
 }
-

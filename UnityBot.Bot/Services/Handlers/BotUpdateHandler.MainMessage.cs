@@ -908,6 +908,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
             var user = await _userService.GetUser(message.Chat.Id);
             if (user != null)
             {
+                await SendToModeratorAsync(client, message, cancellationToken);
                 user.Messages.Clear();
                 await _userService.NolRuzumeCount(message.Chat.Id);
                 await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
@@ -929,6 +930,45 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                 await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
             }
             return;
+        }
+        private async Task SendToModeratorAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
+        {
+            var user = await _userService.GetUser(message.Chat.Id);
+            if (user == null)
+            {
+                return;
+            }
+            if (user.Status == Status.RezumeJoylash)
+            {
+
+                await client.SendTextMessageAsync(
+                           chatId: Moderator,
+                           text: @$"
+🧑🏻‍💼 REZYUME
+
+⭐️ Ish qidiruvchi: {user.Messages[0]}
+🗓 Tug'ilgan sana: {user.Messages[1]}
+💠 Mutaxassislik: {user.Messages[2]}
+🌏 Manzil: {user.Messages[3]}
+💰 Ish haqi: {user.Messages[4]}
+
+🧑‍🎓 Talaba: {user.Messages[5]}
+📑 Ish qidiruvchi haqida: {user.Messages[6]}
+
+📞 Aloqa: {user.Messages[7]}
+✉️ Telegram: @{user.Username}
+🕰 Murojaat qilish vaqti: {user.Messages[8]}
+
+📌 Qo'shimcha ma'lumotlar: {user.Messages[9]}
+
+#Rezyume
+
+🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish (link | so'zni ichida bo'lishi kerak)",
+                           parseMode: ParseMode.Html,
+                           replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+                           cancellationToken: cancellationToken);
+                return;
+            }
         }
     }
 }
