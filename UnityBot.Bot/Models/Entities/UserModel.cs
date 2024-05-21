@@ -9,6 +9,7 @@ namespace UnityBot.Bot.Models.Entities
         public string? Username { get; set; }
         public Status Status { get; set; }
         public IshJoy IshJoylashModel { get; set; } = new IshJoy();
+        public SherikKerak SherikKerakModel { get; set; } = new SherikKerak();
         public int IshJoylashCount { get; set; } = 0;
         public int SherikKerakCount { get; set; } = 0;
         public int RezumeCount { get; set; } = 0;

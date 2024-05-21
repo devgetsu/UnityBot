@@ -21,15 +21,19 @@ namespace UnityBot.Bot.Services.Handlers
                     Username = message.From.Username,
                     Status = Models.Enums.Status.MainPage
                 };
-                _userService.CreateUser(user);
+                await _userService.CreateUser(user);
             }
-            _userService.ChangeStatus(message.Chat.Id, Models.Enums.Status.SherikKerak);
-
-
+            await _userService.ChangeStatus(message.Chat.Id, Models.Enums.Status.SherikKerak);
 
             await client.SendTextMessageAsync(
                 chatId: message.Chat.Id,
                 text: "🎗 SHERIK KERAK\r\n\r\nSherik kerakligi haqida e'lon joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.\r\n\r\nSo'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa \"✅ To'g'ri\" tugmasini bosing, aksincha bo'lsa \"❌ Noto'g'ri\" tugmasini bosing va so'rovnomani qaytadan to'ldiring.\r\n\r\n1 VARIANT - E'lon tayor bo'lgandan kegin \"To'lov\" qadamiga o'tasiz. To'lov amalga oshirilgach e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.\r\n|\r\n2 VARIANT - E'lon tayor bo'lgandan kegin \"E'lonni joylash\" tugmasi bosilsa e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.",
+                cancellationToken: cancellationToken);
+
+            await client.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: "\r\n⭐️ Sherik: (100 element)\r\nSherikning Ism Familiyasini yozing.",
+                replyMarkup: new ReplyKeyboardRemove(),
                 cancellationToken: cancellationToken);
         }
 
@@ -165,131 +169,121 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                 await _userService.CreateUser(user);
             }
 
-            if (user.Status == Status.IshJoylash)
+            switch (user.Status)
             {
-                //  await _userService.IncIshJoylashCount(message.Chat.Id);
-                await HandleIshJoylashBotAsync(client, message, user, cancellationToken);
-            }
-            else if (user.Status == Status.UstozKerak)
-            {
-                await _userService.IncUstozKerak(message.Chat.Id);
-            }
-            else if (user.Status == Status.SherikKerak)
-            {
-                await _userService.IncSherikKerak(message.Chat.Id);
-            }
-            else if (user.Status == Status.ShogirtKerak)
-            {
-                await _userService.IncShogirtKerakCount(message.Chat.Id);
-                await HandleShogirtKerakBotAsync(client, message, user, cancellationToken);
-            }
-            else if (user.Status == Status.RezumeJoylash)
-            {
-                await _userService.IncRezumeCount(message.Chat.Id);
-            }
-            else if (user.Status == Status.MainPage)
-            {
-                await client.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: "Yo'nalishlar:\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.",
-                    replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
-                    cancellationToken: cancellationToken);
-            }
+                case Status.IshJoylash:
+                    await HandleIshJoylashBotAsync(client, message, user, cancellationToken);
+                    break;
 
+                case Status.UstozKerak:
+                    await _userService.IncUstozKerak(message.Chat.Id);
+                    break;
+
+                case Status.SherikKerak:
+                    await HandleSherikKerakBotAsync(client, message, user, cancellationToken);
+                    break;
+
+                case Status.ShogirtKerak:
+                    await _userService.IncShogirtKerakCount(message.Chat.Id);
+                    await HandleShogirtKerakBotAsync(client, message, user, cancellationToken);
+                    break;
+
+                case Status.RezumeJoylash:
+                    await _userService.IncRezumeCount(message.Chat.Id);
+                    break;
+
+                case Status.MainPage:
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "Yo'nalishlar:\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.",
+                        replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                        cancellationToken: cancellationToken);
+                    break;
+
+                default:
+                    // Handle unknown status if necessary
+                    break;
+            }
         }
+
+
         private async Task HandleIshJoylashBotAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
         {
-            if (user.IshJoylashCount == 0)
+            switch (user.IshJoylashCount)
             {
-                user.IshJoylashModel.IshBeruvchi = message.Text;
-                await _userService.IncIshJoylashCount(message.Chat.Id);
-            }
-            if (user.IshJoylashCount == 1)
-            {
-                user.IshJoylashModel.VakansiyaNomi = message.Text.ToString();
+                case 0:
+                    user.IshJoylashModel.IshBeruvchi = message.Text;
+                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    goto case 1;
 
-                await client.SendTextMessageAsync(
-                  chatId: message.Chat.Id,
-                  text: "📋 Vakansiya nomi: (300 element)\r\nVakansiya nomini kiriting.",
-                  cancellationToken: cancellationToken);
-                await _userService.IncIshJoylashCount(message.Chat.Id);
-                return;
-            }
-            else if (user.IshJoylashCount == 2)
-            {
+                case 1:
+                    user.IshJoylashModel.VakansiyaNomi = message.Text;
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "📋 Vakansiya nomi: (300 element)\r\nVakansiya nomini kiriting.",
+                        cancellationToken: cancellationToken);
+                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    return;
 
-                user.IshJoylashModel.VakansiyaNomi = message.Text;
-                await client.SendTextMessageAsync(
-                  chatId: message.Chat.Id,
-                  text: "💰Ish haqi: (100 element)\r\nIsh haqi miqdori, valyutasi va davriyligini kiriting",
-                  cancellationToken: cancellationToken);
-                await _userService.IncIshJoylashCount(message.Chat.Id);
+                case 2:
+                    user.IshJoylashModel.VakansiyaNomi = message.Text;
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "💰Ish haqi: (100 element)\r\nIsh haqi miqdori, valyutasi va davriyligini kiriting",
+                        cancellationToken: cancellationToken);
+                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    return;
 
-                return;
+                case 3:
+                    user.IshJoylashModel.IshHaqi = message.Text;
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "🌏Manzil: (500 element)\r\nIsh joyi manzilini kiriting.",
+                        cancellationToken: cancellationToken);
+                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    return;
 
-            }
-            else if (user.IshJoylashCount == 3)
-            {
-                user.IshJoylashModel.IshHaqi = message.Text;
+                case 4:
+                    user.IshJoylashModel.Location = message.Text;
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "📑Vakansiya haqida:",
+                        cancellationToken: cancellationToken);
+                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    return;
 
-                await client.SendTextMessageAsync(
-                  chatId: message.Chat.Id,
-                  text: "🌏Manzil: (500 element)\r\nIsh joyi manzilini kiriting. ",
-                  cancellationToken: cancellationToken);
-                await _userService.IncIshJoylashCount(message.Chat.Id);
+                case 5:
+                    user.IshJoylashModel.VahansiyaHaqida = message.Text;
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "📞Aloqa:",
+                        cancellationToken: cancellationToken);
+                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    return;
 
-                return;
+                case 6:
+                    user.IshJoylashModel.Aloqa = message.Text;
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "🕰 Murojaat qilish vaqti: (100 element)\r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting.",
+                        cancellationToken: cancellationToken);
+                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    return;
 
-            }
-            else if (user.IshJoylashCount == 4)
-            {
-                user.IshJoylashModel.Location = message.Text;
+                case 7:
+                    user.IshJoylashModel.MurojaatVaqti = message.Text;
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "📌 Qo'shimcha ma'lumotlar:",
+                        cancellationToken: cancellationToken);
+                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    return;
 
-                await client.SendTextMessageAsync(
-                  chatId: message.Chat.Id,
-                  text: "📑Vakansiya haqida: ",
-                  cancellationToken: cancellationToken);
-                await _userService.IncIshJoylashCount(message.Chat.Id);
-                return;
-            }
-            else if (user.IshJoylashCount == 5)
-            {
-                user.IshJoylashModel.VahansiyaHaqida = message.Text;
-                await client.SendTextMessageAsync(
-                  chatId: message.Chat.Id,
-                  text: "📞Aloqa: ",
-                  cancellationToken: cancellationToken);
-                await _userService.IncIshJoylashCount(message.Chat.Id);
-                return;
-            }
-            else if (user.IshJoylashCount == 6)
-            {
-                user.IshJoylashModel.MurojaatVaqti = message.Text;
-                await client.SendTextMessageAsync(
-                  chatId: message.Chat.Id,
-                  text: "🕰 Murojaat qilish vaqti: (100 element)\r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting.",
-                  cancellationToken: cancellationToken);
-                await _userService.IncIshJoylashCount(message.Chat.Id);
-
-                return;
-            }
-            else if (user.IshJoylashCount == 7)
-            {
-                user.IshJoylashModel.Aloqa = message.Text;
-                await client.SendTextMessageAsync(
-                  chatId: message.Chat.Id,
-                  text: "📌 Qo'shimcha ma'lumotlar: ",
-                  cancellationToken: cancellationToken);
-                await _userService.IncIshJoylashCount(message.Chat.Id);
-
-                return;
-            }
-            else if (user.IshJoylashCount == 8)
-            {
-                user.IshJoylashModel.Qoshimcha = message.Text;
-                await client.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: @$"4. ISH JOYLASH (poster)
+                case 8:
+                    user.IshJoylashModel.Qoshimcha = message.Text;
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: @$"4. ISH JOYLASH (poster)
 
 🏢 ISH
 
@@ -309,44 +303,108 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 #Ish
 
 🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish (link | so'zni ichida bo'lishi kerak)");
-                await client.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: "Barcha ma'lumotlar to'g'rimi?",
-                    replyMarkup: await ReplyKeyboardMarkups.ForConfirmation(),
-                    parseMode: ParseMode.Html,
-                    cancellationToken: cancellationToken);
-                await _userService.IncIshJoylashCount(message.Chat.Id);
-
-                return;
-            }
-            else if (user.IshJoylashCount == 9)
-            {
-
-                if (message.Text == "✅ To'g'ri")
-                {
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: @"E'lonni joylash narxi: ""BEPUL 🕑""
+                        text: "Barcha ma'lumotlar to'g'rimi?",
+                        replyMarkup: await ReplyKeyboardMarkups.ForConfirmation(),
+                        parseMode: ParseMode.Html,
+                        cancellationToken: cancellationToken);
+                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    return;
+
+                case 9:
+                    if (message.Text == "✅ To'g'ri")
+                    {
+                        await client.SendTextMessageAsync(
+                            chatId: message.Chat.Id,
+                            text: @"E'lonni joylash narxi: ""BEPUL 🕑""
 
 ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
 
 Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
-                        replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
-                        cancellationToken: cancellationToken);
-                    await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
-                }
-                else if (message.Text == "❌ Noto'g'ri")
-                {
-                    await client.SendTextMessageAsync(
-                      chatId: message.Chat.Id,
-                      text: "❌ E'lon qabul qilinmadi.",
-                      replyMarkup: new ReplyKeyboardRemove(),
-                      cancellationToken: cancellationToken);
+                            replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                            cancellationToken: cancellationToken);
+                        await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
+                    }
+                    else if (message.Text == "❌ Noto'g'ri")
+                    {
+                        await client.SendTextMessageAsync(
+                            chatId: message.Chat.Id,
+                            text: "❌ E'lon qabul qilinmadi.",
+                            replyMarkup: new ReplyKeyboardRemove(),
+                            cancellationToken: cancellationToken);
+                        await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
+                    }
+                    await _userService.NolIshJoylashCount(message.Chat.Id);
+                    return;
+            }
+        }
 
-                    await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
-                }
-                await _userService.NolIshJoylashCount(message.Chat.Id);
-                return;
+
+        private async Task HandleSherikKerakBotAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
+        {
+            switch (user.SherikKerakCount)
+            {
+                case 0:
+                    user.SherikKerakModel.Sherik = message.Text;
+                    await _userService.IncSherikKerak(message.Chat.Id);
+                    goto case 1;
+                case 1:
+                    user.SherikKerakModel.SherikLikYonalishi = message.Text;
+                    await client.SendTextMessageAsync(
+                       chatId: message.Chat.Id,
+                       text: "📋 Sheriklik yo'nalishi: (300 element)\r\nQanday yo'nalish bo'yicha sherik qidirilayotgan bo'lsa, shu yo'nalishni kiriting",
+                       cancellationToken: cancellationToken);
+                    await _userService.IncSherikKerak(message.Chat.Id);
+                    return;
+                case 2:
+                    user.SherikKerakModel.HisobKitob = message.Text;
+                    await client.SendTextMessageAsync(
+                       chatId: message.Chat.Id,
+                       text: "💰 Hisob-kitob: (100 element)\r\nHisob-kitob alohida muzokara qilinsa \"Alohida muzokara qilinadi\" deb yozing. Hisob-kitob e'lon qilinsa ma'lumotlarini kiriting.",
+                       cancellationToken: cancellationToken);
+                    await _userService.IncSherikKerak(message.Chat.Id);
+                    return;
+                case 3:
+                    user.SherikKerakModel.Manzil = message.Text;
+                    await client.SendTextMessageAsync(
+                       chatId: message.Chat.Id,
+                       text: " Manzil: (500 element)\r\nQaysi manzil bo'yicha sherik qidirilayotgan bo'lsa, shu manzilni kiriting.",
+                       cancellationToken: cancellationToken);
+                    await _userService.IncSherikKerak(message.Chat.Id);
+                    return;
+                case 4:
+                    user.SherikKerakModel.SheriklikHaqida = message.Text;
+                    await client.SendTextMessageAsync(
+                       chatId: message.Chat.Id,
+                       text: "📑Sheriklik haqida: (500 element)\r\nSheriklik haqida qisqacha ma'lumot bering. Misol uchun, nimalar qilinishi haqida yozing.",
+                       cancellationToken: cancellationToken);
+                    await _userService.IncSherikKerak(message.Chat.Id);
+                    return;
+                case 5:
+                    user.SherikKerakModel.Aloqa = message.Text;
+                    await client.SendTextMessageAsync(
+                       chatId: message.Chat.Id,
+                       text: "📞 Aloqa: (100 element)\r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.",
+                       cancellationToken: cancellationToken);
+                    await _userService.IncSherikKerak(message.Chat.Id);
+                    return;
+                case 6:
+                    user.SherikKerakModel.QoshimchaMalumotlar = message.Text;
+                    await client.SendTextMessageAsync(
+                       chatId: message.Chat.Id,
+                       text: "Qo'shimcha ma'lumotlar: (500 element)",
+                       cancellationToken: cancellationToken);
+                    await _userService.IncSherikKerak(message.Chat.Id);
+                    return;
+                case 7:
+                    //user.SherikKerakModel.V = message.Text;
+                    await client.SendTextMessageAsync(
+                       chatId: message.Chat.Id,
+                       text: "📋 Vakansiya nomi: (300 element)\r\nVakansiya nomini kiriting.",
+                       cancellationToken: cancellationToken);
+                    await _userService.IncSherikKerak(message.Chat.Id);
+                    return;
             }
         }
         private async Task HandleShogirtKerakBotAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
