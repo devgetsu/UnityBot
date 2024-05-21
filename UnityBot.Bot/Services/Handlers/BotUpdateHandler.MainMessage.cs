@@ -943,7 +943,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
             else if (user.Status == Status.IshJoylash)
             {
                 await client.SendTextMessageAsync(
-    chatId: message.Chat.Id,
+    chatId: Moderator,
     text: @$"4. ISH JOYLASH (poster)
 
 🏢 ISH
@@ -972,7 +972,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
             else if (user.Status == Status.UstozKerak) 
             {
                 await client.SendTextMessageAsync(
-   chatId: message.Chat.Id,
+   chatId: Moderator,
    text: @$"31. USTOZ KERAK (poster)
 
 🧑🏻‍🏫 USTOZ KERAK
@@ -1000,8 +1000,63 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
    cancellationToken: cancellationToken);
                 return;
             }
-            else if (user.Status == Status.SherikKerak) { }
-            else if (user.Status == Status.ShogirtKerak) { }
+            else if (user.Status == Status.SherikKerak)
+            {
+                await client.SendTextMessageAsync(
+                       chatId: Moderator,
+                       text: @$" SHERIK KERAK (poster)
+
+🎗 SHERIK KERAK
+
+⭐️ Sherik: {user.Messages[0]}
+📋 Sheriklik yo'nalishi: {user.Messages[1]}
+💰 Hisob-kitob: {user.Messages[2]}
+🌏 Manzil: {user.Messages[3]}
+
+📑 Sheriklik haqida: {user.Messages[4]}
+
+📞 Aloqa: {user.Messages[5]}
+✉️ Telegram: @{user.Username}
+🕰 Murojaat qilish vaqti: {user.Messages[6]}
+
+📌 Qo'shimcha ma'lumotlar: {user.Messages[7]}
+#SherikKerak
+
+🌐 ""EFFECT | Katta mehnat bozori"" kanalga obuna bo'lish (link | so'zni ichida bo'lishi kerak)",
+                       parseMode: ParseMode.Html,
+                       replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+                       cancellationToken: cancellationToken);
+                return;
+            }
+            else if (user.Status == Status.ShogirtKerak)
+            {
+                await client.SendTextMessageAsync(
+                    chatId: Moderator,
+                    text: @$"22. SHOGIRT KERAK (poster)
+
+🧑🏻 SHOGIRT KERAK
+
+🧑🏻‍🏫 Ustoz: {user.Messages[0]}
+📋 Ustozlik yo'nalishi: {user.Messages[1]}
+💰 Ish haqi: {user.Messages[2]}
+🌏 Manzil: {user.Messages[3]}
+
+📑 Ustozlik haqida: {user.Messages[4]}
+
+📞 Aloqa: {user.Messages[5]}
+✉️ Telegram: @{user.Username}
+🕰 Murojaat qilish vaqti: {user.Messages[6]}
+
+📌 Qo'shimcha ma'lumotlar: {user.Messages[7]}
+
+#ShogirtKerak
+
+🌐 ""EFFECT | Katta mehnat bozori"" kanalga obuna bo'lish (link | so'zni ichida bo'lishi kerak)",
+                    parseMode: ParseMode.Html,
+                    replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+                    cancellationToken: cancellationToken);
+                return;
+            }
         }
     }
 }
