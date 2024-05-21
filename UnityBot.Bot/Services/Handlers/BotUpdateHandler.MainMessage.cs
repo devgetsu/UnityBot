@@ -336,33 +336,6 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                         cancellationToken: cancellationToken);
                     await _userService.IncIshJoylashCount(message.Chat.Id);
                     return;
-
-                case 9:
-                    if (message.Text == "✅ To'g'ri")
-                    {
-                        await client.SendTextMessageAsync(
-                            chatId: message.Chat.Id,
-                            text: @"E'lonni joylash narxi: ""BEPUL 🕑""
-
-ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
-
-Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
-                            replyMarkup: await InlineKeyBoards.ForMainState(),
-                            cancellationToken: cancellationToken);
-                        await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
-                    }
-                    else if (message.Text == "❌ Noto'g'ri")
-                    {
-                        await client.SendTextMessageAsync(
-                            chatId: message.Chat.Id,
-                            text: "❌ E'lon qabul qilinmadi.",
-                            replyMarkup: new ReplyKeyboardRemove(),
-                            cancellationToken: cancellationToken);
-                        await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
-                    }
-                    user.Messages.Clear();
-                    await _userService.NolIshJoylashCount(message.Chat.Id);
-                    return;
             }
         }
         private async Task HandleSherikKerakBotAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
@@ -769,33 +742,6 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
                     return;
-
-                case 11:
-                    if (message.Text == "✅ To'g'ri")
-                    {
-                        await client.SendTextMessageAsync(
-                            chatId: message.Chat.Id,
-                            text: @"E'lonni joylash narxi: ""BEPUL 🕑""
-
-ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
-
-Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
-                            replyMarkup: await InlineKeyBoards.ForMainState(),
-                            cancellationToken: cancellationToken);
-                        await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
-                    }
-                    else if (message.Text == "❌ Noto'g'ri")
-                    {
-                        await client.SendTextMessageAsync(
-                            chatId: message.Chat.Id,
-                            text: "❌ E'lon qabul qilinmadi.",
-                            replyMarkup: new ReplyKeyboardRemove(),
-                            cancellationToken: cancellationToken);
-                        await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
-                    }
-                    user.Messages.Clear();
-                    await _userService.NolUstozKerakCount(message.Chat.Id);
-                    return;
             }
         }
         private async Task HandleRezumeJoylashBotAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
@@ -926,8 +872,15 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
             if (user != null)
             {
                 await SendToModeratorAsync(client, message, cancellationToken);
+
                 user.Messages.Clear();
+
                 await _userService.NolRuzumeCount(message.Chat.Id);
+                await _userService.NolIshJoylashCount(message.Chat.Id);
+                await _userService.NolSherikKerakCount(message.Chat.Id);
+                await _userService.NolShogirtKerakCount(message.Chat.Id);
+                await _userService.NolUstozKerakCount(message.Chat.Id);
+
                 await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
             }
             return;
@@ -955,6 +908,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
             {
                 return;
             }
+
             if (user.Status == Status.RezumeJoylash)
             {
 
@@ -986,6 +940,69 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                            cancellationToken: cancellationToken);
                 return;
             }
+
+            else if (user.Status == Status.IshJoylash)
+            {
+                await client.SendTextMessageAsync(
+    chatId: message.Chat.Id,
+    text: @$"4. ISH JOYLASH (poster)
+
+🏢 ISH
+
+⭐️ Ish beruvchi: {user.Messages[0]} 
+📋 Vakansiya nomi: {user.Messages[1]}
+💰 Ish haqi: {user.Messages[2]}
+🌏 Manzil: {user.Messages[3]}
+
+📑 Vakansiya haqida: {user.Messages[4]}
+
+📞 Aloqa: {user.Messages[5]}
+✉️ Telegram: @{user.Username}
+🕰 Murojaat qilish vaqti: {user.Messages[6]}
+
+📌 Qo'shimcha ma'lumotlar: {user.Messages[7]}
+
+#Ish
+
+🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish (link | so'zni ichida bo'lishi kerak)",
+    parseMode: ParseMode.Html,
+    replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+    cancellationToken: cancellationToken);
+                return;
+            }
+            else if (user.Status == Status.UstozKerak) 
+            {
+                await client.SendTextMessageAsync(
+   chatId: message.Chat.Id,
+   text: @$"31. USTOZ KERAK (poster)
+
+🧑🏻‍🏫 USTOZ KERAK
+
+🧑🏻 Shogirt: {user.Messages[0]}
+🗓 Tug'ilgan sana: {user.Messages[1]}
+💠 Shogirtlik yo'nalishi: {user.Messages[2]}
+🌏 Manzil: {user.Messages[3]}
+💰 Ish haqi: {user.Messages[4]}
+
+🧑‍🎓 Talaba: {user.Messages[5]}
+📑 Shogirt haqida: {user.Messages[6]}
+
+📞 Aloqa: {user.Messages[7]}
+✉️ Telegram: {user.Username}
+🕰 Murojaat qilish vaqti: {user.Messages[8]}
+
+📌 Qo'shimcha ma'lumotlar: {user.Messages[9]}
+
+#UstozKerak
+
+🌐 ""EFFECT | Katta mehnat bozori"" kanalga obuna bo'lish (link | so'zni ichida bo'lishi kerak)",
+   parseMode: ParseMode.Html,
+   replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+   cancellationToken: cancellationToken);
+                return;
+            }
+            else if (user.Status == Status.SherikKerak) { }
+            else if (user.Status == Status.ShogirtKerak) { }
         }
     }
 }
