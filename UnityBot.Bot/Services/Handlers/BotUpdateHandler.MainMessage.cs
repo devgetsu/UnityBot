@@ -167,7 +167,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
             if (user.Status == Status.IshJoylash)
             {
-                await _userService.IncIshJoylashCount(message.Chat.Id);
+                //  await _userService.IncIshJoylashCount(message.Chat.Id);
                 await HandleIshJoylashBotAsync(client, message, user, cancellationToken);
             }
             else if (user.Status == Status.UstozKerak)
@@ -204,7 +204,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                 user.IshJoylashModel.IshBeruvchi = message.Text;
                 await _userService.IncIshJoylashCount(message.Chat.Id);
             }
-            else if (user.IshJoylashCount == 1)
+            if (user.IshJoylashCount == 1)
             {
                 user.IshJoylashModel.VakansiyaNomi = message.Text.ToString();
 
@@ -212,7 +212,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                   chatId: message.Chat.Id,
                   text: "📋 Vakansiya nomi: (300 element)\r\nVakansiya nomini kiriting.",
                   cancellationToken: cancellationToken);
-
+                await _userService.IncIshJoylashCount(message.Chat.Id);
                 return;
             }
             else if (user.IshJoylashCount == 2)
@@ -223,6 +223,8 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                   chatId: message.Chat.Id,
                   text: "💰Ish haqi: (100 element)\r\nIsh haqi miqdori, valyutasi va davriyligini kiriting",
                   cancellationToken: cancellationToken);
+                await _userService.IncIshJoylashCount(message.Chat.Id);
+
                 return;
 
             }
@@ -234,6 +236,8 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                   chatId: message.Chat.Id,
                   text: "🌏Manzil: (500 element)\r\nIsh joyi manzilini kiriting. ",
                   cancellationToken: cancellationToken);
+                await _userService.IncIshJoylashCount(message.Chat.Id);
+
                 return;
 
             }
@@ -245,6 +249,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                   chatId: message.Chat.Id,
                   text: "📑Vakansiya haqida: ",
                   cancellationToken: cancellationToken);
+                await _userService.IncIshJoylashCount(message.Chat.Id);
                 return;
             }
             else if (user.IshJoylashCount == 5)
@@ -254,6 +259,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                   chatId: message.Chat.Id,
                   text: "📞Aloqa: ",
                   cancellationToken: cancellationToken);
+                await _userService.IncIshJoylashCount(message.Chat.Id);
                 return;
             }
             else if (user.IshJoylashCount == 6)
@@ -263,6 +269,8 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                   chatId: message.Chat.Id,
                   text: "🕰 Murojaat qilish vaqti: (100 element)\r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting.",
                   cancellationToken: cancellationToken);
+                await _userService.IncIshJoylashCount(message.Chat.Id);
+
                 return;
             }
             else if (user.IshJoylashCount == 7)
@@ -272,6 +280,8 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                   chatId: message.Chat.Id,
                   text: "📌 Qo'shimcha ma'lumotlar: ",
                   cancellationToken: cancellationToken);
+                await _userService.IncIshJoylashCount(message.Chat.Id);
+
                 return;
             }
             else if (user.IshJoylashCount == 8)
@@ -305,6 +315,8 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     replyMarkup: await ReplyKeyboardMarkups.ForConfirmation(),
                     parseMode: ParseMode.Html,
                     cancellationToken: cancellationToken);
+                await _userService.IncIshJoylashCount(message.Chat.Id);
+
                 return;
             }
             else if (user.IshJoylashCount == 9)
