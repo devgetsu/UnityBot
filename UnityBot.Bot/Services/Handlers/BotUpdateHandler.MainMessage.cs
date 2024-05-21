@@ -644,7 +644,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
             {
                 case 0:
                     user.Messages.Add(message.Text!.ToString());
-                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    await _userService.IncUstozKerak(message.Chat.Id);
                     goto case 1;
 
                 case 1:
@@ -653,7 +653,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                         chatId: message.Chat.Id,
                         text: "🗓 Tug'ilgan sana: (50 element)\r\nShogirtning tug'ilgan sanasini kiriting.",
                         cancellationToken: cancellationToken);
-                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    await _userService.IncUstozKerak(message.Chat.Id);
                     return;
 
                 case 2:
@@ -662,7 +662,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                         chatId: message.Chat.Id,
                         text: "💠 Shogirtlik yo'nalishi:\r\nQanday yo'nalish bo'yicha ustoz qidirilayotgan bo'lsa, shu yo'nalishni kiriting.",
                         cancellationToken: cancellationToken);
-                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    await _userService.IncUstozKerak(message.Chat.Id);
                     return;
 
                 case 3:
@@ -671,7 +671,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                         chatId: message.Chat.Id,
                         text: "🌏 Manzil: (500 element)\r\nQaysi manzil bo'yicha ustoz qidirilayotgan bo'lsa, shu manzilni kiriting.",
                         cancellationToken: cancellationToken);
-                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    await _userService.IncUstozKerak(message.Chat.Id);
                     return;
 
                 case 4:
@@ -680,7 +680,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                         chatId: message.Chat.Id,
                         text: "💰 Ish haqi: (100 element)\r\nIsh haqi kerak bo'lmasa \"Ish haqi kerak emas\" deb yozing. Ish haqi kerak bo'lsa miqdori, valyutasi va davriyligini kiriting.",
                         cancellationToken: cancellationToken);
-                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    await _userService.IncUstozKerak(message.Chat.Id);
                     return;
 
                 case 5:
@@ -689,7 +689,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                         chatId: message.Chat.Id,
                         text: "\U0001f9d1‍🎓 Talaba: (10 element)\r\nShogirt talaba bo'lsa \"Ha\" deb yozing, aksincha bo'lsa \"Yo'q\" deb yozing.",
                         cancellationToken: cancellationToken);
-                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    await _userService.IncUstozKerak(message.Chat.Id);
                     return;
 
                 case 6:
@@ -698,7 +698,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                         chatId: message.Chat.Id,
                         text: "📑 Shogirt haqida: (500 element)\r\nShogirt haqida qisqacha ma'lumot bering.",
                         cancellationToken: cancellationToken);
-                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    await _userService.IncUstozKerak(message.Chat.Id);
                     return;
 
                 case 7:
@@ -707,7 +707,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                         chatId: message.Chat.Id,
                         text: "📞 Aloqa: (100 element)\r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.",
                         cancellationToken: cancellationToken);
-                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    await _userService.IncUstozKerak(message.Chat.Id);
                     return;
 
                 case 8:
@@ -716,7 +716,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                         chatId: message.Chat.Id,
                         text: "🕰 Murojaat qilish vaqti: (100 element)\r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting.",
                         cancellationToken: cancellationToken);
-                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    await _userService.IncUstozKerak(message.Chat.Id);
                     return;
 
                 case 9:
@@ -725,7 +725,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                         chatId: message.Chat.Id,
                         text: "📌 Qo'shimcha ma'lumotlar: (500 element)\r\nQoshimcha ma'lumotlarni kiriting. ",
                         cancellationToken: cancellationToken);
-                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    await _userService.IncUstozKerak(message.Chat.Id);
                     return;
 
                 case 10:
@@ -760,7 +760,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                         replyMarkup: await ReplyKeyboardMarkups.ForConfirmation(),
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
-                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    await _userService.IncUstozKerak(message.Chat.Id);
                     return;
 
                 case 11:
