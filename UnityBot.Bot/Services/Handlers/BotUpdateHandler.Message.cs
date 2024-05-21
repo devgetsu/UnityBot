@@ -131,13 +131,24 @@ public partial class BotUpdateHandler
     }
     private async Task SentToMainChanelAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
-        await client.ForwardMessageAsync(
-            chatId: MainChanel,
-            messageId: message.MessageId,
-            fromChatId: message.Chat.Id,
-            protectContent: false,
-            disableNotification: false,
-            cancellationToken: cancellationToken);
+        //await client.ForwardMessageAsync(
+        //    chatId: MainChanel,
+        //    messageId: message.MessageId,
+        //    fromChatId: message.Chat.Id,
+        //    protectContent: false,
+        //    disableNotification: false,
+        //    cancellationToken: cancellationToken);
+
+        await client.CopyMessageAsync(
+        chatId: MainChanel,
+        messageId: message.MessageId,
+        fromChatId: message.Chat.Id,
+        caption: null,
+        parseMode: null,
+        disableNotification: false,
+        replyToMessageId: 0,
+        allowSendingWithoutReply: true,
+        cancellationToken: cancellationToken);
     }
 
     private async Task SkipFromModeratorsAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
