@@ -314,18 +314,18 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
 🏢 ISH
 
-⭐️ Ish beruvchi: {user.IshJoylashModel.IshBeruvchi} 
-📋 Vakansiya nomi: {user.IshJoylashModel.VakansiyaNomi}
-💰 Ish haqi: {user.IshJoylashModel.IshHaqi}
-🌏 Manzil: {user.IshJoylashModel.Location}
+⭐️ Ish beruvchi: {user.Messages[0]} 
+📋 Vakansiya nomi: {user.Messages[1]}
+💰 Ish haqi: {user.Messages[2]}
+🌏 Manzil: {user.Messages[3]}
 
-📑 Vakansiya haqida: {user.IshJoylashModel.VahansiyaHaqida}
+📑 Vakansiya haqida: {user.Messages[4]}
 
-📞 Aloqa: {user.IshJoylashModel.Aloqa}
+📞 Aloqa: {user.Messages[5]}
 ✉️ Telegram: @{user.Username}
-🕰 Murojaat qilish vaqti: {user.IshJoylashModel.MurojaatVaqti}
+🕰 Murojaat qilish vaqti: {user.Messages[6]}
 
-📌 Qo'shimcha ma'lumotlar: {user.IshJoylashModel.Qoshimcha}
+📌 Qo'shimcha ma'lumotlar: {user.Messages[7]}
 
 #Ish
 
@@ -448,18 +448,18 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
 🎗 SHERIK KERAK
 
-⭐️ Sherik: {user.SherikKerakModel.Sherik}
-📋 Sheriklik yo'nalishi: {user.SherikKerakModel.SherikLikYonalishi}
-💰 Hisob-kitob: {user.SherikKerakModel.HisobKitob}
-🌏 Manzil: {user.SherikKerakModel.Manzil}
+⭐️ Sherik: {user.Messages[0]}
+📋 Sheriklik yo'nalishi: {user.Messages[1]}
+💰 Hisob-kitob: {user.Messages[2]}
+🌏 Manzil: {user.Messages[3]}
 
-📑 Sheriklik haqida: {user.SherikKerakModel.SheriklikHaqida}
+📑 Sheriklik haqida: {user.Messages[4]}
 
-📞 Aloqa: {user.SherikKerakModel.Aloqa}
+📞 Aloqa: {user.Messages[5]}
 ✉️ Telegram: @{user.Username}
-🕰 Murojaat qilish vaqti: {user.SherikKerakModel.MurojaatQilishVaqti}
+🕰 Murojaat qilish vaqti: {user.Messages[6]}
 
-📌 Qo'shimcha ma'lumotlar: {user.SherikKerakModel.QoshimchaMalumotlar}
+📌 Qo'shimcha ma'lumotlar: {user.Messages[7]}
 #SherikKerak
 
 🌐 ""EFFECT | Katta mehnat bozori"" kanalga obuna bo'lish (link | so'zni ichida bo'lishi kerak)",
