@@ -236,8 +236,6 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     goto case 1;
 
                 case 1:
-                    user.Messages.Add(message.Text!.ToString());
-
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "📋 Vakansiya nomi: (300 element)\r\nVakansiya nomini kiriting.",
