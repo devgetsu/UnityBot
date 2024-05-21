@@ -358,7 +358,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 2:
-                    user.SherikKerakModel.HisobKitob = message.Text;
+                    user.SherikKerakModel.SherikLikYonalishi = message.Text;
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
                        text: "💰 Hisob-kitob: (100 element)\r\nHisob-kitob alohida muzokara qilinsa \"Alohida muzokara qilinadi\" deb yozing. Hisob-kitob e'lon qilinsa ma'lumotlarini kiriting.",
@@ -366,15 +366,15 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 3:
-                    user.SherikKerakModel.Manzil = message.Text;
+                    user.SherikKerakModel.HisobKitob = message.Text;
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: " Manzil: (500 element)\r\nQaysi manzil bo'yicha sherik qidirilayotgan bo'lsa, shu manzilni kiriting.",
+                       text: "🌏Manzil: (500 element)\r\nQaysi manzil bo'yicha sherik qidirilayotgan bo'lsa, shu manzilni kiriting.",
                        cancellationToken: cancellationToken);
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 4:
-                    user.SherikKerakModel.SheriklikHaqida = message.Text;
+                    user.SherikKerakModel.Manzil = message.Text;
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
                        text: "📑Sheriklik haqida: (500 element)\r\nSheriklik haqida qisqacha ma'lumot bering. Misol uchun, nimalar qilinishi haqida yozing.",
@@ -382,7 +382,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 5:
-                    user.SherikKerakModel.Aloqa = message.Text;
+                    user.SherikKerakModel.SheriklikHaqida = message.Text;
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
                        text: "📞 Aloqa: (100 element)\r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.",
@@ -390,20 +390,78 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 6:
-                    user.SherikKerakModel.QoshimchaMalumotlar = message.Text;
+                    user.SherikKerakModel.Aloqa = message.Text;
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "Qo'shimcha ma'lumotlar: (500 element)",
+                       text: "🕰 Murojaat qilish vaqti: (100 element)\r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting. ",
                        cancellationToken: cancellationToken);
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 7:
-                    //user.SherikKerakModel.V = message.Text;
+                    user.SherikKerakModel.MurojaatQilishVaqti = message.Text;
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "📋 Vakansiya nomi: (300 element)\r\nVakansiya nomini kiriting.",
+                       text: "📌Qo'shimcha ma'lumotlar: (500 element)",
                        cancellationToken: cancellationToken);
                     await _userService.IncSherikKerak(message.Chat.Id);
+                    return;
+                case 8:
+                    user.SherikKerakModel.QoshimchaMalumotlar = message.Text;
+                    await client.SendTextMessageAsync(
+                       chatId: message.Chat.Id,
+                       text: @$" SHERIK KERAK (poster)
+
+🎗 SHERIK KERAK
+
+⭐️ Sherik: {user.SherikKerakModel.Sherik}
+📋 Sheriklik yo'nalishi: {user.SherikKerakModel.SherikLikYonalishi}
+💰 Hisob-kitob: {user.SherikKerakModel.HisobKitob}
+🌏 Manzil: {user.SherikKerakModel.Manzil}
+
+📑 Sheriklik haqida: {user.SherikKerakModel.SheriklikHaqida}
+
+📞 Aloqa: {user.SherikKerakModel.Aloqa}
+✉️ Telegram: @{user.Username}
+🕰 Murojaat qilish vaqti: {user.SherikKerakModel.MurojaatQilishVaqti}
+
+📌 Qo'shimcha ma'lumotlar: {user.SherikKerakModel.QoshimchaMalumotlar}
+#SherikKerak
+
+🌐 ""EFFECT | Katta mehnat bozori"" kanalga obuna bo'lish (link | so'zni ichida bo'lishi kerak)",
+                       cancellationToken: cancellationToken);
+                    await _userService.IncSherikKerak(message.Chat.Id);
+                    await client.SendTextMessageAsync(
+                           chatId: message.Chat.Id,
+                           text: "Barcha ma'lumotlar to'g'rimi?",
+                           replyMarkup: await ReplyKeyboardMarkups.ForConfirmation(),
+                           parseMode: ParseMode.Html,
+                           cancellationToken: cancellationToken);
+                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    return;
+
+                case 9:
+                    if (message.Text == "✅ To'g'ri")
+                    {
+                        await client.SendTextMessageAsync(
+                            chatId: message.Chat.Id,
+                            text: @"E'lonni joylash narxi: ""BEPUL 🕑""
+
+ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
+
+Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
+                            replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                            cancellationToken: cancellationToken);
+                    }
+                    else if (message.Text == "❌ Noto'g'ri")
+                    {
+                        await client.SendTextMessageAsync(
+                            chatId: message.Chat.Id,
+                            text: "❌ E'lon qabul qilinmadi.",
+                            replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                            cancellationToken: cancellationToken);
+                    }
+                    await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
+                    await _userService.NolIshJoylashCount(message.Chat.Id);
                     return;
             }
         }
