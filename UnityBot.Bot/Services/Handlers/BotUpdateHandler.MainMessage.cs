@@ -890,7 +890,6 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                         replyMarkup: await ReplyKeyboardMarkups.ForConfirmation(),
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
-                    await _userService.IncRezumeCount(message.Chat.Id);
                     return;
 
                 case 11:
