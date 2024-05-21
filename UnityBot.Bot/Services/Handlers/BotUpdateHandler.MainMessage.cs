@@ -216,7 +216,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "Yo'nalishlar:\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.",
-                        replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                        replyMarkup: await InlineKeyBoards.ForMainState(),
                         cancellationToken: cancellationToken);
                     break;
 
@@ -325,7 +325,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "Barcha ma'lumotlar to'g'rimi?",
-                        replyMarkup: await ReplyKeyboardMarkups.ForConfirmation(),
+                        replyMarkup: await InlineKeyBoards.ForConfirmation(),
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
                     await _userService.IncIshJoylashCount(message.Chat.Id);
@@ -341,7 +341,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
 
 Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
-                            replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                            replyMarkup: await InlineKeyBoards.ForMainState(),
                             cancellationToken: cancellationToken);
                         await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
                     }
@@ -450,7 +450,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await client.SendTextMessageAsync(
                            chatId: message.Chat.Id,
                            text: "Barcha ma'lumotlar to'g'rimi?",
-                           replyMarkup: await ReplyKeyboardMarkups.ForConfirmation(),
+                           replyMarkup: await InlineKeyBoards.ForConfirmation(),
                            parseMode: ParseMode.Html,
                            cancellationToken: cancellationToken);
                     await _userService.IncIshJoylashCount(message.Chat.Id);
@@ -466,7 +466,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
 
 Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
-                            replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                            replyMarkup: await InlineKeyBoards.ForMainState(),
                             cancellationToken: cancellationToken);
                     }
                     else if (message.Text == "❌ Noto'g'ri")
@@ -474,7 +474,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                         await client.SendTextMessageAsync(
                             chatId: message.Chat.Id,
                             text: "❌ E'lon qabul qilinmadi.",
-                            replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                            replyMarkup: await InlineKeyBoards.ForMainState(),
                             cancellationToken: cancellationToken);
                     }
                     await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
@@ -602,7 +602,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                 await client.SendTextMessageAsync(
                     chatId: message.Chat.Id,
                     text: "Barcha ma'lumotlar to'g'rimi?",
-                    replyMarkup: await ReplyKeyboardMarkups.ForConfirmation(),
+                    replyMarkup: await InlineKeyBoards.ForConfirmation(),
                     parseMode: ParseMode.Html,
                     cancellationToken: cancellationToken);
                 return;
@@ -619,7 +619,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
 
 Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
-                        replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                        replyMarkup: await InlineKeyBoards.ForMainState(),
                         cancellationToken: cancellationToken);
                     await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
                 }
@@ -628,7 +628,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await client.SendTextMessageAsync(
                       chatId: message.Chat.Id,
                       text: "❌ E'lon qabul qilinmadi.",
-                      replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                      replyMarkup: await InlineKeyBoards.ForMainState(),
                       cancellationToken: cancellationToken);
 
                     await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
@@ -748,7 +748,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "Barcha ma'lumotlar to'g'rimi?",
-                        replyMarkup: await ReplyKeyboardMarkups.ForConfirmation(),
+                        replyMarkup: await InlineKeyBoards.ForConfirmation(),
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
                     return;
@@ -763,7 +763,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
 
 Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
-                            replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                            replyMarkup: await InlineKeyBoards.ForMainState(),
                             cancellationToken: cancellationToken);
                         await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
                     }
@@ -887,38 +887,48 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "Barcha ma'lumotlar to'g'rimi?",
-                        replyMarkup: await ReplyKeyboardMarkups.ForConfirmation(),
+                        replyMarkup: await InlineKeyBoards.ForConfirmation(),
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
                     return;
-
-                case 11:
-                    if (message.Text == "✅ To'g'ri")
-                    {
-                        await client.SendTextMessageAsync(
+            }
+        }
+        private async Task TogriElonJoylashAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
+        {
+            await client.SendTextMessageAsync(
                             chatId: message.Chat.Id,
                             text: @"E'lonni joylash narxi: ""BEPUL 🕑""
 
 ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
 
 Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
-                            replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                            replyMarkup: await InlineKeyBoards.ForMainState(),
                             cancellationToken: cancellationToken);
-                        await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
-                    }
-                    else if (message.Text == "❌ Noto'g'ri")
-                    {
-                        await client.SendTextMessageAsync(
+
+            var user = await _userService.GetUser(message.Chat.Id);
+            if (user != null)
+            {
+                user.Messages.Clear();
+                await _userService.NolRuzumeCount(message.Chat.Id);
+                await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
+            }
+            return;
+        }
+        private async Task NotogriElonJoylashAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
+        {
+            await client.SendTextMessageAsync(
                             chatId: message.Chat.Id,
                             text: "❌ E'lon qabul qilinmadi.",
-                            replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
+                            replyMarkup: await InlineKeyBoards.ForMainState(),
                             cancellationToken: cancellationToken);
-                        await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
-                    }
-                    user.Messages.Clear();
-                    await _userService.NolRuzumeCount(message.Chat.Id);
-                    return;
+            var user = await _userService.GetUser(message.Chat.Id);
+            if (user != null)
+            {
+                user.Messages.Clear();
+                await _userService.NolRuzumeCount(message.Chat.Id);
+                await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
             }
+            return;
         }
     }
 }

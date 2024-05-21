@@ -28,8 +28,10 @@ namespace UnityBot.Bot.Services.Handlers
             var handler = update.Type switch
             {
                 UpdateType.Message => HandleMessageAsync(botClient, update.Message, cancellationToken),
+                UpdateType.CallbackQuery => HandleCallbackQueryAsync(botClient, update.CallbackQuery, cancellationToken),
                 _ => HandleUnknownMessageAsync(botClient, update, cancellationToken)
-            };
+            }
+            ;
             try
             {
                 await handler;
