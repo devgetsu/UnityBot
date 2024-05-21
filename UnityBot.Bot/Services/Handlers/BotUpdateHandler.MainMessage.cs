@@ -375,7 +375,6 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await _userService.IncSherikKerak(message.Chat.Id);
                     goto case 1;
                 case 1:
-                    user.Messages.Add(message.Text!.ToString());
 
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
