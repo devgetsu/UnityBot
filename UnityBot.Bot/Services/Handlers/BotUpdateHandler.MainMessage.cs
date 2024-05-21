@@ -348,7 +348,6 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     await _userService.IncSherikKerak(message.Chat.Id);
                     goto case 1;
                 case 1:
-                    user.Messages.Add(message.Text!.ToString());
 
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
