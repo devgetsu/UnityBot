@@ -116,6 +116,7 @@ public partial class BotUpdateHandler
             "togrri" => TogriElonJoylashAsync(client, callbackQuery.Message, cancellationToken),
             "notogrri" => NotogriElonJoylashAsync(client, callbackQuery.Message, cancellationToken),
             "joyla" => SentToMainChanelAsync(client, callbackQuery.Message, cancellationToken),
+            "skip" => SkipFromModeratorsAsync(client, callbackQuery.Message, cancellationToken)
         };
 
         try
@@ -136,6 +137,14 @@ public partial class BotUpdateHandler
             fromChatId: message.Chat.Id,
             protectContent: false,
             disableNotification: false,
+            cancellationToken: cancellationToken);
+    }
+
+    private async Task SkipFromModeratorsAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
+    {
+        await client.DeleteMessageAsync(
+            chatId: MainChanel,
+            messageId: message.MessageId,
             cancellationToken: cancellationToken);
     }
 }
