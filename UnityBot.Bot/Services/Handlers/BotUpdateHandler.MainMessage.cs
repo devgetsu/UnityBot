@@ -544,7 +544,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
 
 Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
-                        replyMarkup: new ReplyKeyboardRemove(),
+                        replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
                         cancellationToken: cancellationToken);
                     await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
                 }
@@ -553,7 +553,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await client.SendTextMessageAsync(
                       chatId: message.Chat.Id,
                       text: "❌ E'lon qabul qilinmadi.",
-                      replyMarkup: new ReplyKeyboardRemove(),
+                      replyMarkup: await ReplyKeyboardMarkups.ForMainState(),
                       cancellationToken: cancellationToken);
 
                     await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
