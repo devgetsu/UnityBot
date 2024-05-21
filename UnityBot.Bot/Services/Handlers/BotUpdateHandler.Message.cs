@@ -6,6 +6,7 @@ using UnityBot.Bot.Services.ReplyKeyboards;
 using UnityBot.Bot.Services.UserServices;
 using UnityBot.Bot.Models.Entities;
 using UnityBot.Bot.Models.Enums;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace UnityBot.Bot.Services.Handlers;
 
@@ -13,6 +14,7 @@ public partial class BotUpdateHandler
 {
     private const string LINK = "https://google.com";
     private const string Moderator = "-1002019788238";
+    private const string MainChanel = "-1002108545748";
     private async Task HandleMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
         var messageType = message.Type switch
@@ -113,6 +115,7 @@ public partial class BotUpdateHandler
             "sherik_kerak" => HandleSherikKerakAsync(client, callbackQuery.Message, cancellationToken),
             "togrri" => TogriElonJoylashAsync(client, callbackQuery.Message, cancellationToken),
             "notogrri" => NotogriElonJoylashAsync(client, callbackQuery.Message, cancellationToken),
+            "joyla" => SentToMainChanelAsync(client, callbackQuery.Message, cancellationToken),
         };
 
         try
@@ -124,5 +127,15 @@ public partial class BotUpdateHandler
             await client.SendTextMessageAsync(callbackQuery.Message.Chat.Id, "An error occurred. Please try again later.", cancellationToken: cancellationToken);
             Console.WriteLine(ex);
         }
+    }
+    private async Task SentToMainChanelAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
+    {
+        await client.ForwardMessageAsync(
+            chatId: MainChanel,
+            messageId: message.MessageId,
+            fromChatId: message.Chat.Id,
+            protectContent: false,
+            disableNotification: false,
+            cancellationToken: cancellationToken);
     }
 }
