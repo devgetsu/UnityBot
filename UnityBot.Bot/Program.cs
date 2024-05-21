@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using UnityBot.Bot.Persistanse;
@@ -14,12 +15,13 @@ namespace UnityBot.Bot
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Logging.ClearProviders();
             builder.Services.AddSingleton<IUpdateHandler, BotUpdateHandler>();
             builder.Services.AddSingleton<IUserService, UserService>();
-           /* builder.Services.AddDbContext<UnityDbContext>(options =>
-            {
-                options.UseNpgsql(builder.Configuration.GetConnectionString("Db"));
-            });*/
+            /* builder.Services.AddDbContext<UnityDbContext>(options =>
+             {
+                 options.UseNpgsql(builder.Configuration.GetConnectionString("Db"));
+             });*/
             builder.Services.AddSingleton(t => new TelegramBotClient(builder.Configuration.GetValue("BotToken", string.Empty)));
             builder.Services.AddHostedService<BotBackgroundService>();
 
