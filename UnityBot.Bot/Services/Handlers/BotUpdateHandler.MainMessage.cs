@@ -231,12 +231,13 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
             switch (user.IshJoylashCount)
             {
                 case 0:
-                    user.IshJoylashModel.IshBeruvchi = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
                     await _userService.IncIshJoylashCount(message.Chat.Id);
                     goto case 1;
 
                 case 1:
-                    user.IshJoylashModel.VakansiyaNomi = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "📋 Vakansiya nomi: (300 element)\r\nVakansiya nomini kiriting.",
@@ -245,7 +246,8 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     return;
 
                 case 2:
-                    user.IshJoylashModel.VakansiyaNomi = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "💰Ish haqi: (100 element)\r\nIsh haqi miqdori, valyutasi va davriyligini kiriting",
@@ -254,7 +256,8 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     return;
 
                 case 3:
-                    user.IshJoylashModel.IshHaqi = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "🌏Manzil: (500 element)\r\nIsh joyi manzilini kiriting.",
@@ -263,7 +266,8 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     return;
 
                 case 4:
-                    user.IshJoylashModel.Location = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "📑Vakansiya haqida:",
@@ -272,7 +276,8 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     return;
 
                 case 5:
-                    user.IshJoylashModel.VahansiyaHaqida = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "📞Aloqa:",
@@ -281,7 +286,8 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     return;
 
                 case 6:
-                    user.IshJoylashModel.Aloqa = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "🕰 Murojaat qilish vaqti: (100 element)\r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting.",
@@ -290,7 +296,8 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     return;
 
                 case 7:
-                    user.IshJoylashModel.MurojaatVaqti = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "📌 Qo'shimcha ma'lumotlar:",
@@ -299,7 +306,8 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     return;
 
                 case 8:
-                    user.IshJoylashModel.Qoshimcha = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: @$"4. ISH JOYLASH (poster)
@@ -354,6 +362,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                             cancellationToken: cancellationToken);
                         await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
                     }
+                    user.Messages.Clear();
                     await _userService.NolIshJoylashCount(message.Chat.Id);
                     return;
             }
@@ -363,11 +372,13 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
             switch (user.SherikKerakCount)
             {
                 case 0:
-                    user.SherikKerakModel.Sherik = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await _userService.IncSherikKerak(message.Chat.Id);
                     goto case 1;
                 case 1:
-                    user.SherikKerakModel.SherikLikYonalishi = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
                        text: "📋 Sheriklik yo'nalishi: (300 element)\r\nQanday yo'nalish bo'yicha sherik qidirilayotgan bo'lsa, shu yo'nalishni kiriting",
@@ -375,7 +386,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 2:
-                    user.SherikKerakModel.SherikLikYonalishi = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
                        text: "💰 Hisob-kitob: (100 element)\r\nHisob-kitob alohida muzokara qilinsa \"Alohida muzokara qilinadi\" deb yozing. Hisob-kitob e'lon qilinsa ma'lumotlarini kiriting.",
@@ -383,7 +395,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 3:
-                    user.SherikKerakModel.HisobKitob = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
                        text: "🌏Manzil: (500 element)\r\nQaysi manzil bo'yicha sherik qidirilayotgan bo'lsa, shu manzilni kiriting.",
@@ -391,7 +404,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 4:
-                    user.SherikKerakModel.Manzil = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
                        text: "📑Sheriklik haqida: (500 element)\r\nSheriklik haqida qisqacha ma'lumot bering. Misol uchun, nimalar qilinishi haqida yozing.",
@@ -399,7 +413,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 5:
-                    user.SherikKerakModel.SheriklikHaqida = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
                        text: "📞 Aloqa: (100 element)\r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.",
@@ -407,7 +422,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 6:
-                    user.SherikKerakModel.Aloqa = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
                        text: "🕰 Murojaat qilish vaqti: (100 element)\r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting. ",
@@ -415,7 +431,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 7:
-                    user.SherikKerakModel.MurojaatQilishVaqti = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
                        text: "📌Qo'shimcha ma'lumotlar: (500 element)",
@@ -423,7 +440,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 8:
-                    user.SherikKerakModel.QoshimchaMalumotlar = message.Text;
+                    user.Messages.Add(message.Text!.ToString());
+
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
                        text: @$" SHERIK KERAK (poster)
@@ -477,6 +495,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                             replyMarkup: await InlineKeyBoards.ForMainState(),
                             cancellationToken: cancellationToken);
                     }
+                    user.Messages.Clear();
                     await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
                     await _userService.NolIshJoylashCount(message.Chat.Id);
                     return;
