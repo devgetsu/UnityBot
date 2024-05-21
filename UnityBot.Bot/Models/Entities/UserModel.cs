@@ -15,5 +15,6 @@ namespace UnityBot.Bot.Models.Entities
         public int RezumeCount { get; set; } = 0;
         public int UstozkerakCount { get; set; } = 0;
         public int ShogirtKerakCount { get; set; } = 0;
+        public List<string> Messages = new List<string>();
     }
 }
