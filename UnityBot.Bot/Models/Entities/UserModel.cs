@@ -14,6 +14,8 @@ namespace UnityBot.Bot.Models.Entities
         public int UstozkerakCount { get; set; } = 0;
         public int ShogirtKerakCount { get; set; } = 0;
 
+        public List<int> LastMessages { get; set; } = new List<int>();
+
         public List<string> Messages = new List<string>();
     }
 }

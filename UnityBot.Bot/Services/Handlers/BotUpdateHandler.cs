@@ -2,6 +2,7 @@
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using UnityBot.Bot.Models.Entities;
 using UnityBot.Bot.Services.UserServices;
 
 namespace UnityBot.Bot.Services.Handlers
@@ -46,11 +47,23 @@ namespace UnityBot.Bot.Services.Handlers
         {
             try
             {
-
                 Console.WriteLine("Not impelemented mesage");
             }
             catch
             { }
+        }
+        private async Task HandleClearAllReplyKeysAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
+        {
+            foreach (var item in user.LastMessages)
+            {
+                await client.EditMessageReplyMarkupAsync(
+                    chatId: message.Chat.Id,
+                    messageId: item,
+                    replyMarkup: null,
+                    cancellationToken: cancellationToken);
+            }
+
+            user.LastMessages.Clear();
         }
     }
 }

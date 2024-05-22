@@ -7,6 +7,7 @@ using UnityBot.Bot.Services.UserServices;
 using UnityBot.Bot.Models.Entities;
 using UnityBot.Bot.Models.Enums;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System.Threading;
 
 namespace UnityBot.Bot.Services.Handlers;
 
@@ -17,6 +18,8 @@ public partial class BotUpdateHandler
     private const string MainChanel = "-1002108545748";
     private async Task HandleMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
+        var user = await _userService.GetUser(message.MessageId) ?? throw new Exception(" User not found");
+
         var messageType = message.Type switch
         {
             MessageType.Text => HandleTextMessageAsnyc(client, message, cancellationToken),
@@ -25,6 +28,11 @@ public partial class BotUpdateHandler
             MessageType.Location => HandleLocationMessageAsync(client, message, cancellationToken),
             _ => HandleNotImplementedMessageAsync(client, message, cancellationToken),
         };
+
+        if (user.LastMessages.Count > 0)
+        {
+            await HandleClearAllReplyKeysAsync(client, message, user, cancellationToken);
+        }
         try
         {
             await messageType;
@@ -36,7 +44,7 @@ public partial class BotUpdateHandler
         }
 
     }
-
+   
     private async Task HandleNotImplementedMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
         await client.SendTextMessageAsync(
