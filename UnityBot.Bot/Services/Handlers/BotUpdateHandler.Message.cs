@@ -85,18 +85,34 @@ public partial class BotUpdateHandler
                     chatId: message.Chat.Id,
                     text: $"<strong>Assalomu alaykum, EFFECT | Katta mehnat bozori @palonchi kanali uchun e'lon yaratuvchi botiga xush kelibsiz.</strong> \r\n\n " +
                     $"\"EFFECT | Katta mehnat bozori\" - ish izlayotgan odamlarga vakansiyalarni, ish beruvchilarga esa ishchilarni topishda yordam beradi. Qolaversa bir qator boshqa yo'nalishlarni ham qollab quvvatlaydi.",
-                    replyMarkup: await InlineKeyBoards.ForMainState(),
                     parseMode: ParseMode.Html,
                     cancellationToken: cancellationToken);
 
-            var user = new UserModel()
-            {
-                ChatId = message.Chat.Id,
-                Username = message.From.Username,
-                Status = Models.Enums.Status.MainPage
-            };
-            await _userService.CreateUser(user);
+            await client.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: @"<strong>Yo'nalishlar:</strong>
+• ""🏢 Ish joylash"" - ishchi topish uchun.
+• ""🧑🏻‍💼 Rezyume joylash"" - ish topish uchun.
+• ""🧑🏻 Shogirt kerak"" - shogirt topish uchun.
+• ""🧑🏻‍🏫 Ustoz kerak"" - ustoz topish uchun.
+• ""🎗 Sherik kerak"" - sherik topish uchun.
 
+E'lon berish uchun yo'nalishni tanlang 👇",
+                    replyMarkup: await InlineKeyBoards.ForMainState(),
+                    parseMode: ParseMode.Html,
+                    cancellationToken: cancellationToken);
+            var user = await _userService.GetUser(message.Chat.Id);
+            if (user == null)
+            {
+                user = new UserModel()
+                {
+                    ChatId = message.Chat.Id,
+                    Username = message.From.Username,
+                    Status = Models.Enums.Status.MainPage
+                };
+                await _userService.CreateUser(user);
+            }
+                
             return;
         }
 
@@ -170,7 +186,6 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
         var msg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "❌ E'lon qabul qilinmadi.",
-                        replyMarkup: await InlineKeyBoards.ForMainState(),
                         cancellationToken: cancellationToken);
 
         var user = await _userService.GetUser(message.Chat.Id);

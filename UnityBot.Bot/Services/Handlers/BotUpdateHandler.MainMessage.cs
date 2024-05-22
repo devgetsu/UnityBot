@@ -300,7 +300,6 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                         parseMode: ParseMode.Html,
                         replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                         cancellationToken: cancellationToken);
-
                     user.LastMessages.Add(msg.MessageId);
 
                     return;
@@ -946,19 +945,28 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
             user.Messages.Add("Qo'shimcha ma'lumot yo'q");
 
             if (user.Status == Status.ShogirtKerak)
+            {
+                await _userService.IncShogirtKerakCount(message.Chat.Id);
                 await HandleShogirtKerakBotAsync(client, message, user, cancellationToken);
+            }
 
             else if (user.Status == Status.SherikKerak)
                 await HandleSherikKerakBotAsync(client, message, user, cancellationToken);
 
             else if (user.Status == Status.RezumeJoylash)
+            {
+                await _userService.IncRezumeCount(message.Chat.Id);
                 await HandleRezumeJoylashBotAsync(client, message, user, cancellationToken);
+            }
 
             else if (user.Status == Status.IshJoylash)
                 await HandleIshJoylashBotAsync(client, message, user, cancellationToken);
 
             else if (user.Status == Status.UstozKerak)
+            {
+                await _userService.IncUstozKerak(message.Chat.Id);
                 await HandleUstozKerakBotAsync(client, message, user, cancellationToken);
+            }
 
             return;
         }
