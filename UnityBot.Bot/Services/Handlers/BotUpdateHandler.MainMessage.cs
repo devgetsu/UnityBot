@@ -931,19 +931,20 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
             user.Messages.Add("Qo'shimcha ma'lumot yo'q");
 
             if (user.Status == Status.ShogirtKerak)
-                await _userService.IncShogirtKerakCount(user.ChatId);
+                await HandleShogirtKerakBotAsync(client, message, user, cancellationToken);
 
             else if (user.Status == Status.SherikKerak)
-                await _userService.IncSherikKerak(user.ChatId);
+                await HandleSherikKerakBotAsync(client, message, user, cancellationToken);
 
             else if (user.Status == Status.RezumeJoylash)
-                await _userService.IncRezumeCount(user.ChatId);
+                await HandleRezumeJoylashBotAsync(client, message, user, cancellationToken);
 
             else if (user.Status == Status.IshJoylash)
-                await _userService.IncIshJoylashCount(user.ChatId);
+                await HandleIshJoylashBotAsync(client, message, user, cancellationToken);
 
             else if (user.Status == Status.UstozKerak)
-                await _userService.IncUstozKerak(user.ChatId);
+                await HandleUstozKerakBotAsync(client, message, user, cancellationToken);
+
             return;
         }
     }
