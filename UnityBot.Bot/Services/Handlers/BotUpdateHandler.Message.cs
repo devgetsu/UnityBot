@@ -18,7 +18,18 @@ public partial class BotUpdateHandler
     private const string MainChanel = "-1002108545748";
     private async Task HandleMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
-        var user = await _userService.GetUser(message.MessageId) ?? throw new Exception(" User not found");
+        var user = await _userService.GetUser(message.MessageId);
+
+        if (user == null)
+        {
+            await _userService.CreateUser(new UserModel()
+            {
+                ChatId = message.MessageId,
+                Username = message.From.Username,
+            });
+            user = await _userService.GetUser(message.MessageId);
+        }
+
 
         var messageType = message.Type switch
         {
@@ -44,7 +55,7 @@ public partial class BotUpdateHandler
         }
 
     }
-   
+
     private async Task HandleNotImplementedMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
         await client.SendTextMessageAsync(
