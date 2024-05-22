@@ -497,7 +497,8 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 #Rezyume
 
 🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
-                        parseMode: ParseMode.Html);
+                        parseMode: ParseMode.Html,
+                        cancellationToken:cancellationToken);
                     var res = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "Barcha ma'lumotlar to'g'rimi?",
