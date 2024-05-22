@@ -18,19 +18,6 @@ public partial class BotUpdateHandler
     private const string MainChanel = "-1002108545748";
     private async Task HandleMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
-        var user = await _userService.GetUser(message.MessageId);
-
-        if (user == null)
-        {
-            await _userService.CreateUser(new UserModel()
-            {
-                ChatId = message.MessageId,
-                Username = message.From.Username,
-            });
-            user = await _userService.GetUser(message.MessageId);
-        }
-
-
         var messageType = message.Type switch
         {
             MessageType.Text => HandleTextMessageAsnyc(client, message, cancellationToken),
@@ -39,11 +26,6 @@ public partial class BotUpdateHandler
             MessageType.Location => HandleLocationMessageAsync(client, message, cancellationToken),
             _ => HandleNotImplementedMessageAsync(client, message, cancellationToken),
         };
-
-        if (user.LastMessages.Count > 0)
-        {
-            await HandleClearAllReplyKeysAsync(client, message, user, cancellationToken);
-        }
         try
         {
             await messageType;
@@ -156,14 +138,13 @@ public partial class BotUpdateHandler
     #region ElonUchun
     private async Task TogriElonJoylashAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
-        await client.SendTextMessageAsync(
+        var msg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: @"E'lonni joylash narxi: ""BEPUL 🕑""
 
 ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
 
 Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
-                        replyMarkup: await InlineKeyBoards.ForMainState(),
                         cancellationToken: cancellationToken);
 
         var user = await _userService.GetUser(message.Chat.Id);
@@ -171,6 +152,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
         {
             await SendToModeratorAsync(client, message, cancellationToken);
 
+            user.LastMessages.Add(msg.MessageId);
             user.Messages.Clear();
 
             await _userService.NolRuzumeCount(message.Chat.Id);
@@ -185,17 +167,20 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
     }
     private async Task NotogriElonJoylashAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
-        await client.SendTextMessageAsync(
+        var msg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "❌ E'lon qabul qilinmadi.",
                         replyMarkup: await InlineKeyBoards.ForMainState(),
                         cancellationToken: cancellationToken);
+
         var user = await _userService.GetUser(message.Chat.Id);
         if (user != null)
         {
             user.Messages.Clear();
             await _userService.NolRuzumeCount(message.Chat.Id);
             await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
+
+            user.LastMessages.Add(msg.MessageId);
         }
         return;
     }

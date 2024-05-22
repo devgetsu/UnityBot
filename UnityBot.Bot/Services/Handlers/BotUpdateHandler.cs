@@ -31,8 +31,26 @@ namespace UnityBot.Bot.Services.Handlers
                 UpdateType.Message => HandleMessageAsync(botClient, update.Message, cancellationToken),
                 UpdateType.CallbackQuery => HandleCallbackQueryAsync(botClient, update.CallbackQuery, cancellationToken),
                 _ => HandleUnknownMessageAsync(botClient, update, cancellationToken)
+            };
+            if (update.Message != null)
+            {
+
+                var user = await _userService.GetUser(update.Message.Chat.Id);
+                if (user == null)
+                {
+                    await _userService.CreateUser(new UserModel()
+                    {
+                        ChatId = update.Message.Chat.Id,
+                        Username = update.Message.From.Username,
+                    });
+                }
+                user = await _userService.GetUser(update.Message.Chat.Id);
+
+                if (user.LastMessages.Count > 0)
+                {
+                    await HandleClearAllReplyKeysAsync(botClient, update.Message, user, cancellationToken);
+                }
             }
-            ;
             try
             {
                 await handler;
