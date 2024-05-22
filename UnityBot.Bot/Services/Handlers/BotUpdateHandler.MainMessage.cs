@@ -310,6 +310,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                         chatId: message.Chat.Id,
                         text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> \r\nQoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing.",
                         parseMode: ParseMode.Html,
+                        replyMarkup:await InlineKeyBoards.AdditionalInfo(),
                         cancellationToken: cancellationToken);
                     await _userService.IncIshJoylashCount(message.Chat.Id);
                     return;
@@ -412,7 +413,8 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                        text: "📞 <strong>Aloqa:</strong> \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.Misol uchun:\r\n" +
                        "\r\n• <i>+998912345678</i>" +
                        "\r\n• <i>example@gmail.com</i>",
-                       parseMode: ParseMode.Html, cancellationToken: cancellationToken);
+                       parseMode: ParseMode.Html,
+                       cancellationToken: cancellationToken);
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 6:
@@ -432,7 +434,9 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                        chatId: message.Chat.Id,
                        text: "📌 <strong>Qo'shimcha ma'lumotlar:\r\n" +
                        "Qoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing.</strong> ",
-                       parseMode: ParseMode.Html, cancellationToken: cancellationToken);
+                       parseMode: ParseMode.Html,
+                       replyMarkup: await InlineKeyBoards.AdditionalInfo(),
+                       cancellationToken: cancellationToken);
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 8:
@@ -582,7 +586,9 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
                   text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> \r\nQoshimcha ma'lumotlarni kiriting.",
-                  parseMode: ParseMode.Html, cancellationToken: cancellationToken);
+                  parseMode: ParseMode.Html,
+                  replyMarkup: await InlineKeyBoards.AdditionalInfo(),
+                  cancellationToken: cancellationToken);
 
                 return;
 
@@ -744,7 +750,9 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "📌 <strong>Qo'shimcha ma'lumotlar: </strong>\r\nQoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing. ",
-                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
+                        parseMode: ParseMode.Html,
+                        replyMarkup: await InlineKeyBoards.AdditionalInfo(),
+                        cancellationToken: cancellationToken);
                     return;
 
                 case 10:
@@ -821,7 +829,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
                         parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
-                    
+
                 case 4:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
