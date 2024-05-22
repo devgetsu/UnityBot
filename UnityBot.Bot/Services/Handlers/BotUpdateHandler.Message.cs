@@ -41,8 +41,8 @@ public partial class BotUpdateHandler
     {
         await client.SendTextMessageAsync(
                     chatId: message.Chat.Id,
-                    text: "Assalomu alaykum, \"EFFECT | Katta mehnat bozori\" @palonchi kanali uchun e'lon yaratuvchi botiga xush kelibsiz.",
-                    replyMarkup: await InlineKeyBoards.ForMainState(),
+                    text: $"<strong>Assalomu alaykum, \"EFFECT | Katta mehnat bozori\" @palonchi kanali uchun e'lon yaratuvchi botiga xush kelibsiz.\r\n\r\n \"EFFECT | Katta mehnat bozori\" - ish izlayotgan odamlarga vakansiyalarni, ish beruvchilarga esa ishchilarni topishda yordam beradi. Qolaversa bir qator boshqa yo'nalishlarni ham qollab quvvatlaydi.</strong>",
+                    parseMode: ParseMode.Html, replyMarkup: await InlineKeyBoards.ForMainState(),
                     cancellationToken: cancellationToken);
         return;
     }
@@ -82,7 +82,8 @@ public partial class BotUpdateHandler
 
             await client.SendTextMessageAsync(
                     chatId: message.Chat.Id,
-                    text: $"Assalomu alaykum, <a href='{LINK}'>EFFECT | Katta mehnat bozori</a> @palonchi kanali uchun e'lon yaratuvchi botiga xush kelibsiz.",
+                    text: $"<strong>Assalomu alaykum, EFFECT | Katta mehnat bozori @palonchi kanali uchun e'lon yaratuvchi botiga xush kelibsiz.</strong> \r\n\n " +
+                    $"\"EFFECT | Katta mehnat bozori\" - ish izlayotgan odamlarga vakansiyalarni, ish beruvchilarga esa ishchilarni topishda yordam beradi. Qolaversa bir qator boshqa yo'nalishlarni ham qollab quvvatlaydi.",
                     replyMarkup: await InlineKeyBoards.ForMainState(),
                     parseMode: ParseMode.Html,
                     cancellationToken: cancellationToken);
