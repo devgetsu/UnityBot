@@ -105,6 +105,7 @@ public partial class BotUpdateHandler
             await HandleRandomTextAsync(client, message, cancellationToken);
         };
     }
+
     public async Task HandleCallbackQueryAsync(ITelegramBotClient client, CallbackQuery callbackQuery, CancellationToken cancellationToken)
     {
         Task myMessage = callbackQuery.Data switch
@@ -117,7 +118,8 @@ public partial class BotUpdateHandler
             "togrri" => TogriElonJoylashAsync(client, callbackQuery.Message, cancellationToken),
             "notogrri" => NotogriElonJoylashAsync(client, callbackQuery.Message, cancellationToken),
             "joyla" => SentToMainChanelAsync(client, callbackQuery.Message, cancellationToken),
-            "skip" => SkipFromModeratorsAsync(client, callbackQuery.Message, cancellationToken)
+            "skip" => SkipFromModeratorsAsync(client, callbackQuery.Message, cancellationToken),
+            "noinfo" => NoAdditionalInfo(client, callbackQuery.Message, cancellationToken),
         };
 
         try
@@ -130,8 +132,8 @@ public partial class BotUpdateHandler
             Console.WriteLine(ex);
         }
     }
-    
-    
+
+
     #region ElonUchun
     private async Task TogriElonJoylashAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
@@ -336,7 +338,7 @@ cancellationToken: cancellationToken);
             return;
         }
     }
-#endregion
+    #endregion
 
     #region ModeratorlarUchun
     private async Task SentToMainChanelAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
@@ -359,8 +361,8 @@ cancellationToken: cancellationToken);
 
     }
 
-    
-    
+
+
     private async Task SkipFromModeratorsAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
         await client.DeleteMessageAsync(
