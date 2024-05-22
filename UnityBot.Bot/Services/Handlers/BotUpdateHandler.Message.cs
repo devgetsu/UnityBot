@@ -134,7 +134,7 @@ public partial class BotUpdateHandler
     #region ElonUchun
     private async Task TogriElonJoylashAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
-        var msg = await client.SendTextMessageAsync(
+        await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: @"E'lonni joylash narxi: ""BEPUL 🕑""
 
@@ -158,11 +158,6 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
             await _userService.NolUstozKerakCount(message.Chat.Id);
 
             await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
-
-            await client.DeleteMessageAsync(
-                chatId: message.Chat.Id,
-                messageId: msg.MessageId,
-                cancellationToken: cancellationToken);
         }
         return;
     }
