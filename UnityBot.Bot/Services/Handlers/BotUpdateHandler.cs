@@ -44,10 +44,13 @@ namespace UnityBot.Bot.Services.Handlers
 
         private async Task HandleUnknownMessageAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-            await botClient.SendTextMessageAsync(
-                chatId: update.Message.Chat.Id,
-                text: "Stop doing this!👎",
-                cancellationToken: cancellationToken);
+            try
+            {
+
+                Console.WriteLine("Not impelemented mesage");
+            }
+            catch
+            { }
         }
     }
 }
