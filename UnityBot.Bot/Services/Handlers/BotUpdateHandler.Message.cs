@@ -88,7 +88,7 @@ public partial class BotUpdateHandler
                     parseMode: ParseMode.Html,
                     cancellationToken: cancellationToken);
 
-            await client.SendTextMessageAsync(
+            var msg = await client.SendTextMessageAsync(
                 chatId: message.Chat.Id,
                 text: @"<strong>Yo'nalishlar:</strong>
 • ""🏢 Ish joylash"" - ishchi topish uchun.
@@ -112,7 +112,7 @@ E'lon berish uchun yo'nalishni tanlang 👇",
                 };
                 await _userService.CreateUser(user);
             }
-                
+            user.LastMessages.Add(msg.MessageId);
             return;
         }
 
@@ -125,7 +125,7 @@ E'lon berish uchun yo'nalishni tanlang 👇",
 
     public async Task HandleCallbackQueryAsync(ITelegramBotClient client, CallbackQuery callbackQuery, CancellationToken cancellationToken)
     {
-        Task myMessage = callbackQuery.Data switch
+        var myMessage = callbackQuery.Data switch
         {
             "ish_joylash" => HandleIshJoylashAsync(client, callbackQuery.Message, cancellationToken),
             "rezyume_joylash" => HandleRezumeJoylashAsync(client, callbackQuery.Message, cancellationToken),
@@ -137,6 +137,8 @@ E'lon berish uchun yo'nalishni tanlang 👇",
             "joyla" => SentToMainChanelAsync(client, callbackQuery.Message, cancellationToken),
             "skip" => SkipFromModeratorsAsync(client, callbackQuery.Message, cancellationToken),
             "noinfo" => NoAdditionalInfo(client, callbackQuery.Message, cancellationToken),
+            "talabaekan" => TalabaEkan(client, callbackQuery.Message, cancellationToken),
+            "talabaemas" => TalabaEmas(client, callbackQuery.Message, cancellationToken),
         };
 
         try
@@ -149,7 +151,17 @@ E'lon berish uchun yo'nalishni tanlang 👇",
             Console.WriteLine(ex);
         }
     }
+    #region TalabaUchun
+    private async Task TalabaEkan(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
+    {
+        
+    }
 
+    private async Task TalabaEmas(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
+    {
+
+    }
+    #endregion
 
     #region ElonUchun
     private async Task TogriElonJoylashAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)

@@ -66,5 +66,18 @@ namespace UnityBot.Bot.Services.ReplyKeyboards
             InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboardButtons);
             return Task.FromResult(inlineKeyboardMarkup);
         }
+        public static Task<InlineKeyboardMarkup> ForTalaba()
+        {
+            List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>{
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData("Ha", "talabaekan"),
+                InlineKeyboardButton.WithCallbackData("Yoq", "talabaemas"),
+            }
+        };
+
+            InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboardButtons);
+            return Task.FromResult(inlineKeyboardMarkup);
+        }
     }
 }

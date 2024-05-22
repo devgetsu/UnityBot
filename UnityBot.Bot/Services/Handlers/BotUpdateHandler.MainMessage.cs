@@ -262,6 +262,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "\U0001f9d1‍🎓 Talaba:\r\n Shogirt talaba bo'lsa \"Ha\" tugmasini, aksincha bo'lsa \"Yo'q\" tugmasini bosing.",
+                        replyMarkup: await InlineKeyBoards.ForTalaba(),
                         cancellationToken: cancellationToken);
                     return;
 
@@ -498,7 +499,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
 🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
                         parseMode: ParseMode.Html,
-                        cancellationToken:cancellationToken);
+                        cancellationToken: cancellationToken);
                     var res = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "Barcha ma'lumotlar to'g'rimi?",
@@ -717,7 +718,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                 await _userService.CreateUser(user);
             }
 
-            await _userService.ChangeStatus(message.Chat.Id, Models.Enums.Status.IshJoylash);
+            await _userService.ChangeStatus(message.Chat.Id, Status.IshJoylash);
 
 
             await client.SendTextMessageAsync(
@@ -890,7 +891,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                 {
                     ChatId = message.Chat.Id,
                     Username = message.From.Username,
-                    Status = Models.Enums.Status.MainPage
+                    Status = Status.MainPage
                 };
                 await _userService.CreateUser(user);
             }
@@ -921,15 +922,13 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                     break;
 
                 case Status.MainPage:
-                    await client.SendTextMessageAsync(
+                    var msg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "Yo'nalishlar:\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.",
                         replyMarkup: await InlineKeyBoards.ForMainState(),
                         cancellationToken: cancellationToken);
-                    break;
 
-                default:
-                    // Handle unknown status if necessary
+                    user.LastMessages.Add(msg.MessageId);
                     break;
             }
         }
