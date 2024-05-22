@@ -129,25 +129,249 @@ public partial class BotUpdateHandler
             Console.WriteLine(ex);
         }
     }
+    
+    
+    #region ElonUchun
+    private async Task TogriElonJoylashAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
+    {
+        var msg = await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: @"E'lonni joylash narxi: ""BEPUL 🕑""
+
+ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
+
+Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
+                        replyMarkup: await InlineKeyBoards.ForMainState(),
+                        cancellationToken: cancellationToken);
+
+        var user = await _userService.GetUser(message.Chat.Id);
+        if (user != null)
+        {
+            await SendToModeratorAsync(client, message, cancellationToken);
+
+            user.Messages.Clear();
+
+            await _userService.NolRuzumeCount(message.Chat.Id);
+            await _userService.NolIshJoylashCount(message.Chat.Id);
+            await _userService.NolSherikKerakCount(message.Chat.Id);
+            await _userService.NolShogirtKerakCount(message.Chat.Id);
+            await _userService.NolUstozKerakCount(message.Chat.Id);
+
+            await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
+
+            await client.DeleteMessageAsync(
+                chatId: message.Chat.Id,
+                messageId: msg.MessageId,
+                cancellationToken: cancellationToken);
+        }
+        return;
+    }
+    private async Task NotogriElonJoylashAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
+    {
+        await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "❌ E'lon qabul qilinmadi.",
+                        replyMarkup: await InlineKeyBoards.ForMainState(),
+                        cancellationToken: cancellationToken);
+        var user = await _userService.GetUser(message.Chat.Id);
+        if (user != null)
+        {
+            user.Messages.Clear();
+            await _userService.NolRuzumeCount(message.Chat.Id);
+            await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
+        }
+        return;
+    }
+    private async Task SendToModeratorAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
+    {
+        var user = await _userService.GetUser(message.Chat.Id);
+        if (user == null)
+        {
+            return;
+        }
+
+        if (user.Status == Status.RezumeJoylash)
+        {
+
+            await client.SendTextMessageAsync(
+                       chatId: Moderator,
+                       text: @$"
+🧑🏻‍💼 REZYUME
+
+⭐️ Ish qidiruvchi: {user.Messages[0]}
+🗓 Tug'ilgan sana: {user.Messages[1]}
+💠 Mutaxassislik: {user.Messages[2]}
+🌏 Manzil: {user.Messages[3]}
+💰 Ish haqi: {user.Messages[4]}
+
+🧑‍🎓 Talaba: {user.Messages[5]}
+📑 Ish qidiruvchi haqida: {user.Messages[6]}
+
+📞 Aloqa: {user.Messages[7]}
+✉️ Telegram: @{user.Username}
+🕰 Murojaat qilish vaqti: {user.Messages[8]}
+
+📌 Qo'shimcha ma'lumotlar: {user.Messages[9]}
+
+#Rezyume
+
+🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+                       parseMode: ParseMode.Html,
+                       replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+                       cancellationToken: cancellationToken);
+            return;
+        }
+
+        else if (user.Status == Status.IshJoylash)
+        {
+            await client.SendTextMessageAsync(
+chatId: Moderator,
+text: @$"4. ISH JOYLASH (poster)
+
+🏢 ISH
+
+⭐️ Ish beruvchi: {user.Messages[0]} 
+📋 Vakansiya nomi: {user.Messages[1]}
+💰 Ish haqi: {user.Messages[2]}
+🌏 Manzil: {user.Messages[3]}
+
+📑 Vakansiya haqida: {user.Messages[4]}
+
+📞 Aloqa: {user.Messages[5]}
+✉️ Telegram: @{user.Username}
+🕰 Murojaat qilish vaqti: {user.Messages[6]}
+
+📌 Qo'shimcha ma'lumotlar: {user.Messages[7]}
+
+#Ish
+
+🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish (link | so'zni ichida bo'lishi kerak)",
+parseMode: ParseMode.Html,
+replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+cancellationToken: cancellationToken);
+            return;
+        }
+        else if (user.Status == Status.UstozKerak)
+        {
+            await client.SendTextMessageAsync(
+chatId: Moderator,
+text: @$"31. USTOZ KERAK (poster)
+
+🧑🏻‍🏫 USTOZ KERAK
+
+🧑🏻 Shogirt: {user.Messages[0]}
+🗓 Tug'ilgan sana: {user.Messages[1]}
+💠 Shogirtlik yo'nalishi: {user.Messages[2]}
+🌏 Manzil: {user.Messages[3]}
+💰 Ish haqi: {user.Messages[4]}
+
+🧑‍🎓 Talaba: {user.Messages[5]}
+📑 Shogirt haqida: {user.Messages[6]}
+
+📞 Aloqa: {user.Messages[7]}
+✉️ Telegram: {user.Username}
+🕰 Murojaat qilish vaqti: {user.Messages[8]}
+
+📌 Qo'shimcha ma'lumotlar: {user.Messages[9]}
+
+#UstozKerak
+
+🌐 ""EFFECT | Katta mehnat bozori"" kanalga obuna bo'lish (link | so'zni ichida bo'lishi kerak)",
+parseMode: ParseMode.Html,
+replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+cancellationToken: cancellationToken);
+            return;
+        }
+        else if (user.Status == Status.SherikKerak)
+        {
+            await client.SendTextMessageAsync(
+                   chatId: Moderator,
+                   text: @$" SHERIK KERAK (poster)
+
+🎗 SHERIK KERAK
+
+⭐️ Sherik: {user.Messages[0]}
+📋 Sheriklik yo'nalishi: {user.Messages[1]}
+💰 Hisob-kitob: {user.Messages[2]}
+🌏 Manzil: {user.Messages[3]}
+
+📑 Sheriklik haqida: {user.Messages[4]}
+
+📞 Aloqa: {user.Messages[5]}
+✉️ Telegram: @{user.Username}
+🕰 Murojaat qilish vaqti: {user.Messages[6]}
+
+📌 Qo'shimcha ma'lumotlar: {user.Messages[7]}
+#SherikKerak
+
+🌐 ""EFFECT | Katta mehnat bozori"" kanalga obuna bo'lish (link | so'zni ichida bo'lishi kerak)",
+                   parseMode: ParseMode.Html,
+                   replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+                   cancellationToken: cancellationToken);
+            return;
+        }
+        else if (user.Status == Status.ShogirtKerak)
+        {
+            await client.SendTextMessageAsync(
+                chatId: Moderator,
+                text: @$"<strong>SHOGIRT KERAK</strong> 
+
+🧑🏻 SHOGIRT KERAK
+
+🧑🏻‍🏫 Ustoz: {user.Messages[0]}
+📋 Ustozlik yo'nalishi: {user.Messages[1]}
+💰 Ish haqi: {user.Messages[2]}
+🌏 Manzil: {user.Messages[3]}
+
+📑 Ustozlik haqida: {user.Messages[4]}
+
+📞 Aloqa: {user.Messages[5]}
+✉️ Telegram: @{user.Username}
+🕰 Murojaat qilish vaqti: {user.Messages[6]}
+
+📌 Qo'shimcha ma'lumotlar: {user.Messages[7]}
+
+#ShogirtKerak
+
+🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+                parseMode: ParseMode.Html,
+                replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+                cancellationToken: cancellationToken);
+            return;
+        }
+    }
+#endregion
+
+    #region ModeratorlarUchun
     private async Task SentToMainChanelAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
         await client.CopyMessageAsync(
-        chatId: MainChanel,
-        messageId: message.MessageId,
-        fromChatId: message.Chat.Id,
-        caption: null,
-        parseMode: null,
-        disableNotification: false,
-        replyToMessageId: 0,
-        allowSendingWithoutReply: true,
-        cancellationToken: cancellationToken);
+            chatId: MainChanel,
+            messageId: message.MessageId,
+            fromChatId: message.Chat.Id,
+            caption: null,
+            parseMode: null,
+            disableNotification: false,
+            replyToMessageId: 0,
+            allowSendingWithoutReply: true,
+            cancellationToken: cancellationToken);
+
+        await client.DeleteMessageAsync(
+          chatId: Moderator,
+          messageId: message.MessageId,
+          cancellationToken: cancellationToken);
+
     }
 
+    
+    
     private async Task SkipFromModeratorsAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
         await client.DeleteMessageAsync(
-            chatId: MainChanel,
+            chatId: Moderator,
             messageId: message.MessageId,
             cancellationToken: cancellationToken);
     }
+    #endregion
+
 }
