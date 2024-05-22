@@ -122,8 +122,8 @@ namespace UnityBot.Bot.Services.Handlers
 
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "📌 <strong>Qo'shimcha ma'lumotlar:\r\n" +
-                       "Qoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing.</strong> ",
+                       text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong>\r\n" +
+                       "Qoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing.",
                        parseMode: ParseMode.Html,
                        replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                        cancellationToken: cancellationToken);
@@ -485,7 +485,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: @$"REZYUME JOYLASH (poster)
+                        text: @$"<strong>REZYUME JOYLASH (poster)</strong>
 🧑🏻‍💼 REZYUME
 
 ⭐️ Ish qidiruvchi: {user.Messages[0]}
@@ -561,7 +561,12 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
-                  text: "📋 <strong>Ustozlik yo'nalishi:</strong> \r\nQanday yo'nalish bo'yicha shogirt olinsa, shu yo'nalishni kiriting.",
+                  text: "📋 <strong>Ustozlik yo'nalishi:</strong> \r\n" +
+                  "Qanday yo'nalish bo'yicha shogirt olinsa, shu yo'nalishni kiriting, " +
+                  "misol uchun:\r\n" +
+                  "\r\n• <i>IT yo'nalishi</i>" +
+                  "\r\n• <i>Sotuv menejeri</i>" +
+                  "\r\n• <i>Santexnika ustasi</i>",
                   parseMode: ParseMode.Html, cancellationToken: cancellationToken);
 
                 return;
