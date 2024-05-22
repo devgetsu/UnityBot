@@ -32,7 +32,7 @@ namespace UnityBot.Bot.Services.Handlers
                 UpdateType.CallbackQuery => HandleCallbackQueryAsync(botClient, update.CallbackQuery, cancellationToken),
                 _ => HandleUnknownMessageAsync(botClient, update, cancellationToken)
             };
-            if (update.Message != null)
+            /*if (update.Message != null)
             {
 
                 var user = await _userService.GetUser(update.Message.Chat.Id);
@@ -50,7 +50,7 @@ namespace UnityBot.Bot.Services.Handlers
                 {
                     await HandleClearAllReplyKeysAsync(botClient, update.Message, user, cancellationToken);
                 }
-            }
+            }*/
             try
             {
                 await handler;

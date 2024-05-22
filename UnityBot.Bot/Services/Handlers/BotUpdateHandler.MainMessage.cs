@@ -432,7 +432,9 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "\U0001f9d1‍🎓 <strong>Talaba:</strong> \r\nIsh qidiruvchi talaba bo'lsa \"Ha\" tugmasini, aksincha bo'lsa \"Yo'q\" tugmasini bosing.",
-                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
+                        parseMode: ParseMode.Html,
+                        replyMarkup: await InlineKeyBoards.ForTalaba(),
+                        cancellationToken: cancellationToken);
                     return;
                 case 6:
                     user.Messages.Add(message.Text!.ToString());

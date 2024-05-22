@@ -154,12 +154,44 @@ E'lon berish uchun yo'nalishni tanlang 👇",
     #region TalabaUchun
     private async Task TalabaEkan(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
-        
+        var user = await _userService.GetUser(message.Chat.Id);
+        if (user == null)
+        {
+            throw new Exception();
+        }
+        if (user.Status == Status.RezumeJoylash)
+        {
+            await _userService.IncRezumeCount(message.Chat.Id);
+            await HandleRezumeJoylashBotAsync(client, message, user, cancellationToken);
+        }
+        else if (user.Status == Status.UstozKerak)
+        {
+            await _userService.IncUstozKerak(message.Chat.Id);
+            await HandleUstozKerakBotAsync(client, message, user, cancellationToken);
+        }
+        user.Messages.Add("Ha");
+        return;
     }
 
     private async Task TalabaEmas(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
-
+        var user = await _userService.GetUser(message.Chat.Id);
+        if (user == null)
+        {
+            throw new Exception();
+        }
+        if (user.Status == Status.RezumeJoylash)
+        {
+            await _userService.IncRezumeCount(message.Chat.Id);
+            await HandleRezumeJoylashBotAsync(client, message, user, cancellationToken);
+        }
+        else if (user.Status == Status.UstozKerak)
+        {
+            await _userService.IncUstozKerak(message.Chat.Id);
+            await HandleUstozKerakBotAsync(client, message, user, cancellationToken);
+        }
+        user.Messages.Add("Yo'q");
+        return;
     }
     #endregion
 
