@@ -578,7 +578,11 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
-                  text: "💰 <strong>Ish haqi:</strong> \r\nIsh haqi yo'q bo'lsa \"Yo'q\" deb yozing. Ish haqi bor bo'lsa miqdori, valyutasi va davriyligini kiriting.",
+                  text: "💰 <strong>Ish haqi:</strong> \r\nIsh haqi yo'q bo'lsa \"Yo'q\" deb yozing. Ish haqi bor bo'lsa miqdori, valyutasi va davriyligini kiriting. " +
+                  "Misol uchun:\r\n" +
+                  "\r\n• <i>Yo'q</i>\r\n" +
+                  "\r\n• <i>3.000.000 so'm - 1 oyga</i>" +
+                  "\r\n• <i>100 dollar - 1 ishga</i>",
                   parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                 return;
 
@@ -590,7 +594,8 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
-                  text: "🌏 <strong>Manzil:</strong> \r\nFaoliyat yuritish manzilini kiriting.",
+                  text: "🌏 <strong>Manzil:</strong> \r\nFaoliyat yuritish manzilini kiriting. Misol uchun:\r\n" +
+                  "\r\n• <i>Toshkent shahar, Chilonzor tumani</i>",
                   parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                 return;
 
@@ -602,7 +607,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
-                  text: "📑 <strong>Ustozlik haqida:</strong> \r\nUstozlik haqida qisqacha ma'lumot bering.",
+                  text: "📑 <strong>Ustozlik haqida:</strong> \r\nUstozlik haqida qisqacha ma'lumot bering.Misol uchun, nimalar qilinishi haqida yoki ustozlik davri qanday o'tishi haqida yozing.",
                   parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                 return;
 
@@ -615,7 +620,10 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
-                  text: "📞 <strong>Aloqa:</strong> \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.",
+                  text: "📞 <strong>Aloqa:</strong> \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting. " +
+                  "Misol uchun:\r\n" +
+                  "\r\n• <i>+998912345678</i>" +
+                  "\r\n• <i>example@gmail.com</i>",
                   parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                 return;
 
@@ -628,8 +636,10 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
-                  text: "🕰 Murojaat qilish vaqti: \r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting.",
-                  cancellationToken: cancellationToken);
+                  text: "🕰 <strong>Murojaat qilish vaqti:</strong> \r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting. " +
+                  "Misol uchun:\r\n" +
+                  "\r\n• <i>9:00 - 18:00</i>",
+                  parseMode: ParseMode.Html, cancellationToken: cancellationToken);
 
                 return;
 
@@ -642,7 +652,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
-                  text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> \r\nQoshimcha ma'lumotlarni kiriting.",
+                  text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> \r\nQoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing.",
                   parseMode: ParseMode.Html,
                   replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                   cancellationToken: cancellationToken);
@@ -769,18 +779,25 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                 case 1:
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "📋 <strong>Vakansiya nomi:</strong> \r\nVakansiya nomini kiriting.",
+                        text: "📋 <strong>Vakansiya nomi:</strong> \r\nVakansiya nomini kiriting, " +
+                        "misol uchun:\r\n" +
+                        "\r\n• <i>Sotuv menejeri</i>" +
+                        "\r\n• <i>Santexnika ustasi</i>" +
+                        "\r\n• <i>Haydovchi</i>",
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
                     await _userService.IncIshJoylashCount(message.Chat.Id);
                     return;
-
+                        
                 case 2:
                     user.Messages.Add(message.Text!.ToString());
 
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "💰 <strong>Ish haqi:</strong> \r\nIsh haqi miqdori, valyutasi va davriyligini kiriting",
+                        text: "💰 <strong>Ish haqi:</strong> \r\nIsh haqi miqdori, valyutasi va davriyligini kiriting. " +
+                        "Misol uchun:\r\n" +
+                        "\r\n• <i>3.000.000 so'm - 1 oyga</i>" +
+                        "\r\n• <i>100 dollar - 1 ishga</i>",
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
                     await _userService.IncIshJoylashCount(message.Chat.Id);
@@ -791,7 +808,9 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "🌏 <strong>Manzil:</strong> \r\nIsh joyi manzilini kiriting.",
+                        text: "🌏 <strong>Manzil:</strong> \r\nIsh joyi manzilini kiriting. " +
+                        "Misol uchun:\r\n" +
+                        "\r\n• <i>Toshkent shahar, Chilonzor tumani</i>",
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
                     await _userService.IncIshJoylashCount(message.Chat.Id);
@@ -814,7 +833,10 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "📞 <strong>Aloqa:</strong> \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting. Misol uchun:\r\n• +998912345678\r\n• example@gmail.com",
+                        text: "📞 <strong>Aloqa:</strong> \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting. " +
+                        "Misol uchun:" +
+                        "\r\n• <i>+998912345678</i>" +
+                        "\r\n• <i>example@gmail.com</i>",
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
                     await _userService.IncIshJoylashCount(message.Chat.Id);
@@ -825,7 +847,9 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "🕰 <strong>Murojaat qilish vaqti:</strong> \r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting.",
+                        text: "🕰 <strong>Murojaat qilish vaqti:</strong> \r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting. " +
+                        "Misol uchun:\r\n" +
+                        "\r\n• <i>9:00 - 18:00</i>",
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
                     await _userService.IncIshJoylashCount(message.Chat.Id);
