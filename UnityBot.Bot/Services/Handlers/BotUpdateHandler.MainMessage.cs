@@ -120,13 +120,15 @@ namespace UnityBot.Bot.Services.Handlers
                 case 7:
                     user.Messages.Add(message.Text!.ToString());
 
-                    await client.SendTextMessageAsync(
+                    var msg = await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
                        text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong>\r\n" +
                        "Qoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing.",
                        parseMode: ParseMode.Html,
                        replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                        cancellationToken: cancellationToken);
+
+                    user.LastMessages.Add(msg.MessageId);
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 8:
@@ -155,42 +157,22 @@ namespace UnityBot.Bot.Services.Handlers
 🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
                         parseMode: ParseMode.Html,
                        cancellationToken: cancellationToken);
-                    await client.SendTextMessageAsync(
+
+                    var res = await client.SendTextMessageAsync(
                            chatId: message.Chat.Id,
                            text: "Barcha ma'lumotlar to'g'rimi?",
                            replyMarkup: await InlineKeyBoards.ForConfirmation(),
                            parseMode: ParseMode.Html,
                            cancellationToken: cancellationToken);
+
                     await _userService.IncIshJoylashCount(message.Chat.Id);
-                    return;
 
-                case 9:
-                    if (message.Text == "✅ To'g'ri")
-                    {
-                        await client.SendTextMessageAsync(
-                            chatId: message.Chat.Id,
-                            text: @"E'lonni joylash narxi: ""BEPUL 🕑""
+                    user.LastMessages.Add(res.MessageId);
 
-ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
-
-Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
-                            replyMarkup: await InlineKeyBoards.ForMainState(),
-                            cancellationToken: cancellationToken);
-                    }
-                    else if (message.Text == "❌ Noto'g'ri")
-                    {
-                        await client.SendTextMessageAsync(
-                            chatId: message.Chat.Id,
-                            text: "❌ E'lon qabul qilinmadi.",
-                            replyMarkup: await InlineKeyBoards.ForMainState(),
-                            cancellationToken: cancellationToken);
-                    }
-                    user.Messages.Clear();
-                    await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
-                    await _userService.NolIshJoylashCount(message.Chat.Id);
                     return;
             }
         }
+
         #endregion
 
         #region UstozKerak
@@ -312,12 +294,15 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
                 case 9:
                     user.Messages.Add(message.Text!.ToString());
-                    await client.SendTextMessageAsync(
+                    var msg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "📌 <strong>Qo'shimcha ma'lumotlar: </strong>\r\nQoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing. ",
                         parseMode: ParseMode.Html,
                         replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                         cancellationToken: cancellationToken);
+
+                    user.LastMessages.Add(msg.MessageId);
+
                     return;
 
                 case 10:
@@ -347,12 +332,15 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
 🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
                         parseMode: ParseMode.Html);
-                    await client.SendTextMessageAsync(
-                        chatId: message.Chat.Id,
-                        text: "Barcha ma'lumotlar to'g'rimi?",
-                        replyMarkup: await InlineKeyBoards.ForConfirmation(),
-                        parseMode: ParseMode.Html,
-                        cancellationToken: cancellationToken);
+                    var res = await client.SendTextMessageAsync(
+                         chatId: message.Chat.Id,
+                         text: "Barcha ma'lumotlar to'g'rimi?",
+                         replyMarkup: await InlineKeyBoards.ForConfirmation(),
+                         parseMode: ParseMode.Html,
+                         cancellationToken: cancellationToken);
+
+                    user.LastMessages.Add(res.MessageId);
+
                     return;
             }
         }
@@ -476,10 +464,14 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
                 case 9:
                     user.Messages.Add(message.Text!.ToString());
-                    await client.SendTextMessageAsync(
+                    var msg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> \r\nQoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing. ",
-                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
+                        parseMode: ParseMode.Html,
+                        replyMarkup: await InlineKeyBoards.AdditionalInfo(),
+                        cancellationToken: cancellationToken);
+
+                    user.LastMessages.Add(msg.MessageId);
                     return;
                 case 10:
                     user.Messages.Add(message.Text!.ToString());
@@ -507,12 +499,14 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
 🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
                         parseMode: ParseMode.Html);
-                    await client.SendTextMessageAsync(
+                    var res = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "Barcha ma'lumotlar to'g'rimi?",
                         replyMarkup: await InlineKeyBoards.ForConfirmation(),
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
+
+                    user.LastMessages.Add(res.MessageId);
                     return;
             }
         }
@@ -650,12 +644,14 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                 user.Messages.Add(message.Text!.ToString());
 
-                await client.SendTextMessageAsync(
+                var msg = await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
                   text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> \r\nQoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing.",
                   parseMode: ParseMode.Html,
                   replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                   cancellationToken: cancellationToken);
+
+                user.LastMessages.Add(msg.MessageId);
 
                 return;
 
@@ -688,42 +684,16 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
                         parseMode: ParseMode.Html);
 
-                await client.SendTextMessageAsync(
+                var res = await client.SendTextMessageAsync(
                     chatId: message.Chat.Id,
                     text: "Barcha ma'lumotlar to'g'rimi?",
                     replyMarkup: await InlineKeyBoards.ForConfirmation(),
                     parseMode: ParseMode.Html,
                     cancellationToken: cancellationToken);
-                return;
-            }
-            if (user.ShogirtKerakCount == 9)
-            {
 
-                if (message.Text == "✅ To'g'ri")
-                {
-                    await client.SendTextMessageAsync(
-                        chatId: message.Chat.Id,
-                        text: @"E'lonni joylash narxi: ""BEPUL 🕑""
+                user.LastMessages.Add(res.MessageId);
 
-ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
 
-Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
-                        replyMarkup: await InlineKeyBoards.ForMainState(),
-                        cancellationToken: cancellationToken);
-                    await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
-                }
-                else if (message.Text == "❌ Noto'g'ri")
-                {
-                    await client.SendTextMessageAsync(
-                      chatId: message.Chat.Id,
-                      text: "❌ E'lon qabul qilinmadi.",
-                      replyMarkup: await InlineKeyBoards.ForMainState(),
-                      cancellationToken: cancellationToken);
-
-                    await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
-                }
-                user.Messages.Clear();
-                await _userService.NolShogirtKerakCount(message.Chat.Id);
                 return;
             }
         }
@@ -788,7 +758,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                         cancellationToken: cancellationToken);
                     await _userService.IncIshJoylashCount(message.Chat.Id);
                     return;
-                        
+
                 case 2:
                     user.Messages.Add(message.Text!.ToString());
 
@@ -858,13 +828,16 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                 case 7:
                     user.Messages.Add(message.Text!.ToString());
 
-                    await client.SendTextMessageAsync(
+                    var msg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> \r\nQoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing.",
                         parseMode: ParseMode.Html,
                         replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                         cancellationToken: cancellationToken);
                     await _userService.IncIshJoylashCount(message.Chat.Id);
+
+                    user.LastMessages.Add(msg.MessageId);
+
                     return;
 
                 case 8:
@@ -893,13 +866,16 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
 🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
                         parseMode: ParseMode.Html);
-                    await client.SendTextMessageAsync(
+                    var res = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "Barcha ma'lumotlar to'g'rimi?",
                         replyMarkup: await InlineKeyBoards.ForConfirmation(),
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
+
                     await _userService.IncIshJoylashCount(message.Chat.Id);
+
+                    user.LastMessages.Add(res.MessageId);
                     return;
             }
         }
