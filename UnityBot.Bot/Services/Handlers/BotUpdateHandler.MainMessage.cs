@@ -168,6 +168,7 @@ namespace UnityBot.Bot.Services.Handlers
                     await _userService.IncIshJoylashCount(message.Chat.Id);
 
                     user.LastMessages.Add(res.MessageId);
+                    user.Messages.Clear();
 
                     return;
             }
@@ -319,14 +320,14 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 🌏 Manzil: {user.Messages[3]}
 💰 Ish haqi: {user.Messages[4]}
 
-🧑‍🎓 Talaba: {user.Messages[5]}
-📑 Shogirt haqida: {user.Messages[6]}
+🧑‍🎓 Talaba: {user.Messages[6]}
+📑 Shogirt haqida: {user.Messages[7]}
 
-📞 Aloqa: {user.Messages[7]}
-✉️ Telegram: {user.Username}
-🕰 Murojaat qilish vaqti: {user.Messages[8]}
+📞 Aloqa: {user.Messages[8]}
+✉️ Telegram: @{user.Username}
+🕰 Murojaat qilish vaqti: {user.Messages[9]}
 
-📌 Qo'shimcha ma'lumotlar: {user.Messages[9]}
+📌 Qo'shimcha ma'lumotlar: {user.Messages[10]}
 
 #UstozKerak
 
@@ -340,6 +341,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                          cancellationToken: cancellationToken);
 
                     user.LastMessages.Add(res.MessageId);
+                    user.Messages.Clear();
 
                     return;
             }
@@ -488,14 +490,14 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 🌏 Manzil: {user.Messages[3]}
 💰 Ish haqi: {user.Messages[4]}
 
-🧑‍🎓 Talaba: {user.Messages[5]}
-📑 Ish qidiruvchi haqida: {user.Messages[6]}
+🧑‍🎓 Talaba: {user.Messages[6]}
+📑 Ish qidiruvchi haqida: {user.Messages[7]}
 
-📞 Aloqa: {user.Messages[7]}
+📞 Aloqa: {user.Messages[8]}
 ✉️ Telegram: @{user.Username}
-🕰 Murojaat qilish vaqti: {user.Messages[8]}
+🕰 Murojaat qilish vaqti: {user.Messages[9]}
 
-📌 Qo'shimcha ma'lumotlar: {user.Messages[9]}
+📌 Qo'shimcha ma'lumotlar: {user.Messages[10]}
 
 #Rezyume
 
@@ -510,6 +512,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                         cancellationToken: cancellationToken);
 
                     user.LastMessages.Add(res.MessageId);
+                    user.Messages.Clear();
                     return;
             }
         }
@@ -695,6 +698,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                     cancellationToken: cancellationToken);
 
                 user.LastMessages.Add(res.MessageId);
+                user.Messages.Clear();
 
 
                 return;
