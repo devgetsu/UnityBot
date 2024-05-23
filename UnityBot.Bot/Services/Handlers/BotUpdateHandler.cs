@@ -32,25 +32,11 @@ namespace UnityBot.Bot.Services.Handlers
                 UpdateType.CallbackQuery => HandleCallbackQueryAsync(botClient, update.CallbackQuery, cancellationToken),
                 _ => HandleUnknownMessageAsync(botClient, update, cancellationToken)
             };
-            /*if (update.Message != null)
-            {
 
-                var user = await _userService.GetUser(update.Message.Chat.Id);
-                if (user == null)
-                {
-                    await _userService.CreateUser(new UserModel()
-                    {
-                        ChatId = update.Message.Chat.Id,
-                        Username = update.Message.From.Username,
-                    });
-                }
-                user = await _userService.GetUser(update.Message.Chat.Id);
+            //clear function
+            await ClearMessageMethod(botClient, update.Message, cancellationToken);
+            await ClearUpdateMethod(botClient, update, cancellationToken);
 
-                if (user.LastMessages.Count > 0)
-                {
-                    await HandleClearAllReplyKeysAsync(botClient, update.Message, user, cancellationToken);
-                }
-            }*/
             try
             {
                 await handler;
@@ -69,19 +55,6 @@ namespace UnityBot.Bot.Services.Handlers
             }
             catch
             { }
-        }
-        private async Task HandleClearAllReplyKeysAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
-        {
-            foreach (var item in user.LastMessages)
-            {
-                await client.EditMessageReplyMarkupAsync(
-                    chatId: message.Chat.Id,
-                    messageId: item,
-                    replyMarkup: null,
-                    cancellationToken: cancellationToken);
-            }
-
-            user.LastMessages.Clear();
         }
     }
 }

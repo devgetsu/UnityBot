@@ -1,13 +1,10 @@
-﻿using Telegram.Bot.Types;
-using Telegram.Bot;
+﻿using Telegram.Bot;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
-using UnityBot.Bot.Services.ReplyKeyboards;
-using UnityBot.Bot.Services.UserServices;
 using UnityBot.Bot.Models.Entities;
 using UnityBot.Bot.Models.Enums;
-using Microsoft.AspNetCore.Mvc.Filters;
-using System.Threading;
+using UnityBot.Bot.Services.ReplyKeyboards;
+using Update = Telegram.Bot.Types.Update;
 
 namespace UnityBot.Bot.Services.Handlers;
 
@@ -138,6 +135,68 @@ public partial class BotUpdateHandler
             Console.WriteLine(ex);
         }
     }
+
+
+    #region Clears
+    private async Task ClearMessageMethod(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
+    {
+        if (message != null)
+        {
+
+            var user = await _userService.GetUser(message.Chat.Id);
+            if (user == null)
+            {
+                await _userService.CreateUser(new UserModel()
+                {
+                    ChatId = message.Chat.Id,
+                    Username = message.From.Username,
+                });
+            }
+            user = await _userService.GetUser(message.Chat.Id);
+
+            if (user.LastMessages.Count > 0)
+            {
+                await HandleClearAllReplyKeysAsync(botClient, message, user, cancellationToken);
+            }
+        }
+    }
+    private async Task ClearUpdateMethod(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+    {
+        if (update.CallbackQuery != null)
+        {
+
+            var user = await _userService.GetUser(update.CallbackQuery.Message.Chat.Id);
+            if (user == null)
+            {
+                await _userService.CreateUser(new UserModel()
+                {
+                    ChatId = update.CallbackQuery.Message.Chat.Id,
+                    Username = update.CallbackQuery.From.Username,
+                });
+            }
+            user = await _userService.GetUser(update.CallbackQuery.Message.Chat.Id);
+
+            if (user.LastMessages.Count > 0)
+            {
+                await HandleClearAllReplyKeysAsync(botClient, update.CallbackQuery.Message, user, cancellationToken);
+            }
+        }
+    }
+    private async Task HandleClearAllReplyKeysAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
+    {
+        foreach (var item in user.LastMessages)
+        {
+            await client.EditMessageReplyMarkupAsync(
+                chatId: message.Chat.Id,
+                messageId: item,
+                replyMarkup: null,
+                cancellationToken: cancellationToken);
+        }
+
+        user.LastMessages.Clear();
+    }
+    #endregion
+
     #region TalabaUchun
     private async Task TalabaEkan(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
@@ -273,7 +332,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
         else if (user.Status == Status.IshJoylash)
         {
             await client.SendTextMessageAsync(
-chatId: Moderator,
+chatId: MainChanel,
 text: @$"4. ISH JOYLASH (poster)
 
 🏢 ISH
@@ -302,7 +361,7 @@ cancellationToken: cancellationToken);
         else if (user.Status == Status.UstozKerak)
         {
             await client.SendTextMessageAsync(
-chatId: Moderator,
+chatId: MainChanel,
 text: @$"31. USTOZ KERAK (poster)
 
 🧑🏻‍🏫 USTOZ KERAK
@@ -333,7 +392,7 @@ cancellationToken: cancellationToken);
         else if (user.Status == Status.SherikKerak)
         {
             await client.SendTextMessageAsync(
-                   chatId: Moderator,
+                   chatId: MainChanel,
                    text: @$" SHERIK KERAK (poster)
 
 🎗 SHERIK KERAK
@@ -361,7 +420,7 @@ cancellationToken: cancellationToken);
         else if (user.Status == Status.ShogirtKerak)
         {
             await client.SendTextMessageAsync(
-                chatId: Moderator,
+                chatId: MainChanel,
                 text: @$"<strong>SHOGIRT KERAK</strong> 
 
 🧑🏻 SHOGIRT KERAK
