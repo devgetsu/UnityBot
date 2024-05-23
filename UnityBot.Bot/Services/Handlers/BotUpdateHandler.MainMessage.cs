@@ -154,7 +154,7 @@ namespace UnityBot.Bot.Services.Handlers
 📌 Qo'shimcha ma'lumotlar: {user.Messages[7]}
 #SherikKerak
 
-🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+""<a href='{LINK}'>🌐 EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
                         parseMode: ParseMode.Html,
                        cancellationToken: cancellationToken);
 
@@ -168,7 +168,6 @@ namespace UnityBot.Bot.Services.Handlers
                     await _userService.IncIshJoylashCount(message.Chat.Id);
 
                     user.LastMessages.Add(res.MessageId);
-                    user.Messages.Clear();
 
                     return;
             }
@@ -310,7 +309,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: @$"31. <strong>USTOZ KERAK</strong> 
+                        text: @$" <strong>USTOZ KERAK</strong> 
 
 🧑🏻‍🏫 USTOZ KERAK
 
@@ -331,7 +330,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
 #UstozKerak
 
-🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+""<a href='{LINK}'>🌐 EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
                         parseMode: ParseMode.Html);
                     var res = await client.SendTextMessageAsync(
                          chatId: message.Chat.Id,
@@ -341,7 +340,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                          cancellationToken: cancellationToken);
 
                     user.LastMessages.Add(res.MessageId);
-                    user.Messages.Clear();
+                  
 
                     return;
             }
@@ -481,7 +480,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: @$"<strong>REZYUME JOYLASH (poster)</strong>
+                        text: @$"<strong>REZYUME JOYLASH </strong>
 🧑🏻‍💼 REZYUME
 
 ⭐️ Ish qidiruvchi: {user.Messages[0]}
@@ -501,7 +500,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
 #Rezyume
 
-🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+""<a href='{LINK}'>🌐 EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
                     var res = await client.SendTextMessageAsync(
@@ -512,7 +511,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                         cancellationToken: cancellationToken);
 
                     user.LastMessages.Add(res.MessageId);
-                    user.Messages.Clear();
+                   
                     return;
             }
         }
@@ -668,7 +667,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                 await client.SendTextMessageAsync(
                     chatId: message.Chat.Id,
-                    text: @$"22. <strong>SHOGIRT KERAK</strong> 
+                    text: @$" <strong>SHOGIRT KERAK</strong> 
 
 🧑🏻 SHOGIRT KERAK
 
@@ -687,7 +686,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
 #ShogirtKerak
 
-🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+""<a href='{LINK}'>🌐 EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
                         parseMode: ParseMode.Html);
 
                 var res = await client.SendTextMessageAsync(
@@ -698,8 +697,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                     cancellationToken: cancellationToken);
 
                 user.LastMessages.Add(res.MessageId);
-                user.Messages.Clear();
-
+   
 
                 return;
             }
@@ -852,7 +850,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: @$"4. <strong>ISH JOYLASH</strong> 
+                        text: @$" <strong>ISH JOYLASH</strong> 
 
 🏢 <strong>ISH</strong>
 
@@ -871,7 +869,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
 #Ish
 
-🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+""<a href='{LINK}'>🌐 EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
                         parseMode: ParseMode.Html);
                     var res = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
@@ -887,6 +885,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
             }
         }
         #endregion
+       
         private async Task HandleRandomTextAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
         {
             var user = await _userService.GetUser(message.Chat.Id);
@@ -938,6 +937,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                     break;
             }
         }
+       
         private async Task NoAdditionalInfo(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
         {
             var user = await _userService.GetUser(message.Chat.Id);

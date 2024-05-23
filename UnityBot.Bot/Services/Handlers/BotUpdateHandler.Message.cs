@@ -96,6 +96,7 @@ public partial class BotUpdateHandler
                 };
                 await _userService.CreateUser(user);
             }
+            user.Messages.Clear();
             user.LastMessages.Add(msg.MessageId);
             return;
         }
