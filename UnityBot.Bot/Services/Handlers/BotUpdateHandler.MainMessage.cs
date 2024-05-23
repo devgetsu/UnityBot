@@ -926,15 +926,14 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                 case Status.MainPage:
                     var msg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "Yo'nalishlar:\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.",
+                        text: "<strong>Yo'nalishlar:</strong>\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.",
                         replyMarkup: await InlineKeyBoards.ForMainState(),
+                        parseMode:ParseMode.Html,
                         cancellationToken: cancellationToken);
-
                     user.LastMessages.Add(msg.MessageId);
                     break;
             }
         }
-
         private async Task NoAdditionalInfo(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
         {
             var user = await _userService.GetUser(message.Chat.Id);

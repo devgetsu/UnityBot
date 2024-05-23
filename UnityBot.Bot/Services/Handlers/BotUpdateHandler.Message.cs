@@ -81,26 +81,13 @@ public partial class BotUpdateHandler
             await _userService.NolSherikKerakCount(message.Chat.Id);
             await _userService.NolIshJoylashCount(message.Chat.Id);
 
-            await client.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: $"<strong>Assalomu alaykum, EFFECT | Katta mehnat bozori @palonchi kanali uchun e'lon yaratuvchi botiga xush kelibsiz.</strong> \r\n\n " +
-                    $"\"EFFECT | Katta mehnat bozori\" - ish izlayotgan odamlarga vakansiyalarni, ish beruvchilarga esa ishchilarni topishda yordam beradi. Qolaversa bir qator boshqa yo'nalishlarni ham qollab quvvatlaydi.",
-                    parseMode: ParseMode.Html,
-                    cancellationToken: cancellationToken);
-
             var msg = await client.SendTextMessageAsync(
-                chatId: message.Chat.Id,
-                text: @"<strong>Yo'nalishlar:</strong>
-• ""🏢 Ish joylash"" - ishchi topish uchun.
-• ""🧑🏻‍💼 Rezyume joylash"" - ish topish uchun.
-• ""🧑🏻 Shogirt kerak"" - shogirt topish uchun.
-• ""🧑🏻‍🏫 Ustoz kerak"" - ustoz topish uchun.
-• ""🎗 Sherik kerak"" - sherik topish uchun.
+     chatId: message.Chat.Id,
+     text: "\r\nAssalomu alaykum, \"EFFECT | Katta mehnat bozori\" @palonchi kanali uchun e'lon yaratuvchi botiga xush kelibsiz.\r\n\r\n\"EFFECT | Katta mehnat bozori\" - ish izlayotgan odamlarga vakansiyalarni, ish beruvchilarga esa ishchilarni topishda yordam beradi. Qolaversa bir qator boshqa yo'nalishlarni ham qollab quvvatlaydi.\r\r\n<strong>Yo'nalishlar:</strong>\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.\r\n\r\n<strong>E'lon berish uchun yo'nalishni tanlang 👇</strong>",
+     replyMarkup: await InlineKeyBoards.ForMainState(),
+     parseMode: ParseMode.Html,
+     cancellationToken: cancellationToken);
 
-E'lon berish uchun yo'nalishni tanlang 👇",
-                    replyMarkup: await InlineKeyBoards.ForMainState(),
-                    parseMode: ParseMode.Html,
-                    cancellationToken: cancellationToken);
             var user = await _userService.GetUser(message.Chat.Id);
             if (user == null)
             {
@@ -108,7 +95,7 @@ E'lon berish uchun yo'nalishni tanlang 👇",
                 {
                     ChatId = message.Chat.Id,
                     Username = message.From.Username,
-                    Status = Models.Enums.Status.MainPage
+                    Status = Status.MainPage
                 };
                 await _userService.CreateUser(user);
             }
@@ -255,7 +242,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
         {
 
             await client.SendTextMessageAsync(
-                       chatId: Moderator,
+                       chatId: MainChanel,
                        text: @$"
 🧑🏻‍💼 REZYUME
 

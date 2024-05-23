@@ -32,8 +32,8 @@ namespace UnityBot.Bot.Services.ReplyKeyboards
             List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>{
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("✅ To'g'ri", "togrri"),
-                InlineKeyboardButton.WithCallbackData("❌ Noto'g'ri", "notogrri"),
+                InlineKeyboardButton.WithCallbackData("✅ Elonni joylash", "togrri"),
+                InlineKeyboardButton.WithCallbackData("❌ Bekor qilish", "notogrri"),
             }
         };
 
@@ -59,7 +59,7 @@ namespace UnityBot.Bot.Services.ReplyKeyboards
             List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>{
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("Yo'q", "noinfo"),
+                InlineKeyboardButton.WithCallbackData("Qo'shimcha ma'lumotlar yo'q", "noinfo"),
             }
         };
 
