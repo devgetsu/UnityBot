@@ -10,7 +10,7 @@ namespace UnityBot.Bot.Services.Handlers;
 
 public partial class BotUpdateHandler
 {
-    private const string LINK = "https://google.com";
+    private const string LINK = "https://t.me/myDemoChatid";
     private const string Moderator = "-1002019788238";
     private const string MainChanel = "-1002108545748";
     private async Task HandleMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
