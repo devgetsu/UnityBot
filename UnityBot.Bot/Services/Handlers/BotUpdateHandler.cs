@@ -33,13 +33,11 @@ namespace UnityBot.Bot.Services.Handlers
                 _ => HandleUnknownMessageAsync(botClient, update, cancellationToken)
             };
 
-            //clear function
-            await ClearMessageMethod(botClient, update.Message, cancellationToken);
-            await ClearUpdateMethod(botClient, update, cancellationToken);
-
             try
             {
                 await handler;
+                //await ClearMessageMethod(botClient, update.Message, cancellationToken);
+                //await ClearUpdateMethod(botClient, update, cancellationToken);
             }
             catch (Exception ex)
             {
