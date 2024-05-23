@@ -324,7 +324,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
 🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
                        parseMode: ParseMode.Html,
-                       replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+                       //replyMarkup: await InlineKeyBoards.ForSendToChanel(),
                        cancellationToken: cancellationToken);
             return;
         }
@@ -354,7 +354,7 @@ text: @$"4. ISH JOYLASH (poster)
 
 🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish (link | so'zni ichida bo'lishi kerak)",
 parseMode: ParseMode.Html,
-replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+//replyMarkup: await InlineKeyBoards.ForSendToChanel(),
 cancellationToken: cancellationToken);
             return;
         }
@@ -385,7 +385,7 @@ text: @$"31. USTOZ KERAK (poster)
 
 🌐 ""EFFECT | Katta mehnat bozori"" kanalga obuna bo'lish (link | so'zni ichida bo'lishi kerak)",
 parseMode: ParseMode.Html,
-replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+//replyMarkup: await InlineKeyBoards.ForSendToChanel(),
 cancellationToken: cancellationToken);
             return;
         }
@@ -413,7 +413,7 @@ cancellationToken: cancellationToken);
 
 🌐 ""EFFECT | Katta mehnat bozori"" kanalga obuna bo'lish (link | so'zni ichida bo'lishi kerak)",
                    parseMode: ParseMode.Html,
-                   replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+                   //replyMarkup: await InlineKeyBoards.ForSendToChanel(),
                    cancellationToken: cancellationToken);
             return;
         }
@@ -442,7 +442,7 @@ cancellationToken: cancellationToken);
 
 🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
                 parseMode: ParseMode.Html,
-                replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+               // replyMarkup: await InlineKeyBoards.ForSendToChanel(),
                 cancellationToken: cancellationToken);
             return;
         }

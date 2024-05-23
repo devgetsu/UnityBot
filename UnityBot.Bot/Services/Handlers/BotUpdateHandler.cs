@@ -35,9 +35,9 @@ namespace UnityBot.Bot.Services.Handlers
 
             try
             {
-                await handler;
-                //await ClearMessageMethod(botClient, update.Message, cancellationToken);
+                // await ClearMessageMethod(botClient, update.Message, cancellationToken);
                 //await ClearUpdateMethod(botClient, update, cancellationToken);
+                await handler;
             }
             catch (Exception ex)
             {
