@@ -97,7 +97,7 @@ public partial class BotUpdateHandler
                 await _userService.CreateUser(user);
             }
             user.Messages.Clear();
-            user.LastMessages.Add(msg.MessageId);
+            user.LastMessages = msg.MessageId;
             return;
         }
 
@@ -155,7 +155,7 @@ public partial class BotUpdateHandler
             }
             user = await _userService.GetUser(message.Chat.Id);
 
-            if (user.LastMessages.Count > 0)
+            if (user.LastMessages > 0)
             {
                 await HandleClearAllReplyKeysAsync(botClient, message, user, cancellationToken);
             }
@@ -177,7 +177,7 @@ public partial class BotUpdateHandler
             }
             user = await _userService.GetUser(update.CallbackQuery.Message.Chat.Id);
 
-            if (user.LastMessages.Count > 0)
+            if (user.LastMessages != 0)
             {
                 await HandleClearAllReplyKeysAsync(botClient, update.CallbackQuery.Message, user, cancellationToken);
             }
@@ -185,16 +185,13 @@ public partial class BotUpdateHandler
     }
     private async Task HandleClearAllReplyKeysAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
     {
-        foreach (var item in user.LastMessages)
-        {
-            await client.EditMessageReplyMarkupAsync(
-                chatId: message.Chat.Id,
-                messageId: item,
-                replyMarkup: null,
-                cancellationToken: cancellationToken);
-        }
-
-        user.LastMessages.Clear();
+       
+        await client.EditMessageReplyMarkupAsync(
+            chatId: message.Chat.Id,
+            messageId: user.LastMessages,
+            replyMarkup: null,
+            cancellationToken: cancellationToken);
+        user.LastMessages = 0;
     }
     #endregion
 
@@ -259,7 +256,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
         {
             await SendToModeratorAsync(client, message, cancellationToken);
 
-            user.LastMessages.Add(msg.MessageId);
+            user.LastMessages = msg.MessageId;
             user.Messages.Clear();
 
             await _userService.NolRuzumeCount(message.Chat.Id);
@@ -286,7 +283,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
             await _userService.NolRuzumeCount(message.Chat.Id);
             await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
 
-            user.LastMessages.Add(msg.MessageId);
+            user.LastMessages = msg.MessageId;
         }
         return;
     }

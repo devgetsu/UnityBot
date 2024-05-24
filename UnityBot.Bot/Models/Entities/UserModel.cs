@@ -4,7 +4,7 @@ namespace UnityBot.Bot.Models.Entities
 {
     public class UserModel
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
         public long ChatId { get; set; }
         public string? Username { get; set; }
         public Status Status { get; set; }
@@ -14,7 +14,7 @@ namespace UnityBot.Bot.Models.Entities
         public int UstozkerakCount { get; set; } = 0;
         public int ShogirtKerakCount { get; set; } = 0;
 
-        public List<int> LastMessages { get; set; } = new List<int>();
+        public int LastMessages { get; set; } = 0;
 
         public List<string> Messages = new List<string>();
     }

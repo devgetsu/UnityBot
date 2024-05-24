@@ -128,7 +128,7 @@ namespace UnityBot.Bot.Services.Handlers
                        replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                        cancellationToken: cancellationToken);
 
-                    user.LastMessages.Add(msg.MessageId);
+                    user.LastMessages = msg.MessageId;
                     await _userService.IncSherikKerak(message.Chat.Id);
                     return;
                 case 8:
@@ -167,7 +167,7 @@ namespace UnityBot.Bot.Services.Handlers
 
                     await _userService.IncIshJoylashCount(message.Chat.Id);
 
-                    user.LastMessages.Add(res.MessageId);
+                    user.LastMessages = res.MessageId;
 
                     return;
             }
@@ -301,7 +301,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                         parseMode: ParseMode.Html,
                         replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                         cancellationToken: cancellationToken);
-                    user.LastMessages.Add(msg.MessageId);
+                    user.LastMessages = msg.MessageId;
 
                     return;
 
@@ -339,7 +339,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                          parseMode: ParseMode.Html,
                          cancellationToken: cancellationToken);
 
-                    user.LastMessages.Add(res.MessageId);
+                    user.LastMessages = res.MessageId;
                   
 
                     return;
@@ -474,7 +474,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                         replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                         cancellationToken: cancellationToken);
 
-                    user.LastMessages.Add(msg.MessageId);
+                    user.LastMessages = msg.MessageId;
                     return;
                 case 10:
                     user.Messages.Add(message.Text!.ToString());
@@ -510,7 +510,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
 
-                    user.LastMessages.Add(res.MessageId);
+                    user.LastMessages = res.MessageId;
                    
                     return;
             }
@@ -656,7 +656,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                   replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                   cancellationToken: cancellationToken);
 
-                user.LastMessages.Add(msg.MessageId);
+                user.LastMessages = msg.MessageId;
 
                 return;
 
@@ -696,7 +696,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                     parseMode: ParseMode.Html,
                     cancellationToken: cancellationToken);
 
-                user.LastMessages.Add(res.MessageId);
+                user.LastMessages = res.MessageId;
    
 
                 return;
@@ -841,7 +841,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                         cancellationToken: cancellationToken);
                     await _userService.IncIshJoylashCount(message.Chat.Id);
 
-                    user.LastMessages.Add(msg.MessageId);
+                    user.LastMessages = msg.MessageId;
 
                     return;
 
@@ -880,7 +880,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                     await _userService.IncIshJoylashCount(message.Chat.Id);
 
-                    user.LastMessages.Add(res.MessageId);
+                    user.LastMessages = res.MessageId;
                     return;
             }
         }
@@ -933,7 +933,8 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                         replyMarkup: await InlineKeyBoards.ForMainState(),
                         parseMode:ParseMode.Html,
                         cancellationToken: cancellationToken);
-                    user.LastMessages.Add(msg.MessageId);
+                    user.LastMessages = msg.MessageId;
+                    user.Messages.Clear();
                     break;
             }
         }
