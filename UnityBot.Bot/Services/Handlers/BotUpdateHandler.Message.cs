@@ -309,14 +309,14 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 🌏 Manzil: {user.Messages[3]}
 💰 Ish haqi: {user.Messages[4]}
 
-🧑‍🎓 Talaba: {user.Messages[5]}
-📑 Ish qidiruvchi haqida: {user.Messages[6]}
+🧑‍🎓 Talaba: {user.Messages[6]}
+📑 Ish qidiruvchi haqida: {user.Messages[7]}
 
-📞 Aloqa: {user.Messages[7]}
+📞 Aloqa: {user.Messages[8]}
 ✉️ Telegram: @{user.Username}
-🕰 Murojaat qilish vaqti: {user.Messages[8]}
+🕰 Murojaat qilish vaqti: {user.Messages[9]}
 
-📌 Qo'shimcha ma'lumotlar: {user.Messages[9]}
+📌 Qo'shimcha ma'lumotlar: {user.Messages[10]}
 
 #Rezyume
 
@@ -331,8 +331,7 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
         {
             await client.SendTextMessageAsync(
 chatId: MainChanel,
-text: @$"4. ISH JOYLASH (poster)
-
+text: @$"
 🏢 ISH
 
 ⭐️ Ish beruvchi: {user.Messages[0]} 
@@ -360,8 +359,7 @@ cancellationToken: cancellationToken);
         {
             await client.SendTextMessageAsync(
 chatId: MainChanel,
-text: @$"31. USTOZ KERAK (poster)
-
+text: @$"
 🧑🏻‍🏫 USTOZ KERAK
 
 🧑🏻 Shogirt: {user.Messages[0]}
@@ -370,14 +368,14 @@ text: @$"31. USTOZ KERAK (poster)
 🌏 Manzil: {user.Messages[3]}
 💰 Ish haqi: {user.Messages[4]}
 
-🧑‍🎓 Talaba: {user.Messages[5]}
-📑 Shogirt haqida: {user.Messages[6]}
+🧑‍🎓 Talaba: {user.Messages[6]}
+📑 Shogirt haqida: {user.Messages[7]}
 
-📞 Aloqa: {user.Messages[7]}
+📞 Aloqa: {user.Messages[8]}
 ✉️ Telegram: {user.Username}
-🕰 Murojaat qilish vaqti: {user.Messages[8]}
+🕰 Murojaat qilish vaqti: {user.Messages[9]}
 
-📌 Qo'shimcha ma'lumotlar: {user.Messages[9]}
+📌 Qo'shimcha ma'lumotlar: {user.Messages[10]}
 
 #UstozKerak
 
@@ -391,8 +389,7 @@ cancellationToken: cancellationToken);
         {
             await client.SendTextMessageAsync(
                    chatId: MainChanel,
-                   text: @$" SHERIK KERAK (poster)
-
+                   text: @$"
 🎗 SHERIK KERAK
 
 ⭐️ Sherik: {user.Messages[0]}
@@ -419,8 +416,7 @@ cancellationToken: cancellationToken);
         {
             await client.SendTextMessageAsync(
                 chatId: MainChanel,
-                text: @$"<strong>SHOGIRT KERAK</strong> 
-
+                text: @$"
 🧑🏻 SHOGIRT KERAK
 
 🧑🏻‍🏫 Ustoz: {user.Messages[0]}
