@@ -155,7 +155,7 @@ public partial class BotUpdateHandler
             }
             user = await _userService.GetUser(message.Chat.Id);
 
-            if (user.LastMessages > 0)
+            if (user.LastMessages != 0)
             {
                 await HandleClearAllReplyKeysAsync(botClient, message, user, cancellationToken);
             }
