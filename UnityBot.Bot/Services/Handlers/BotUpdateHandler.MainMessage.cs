@@ -259,11 +259,13 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
                 case 5:
                     user.Messages.Add(message.Text!.ToString());
-                    await client.SendTextMessageAsync(
+                    var tmsg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "\U0001f9d1‍🎓 Talaba:\r\n Shogirt talaba bo'lsa \"Ha\" tugmasini, aksincha bo'lsa \"Yo'q\" tugmasini bosing.",
                         replyMarkup: await InlineKeyBoards.ForTalaba(),
                         cancellationToken: cancellationToken);
+
+                    user.LastMessages = tmsg.MessageId;
                     return;
 
                 case 6:
@@ -340,7 +342,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                          cancellationToken: cancellationToken);
 
                     user.LastMessages = res.MessageId;
-                  
+
 
                     return;
             }
@@ -430,12 +432,14 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
                 case 5:
                     user.Messages.Add(message.Text!.ToString());
-                    await client.SendTextMessageAsync(
+                    var tmsg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "\U0001f9d1‍🎓 <strong>Talaba:</strong> \r\nIsh qidiruvchi talaba bo'lsa \"Ha\" tugmasini, aksincha bo'lsa \"Yo'q\" tugmasini bosing.",
                         parseMode: ParseMode.Html,
                         replyMarkup: await InlineKeyBoards.ForTalaba(),
                         cancellationToken: cancellationToken);
+
+                    user.LastMessages = tmsg.MessageId;
                     return;
                 case 6:
                     user.Messages.Add(message.Text!.ToString());
@@ -511,7 +515,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                         cancellationToken: cancellationToken);
 
                     user.LastMessages = res.MessageId;
-                   
+
                     return;
             }
         }
@@ -697,7 +701,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                     cancellationToken: cancellationToken);
 
                 user.LastMessages = res.MessageId;
-   
+
 
                 return;
             }
@@ -885,7 +889,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
             }
         }
         #endregion
-       
+
         private async Task HandleRandomTextAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
         {
             var user = await _userService.GetUser(message.Chat.Id);
@@ -931,14 +935,14 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                         chatId: message.Chat.Id,
                         text: "<strong>Yo'nalishlar:</strong>\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.",
                         replyMarkup: await InlineKeyBoards.ForMainState(),
-                        parseMode:ParseMode.Html,
+                        parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
                     user.LastMessages = msg.MessageId;
                     user.Messages.Clear();
                     break;
             }
         }
-       
+
         private async Task NoAdditionalInfo(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
         {
             var user = await _userService.GetUser(message.Chat.Id);
