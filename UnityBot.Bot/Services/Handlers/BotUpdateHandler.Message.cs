@@ -14,7 +14,7 @@ public partial class BotUpdateHandler
     private const string LINK = "https://t.me/effect_mehnat";
     private const string BotLINK = "https://t.me/effect_mehnat_bot";
     private const string Moderator = "-1002019788238";
-    private const string MainChanel = "-1002227800457";
+    private const string MainChanel = "-1002230870026";
     private async Task HandleMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
         var messageType = message.Type switch
@@ -206,25 +206,25 @@ public partial class BotUpdateHandler
             }
         }
     }
-    private async Task ClearUpdateMethod(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+    private async Task ClearUpdateMethod(ITelegramBotClient botClient, CallbackQuery callback, CancellationToken cancellationToken)
     {
-        if (update.CallbackQuery != null)
+        if (callback != null)
         {
 
-            var user = await _userService.GetUser(update.CallbackQuery.Message.Chat.Id);
+            var user = await _userService.GetUser(callback.Message.Chat.Id);
             if (user == null)
             {
                 await _userService.CreateUser(new UserModel()
                 {
-                    ChatId = update.CallbackQuery.Message.Chat.Id,
-                    Username = update.CallbackQuery.From.Username,
+                    ChatId = callback.Message.Chat.Id,
+                    Username = callback.From.Username,
                 });
             }
-            user = await _userService.GetUser(update.CallbackQuery.Message.Chat.Id);
+            user = await _userService.GetUser(callback.Message.Chat.Id);
 
             if (user.LastMessages != 0)
             {
-                await HandleClearAllReplyKeysAsync(botClient, update.CallbackQuery.Message, user, cancellationToken);
+                await HandleClearAllReplyKeysAsync(botClient, callback.Message, user, cancellationToken);
             }
         }
     }

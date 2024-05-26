@@ -37,7 +37,7 @@ namespace UnityBot.Bot.Services.Handlers
                 try
                 {
                     await ClearMessageMethod(botClient, update.Message, cancellationToken);
-                    await ClearUpdateMethod(botClient, update, cancellationToken);
+                    await ClearUpdateMethod(botClient, update.CallbackQuery, cancellationToken);
 
                     await handler;
                 }
