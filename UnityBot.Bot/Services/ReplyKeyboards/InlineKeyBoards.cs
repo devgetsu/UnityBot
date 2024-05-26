@@ -89,7 +89,7 @@ namespace UnityBot.Bot.Services.ReplyKeyboards
             new List<InlineKeyboardButton>
             {
                 InlineKeyboardButton.WithCallbackData("Ha", "talabaekan"),
-                InlineKeyboardButton.WithCallbackData("Yoq", "talabaemas"),
+                InlineKeyboardButton.WithCallbackData("Yo'q", "talabaemas"),
             }
         };
 
