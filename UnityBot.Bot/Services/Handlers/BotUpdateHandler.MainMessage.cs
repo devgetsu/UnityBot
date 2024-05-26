@@ -162,7 +162,7 @@ namespace UnityBot.Bot.Services.Handlers
                     var res = await client.SendTextMessageAsync(
                            chatId: message.Chat.Id,
                            text: "Barcha ma'lumotlar to'g'rimi?",
-                           replyMarkup: await InlineKeyBoards.ForConfirmation(),
+                           replyMarkup: await InlineKeyBoards.ForHaYuqButton(),
                            parseMode: ParseMode.Html,
                            cancellationToken: cancellationToken);
 
@@ -312,9 +312,8 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: @$" <strong>USTOZ KERAK</strong> 
-
-🧑🏻‍🏫 USTOZ KERAK
+                        text: @$"
+🧑🏻‍🏫 <strong>USTOZ KERAK</strong>
 
 🧑🏻 Shogirt: {user.Messages[0]}
 🗓 Tug'ilgan sana: {user.Messages[1]}
@@ -333,12 +332,12 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
 #UstozKerak
 
-""<a href='{LINK}'>🌐 EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+""<strong><a href='{LINK}'>🌐 EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish</a></strong>",
                         parseMode: ParseMode.Html);
                     var res = await client.SendTextMessageAsync(
                          chatId: message.Chat.Id,
                          text: "Barcha ma'lumotlar to'g'rimi?",
-                         replyMarkup: await InlineKeyBoards.ForConfirmation(),
+                         replyMarkup: await InlineKeyBoards.ForHaYuqButton(),
                          parseMode: ParseMode.Html,
                          cancellationToken: cancellationToken);
 
@@ -511,7 +510,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     var res = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "Barcha ma'lumotlar to'g'rimi?",
-                        replyMarkup: await InlineKeyBoards.ForConfirmation(),
+                        replyMarkup: await InlineKeyBoards.ForHaYuqButton(),
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
 
@@ -697,7 +696,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                 var res = await client.SendTextMessageAsync(
                     chatId: message.Chat.Id,
                     text: "Barcha ma'lumotlar to'g'rimi?",
-                    replyMarkup: await InlineKeyBoards.ForConfirmation(),
+                    replyMarkup: await InlineKeyBoards.ForHaYuqButton(),
                     parseMode: ParseMode.Html,
                     cancellationToken: cancellationToken);
 
@@ -879,7 +878,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                     var res = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "Barcha ma'lumotlar to'g'rimi?",
-                        replyMarkup: await InlineKeyBoards.ForConfirmation(),
+                        replyMarkup: await InlineKeyBoards.ForHaYuqButton(),
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
 
