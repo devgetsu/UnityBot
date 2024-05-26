@@ -1,4 +1,5 @@
-﻿using Telegram.Bot;
+﻿using System.Threading;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using UnityBot.Bot.Models.Entities;
@@ -34,7 +35,6 @@ public partial class BotUpdateHandler
         }
 
     }
-
     private async Task HandleNotImplementedMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
         await client.SendTextMessageAsync(
@@ -107,7 +107,6 @@ public partial class BotUpdateHandler
             await HandleRandomTextAsync(client, message, cancellationToken);
         };
     }
-
     public async Task HandleCallbackQueryAsync(ITelegramBotClient client, CallbackQuery callbackQuery, CancellationToken cancellationToken)
     {
         var myMessage = callbackQuery.Data switch
@@ -211,6 +210,7 @@ public partial class BotUpdateHandler
         var user = await _userService.GetUser(message.Chat.Id);
         if (user is not null)
         {
+
             user.LastMessages = msg.MessageId;
         }
 
@@ -278,6 +278,7 @@ Bizning xizmatimizdan foydalanganingiz uchun hursandmiz, ishlaringizga rivoj til
 
             user.Messages.Clear();
 
+
             await _userService.NolRuzumeCount(message.Chat.Id);
             await _userService.NolIshJoylashCount(message.Chat.Id);
             await _userService.NolSherikKerakCount(message.Chat.Id);
@@ -286,6 +287,12 @@ Bizning xizmatimizdan foydalanganingiz uchun hursandmiz, ishlaringizga rivoj til
 
             await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
         }
+        await client.SendTextMessageAsync(
+           chatId: message.Chat.Id,
+           text: "<strong>Yo'nalishlar:</strong>\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.",
+           replyMarkup: await InlineKeyBoards.ForMainState(),
+           parseMode: ParseMode.Html,
+           cancellationToken: cancellationToken);
         return;
     }
     private async Task NotogriElonJoylashAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
@@ -305,6 +312,14 @@ Bizning xizmatimizdan foydalanganingiz uchun hursandmiz, ishlaringizga rivoj til
             await _userService.NolSherikKerakCount(message.Chat.Id);
             await _userService.NolUstozKerakCount(message.Chat.Id);
             await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
+
+            user.LastMessages = msg.MessageId;
+            await client.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: "<strong>Yo'nalishlar:</strong>\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.",
+                replyMarkup: await InlineKeyBoards.ForMainState(),
+                parseMode: ParseMode.Html,
+                cancellationToken: cancellationToken);
         }
         return;
     }
