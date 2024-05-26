@@ -27,10 +27,10 @@ namespace UnityBot.Bot.Services.Handlers
 
             await client.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: "<strong>🎗 SHERIK KERAK</strong>\r\n" +
+                text: $"<strong>🎗 SHERIK KERAK</strong>\r\n" +
                 "\r\nSherik kerakligi haqida e'lon joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.\r\n" +
                 "\r\nSo'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa \"✅ To'g'ri\" tugmasini bosing, aksincha bo'lsa \"❌ Noto'g'ri\" tugmasini bosing va so'rovnomani qaytadan to'ldiring.\r\n" +
-                "E'lon tayor bo'lgandan kegin \"E'lonni joylash\" tugmasi bosilsa e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.",
+                $"\r\nE'lon tayor bo'lgandan kegin \"✅ E'lonni joylash\" tugmasi bosilsa e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @effect_mehnat kanaliga joylashtiriladi.",
                  parseMode: ParseMode.Html,
                 cancellationToken: cancellationToken);
 
@@ -56,7 +56,7 @@ namespace UnityBot.Bot.Services.Handlers
                        chatId: message.Chat.Id,
                        text: "📋 <strong>Sheriklik yo'nalishi:</strong> \r\nQanday yo'nalish bo'yicha sherik qidirilayotgan bo'lsa, shu yo'nalishni kiriting, misol uchun:\r\n\r\n" +
                        "• <i>IT yo'nalishi</i>\r\n" +
-                       "• <i>Savdo-sotiq yo'nalishi</i>?\r\n" +
+                       "• <i>Savdo-sotiq yo'nalishi</i>\r\n" +
                        "• <i>Ishlab chiqarish yo'nalishi</i>\r\n" +
                        "• <i>Qimmatbaho toshlar yo'nalishi</i>",
                        parseMode: ParseMode.Html,
@@ -68,7 +68,7 @@ namespace UnityBot.Bot.Services.Handlers
 
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "💰 <strong>Hisob-kitob:</strong> \r\nHisob-kitob alohida muzokara qilinsa \"Alohida muzokara qilinadi\" deb yozing.\r\nHisob-kitob e'lon qilinsa ma'lumotlarini kiriting. Misol uchun:\r\n\r\n" +
+                       text: "💰 <strong>Hisob-kitob:</strong> \r\nHisob-kitob alohida muzokara qilinsa \"Alohida muzokara qilinadi\" deb yozing. Hisob-kitob e'lon qilinsa ma'lumotlarini kiriting. Misol uchun:\r\n\r\n" +
                        "• <i>Alohida muzokara qilinadi</i>\r\n" +
                        "\r\n• <i>50/50 ishlanadi</i>" +
                        "\r\n• <i>Har sotuvdan 20%</i>",
@@ -138,7 +138,6 @@ namespace UnityBot.Bot.Services.Handlers
                        chatId: message.Chat.Id,
                        text: @$" <strong>🎗 SHERIK KERAK</strong> 
 
-
 ⭐️ Sherik: {user.Messages[0]}
 📋 Sheriklik yo'nalishi: {user.Messages[1]}
 💰 Hisob-kitob: {user.Messages[2]}
@@ -154,8 +153,11 @@ namespace UnityBot.Bot.Services.Handlers
 
 #SherikKerak
 
-""<a href='{LINK}'>🌐 EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+<strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish.</a></strong>
+•
+<strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
                         parseMode: ParseMode.Html,
+                        disableWebPagePreview: true,
                        cancellationToken: cancellationToken);
 
                     var res = await client.SendTextMessageAsync(
@@ -193,10 +195,13 @@ namespace UnityBot.Bot.Services.Handlers
 
             await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: @"🧑🏻‍🏫 <strong>USTOZ KERAK</strong>
+                       text: @$"🧑🏻‍🏫 <strong>USTOZ KERAK</strong>
+
 Ustoz kerakligi haqida e'lon joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.
 
-So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ To'g'ri"" tugmasini bosing, aksincha bo'lsa ""❌ Noto'g'ri"" tugmasini bosing va so'rovnomani qaytadan to'ldiring.",
+So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ To'g'ri"" tugmasini bosing, aksincha bo'lsa ""❌ Noto'g'ri"" tugmasini bosing va so'rovnomani qaytadan to'ldiring.
+
+E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha zaxotiyoq ""EFFECT | Katta mehnat bozori"" @effect_mehnat kanaliga joylashtiriladi.",
                        parseMode: ParseMode.Html,
                        cancellationToken: cancellationToken);
 
@@ -249,19 +254,20 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "💰 <strong>Ish haqi:</strong>\r\nIsh haqi kerak bo'lmasa \"Ish haqi kerak emas\" deb yozing. Ish haqi kerak bo'lsa miqdori, valyutasi va davriyligini kiriting." +
+                        text: "💰 <strong>Ish haqi:</strong>\r\nIsh haqi kerak bo'lmasa \"Ish haqi kerak emas\" deb yozing. Ish haqi kerak bo'lsa miqdori, valyutasi va davriyligini kiriting. " +
                         "Misol uchun:\r\n" +
-                        "\r\n• <i>Yo'q</i>\r\n" +
+                        "\r\n• <i>Ish haqi kerak emas</i>\r\n" +
                         "\r\n• <i>3.000.000 so'm - 1 oyga</i>" +
                         "\r\n• <i>100 dollar - 1 ishga</i>",
-                        parseMode: ParseMode.Html, cancellationToken: cancellationToken);
+                        parseMode: ParseMode.Html,
+                        cancellationToken: cancellationToken);
                     return;
 
                 case 5:
                     user.Messages.Add(message.Text!.ToString());
                     var tmsg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "\U0001f9d1‍🎓 Talaba:\r\n Shogirt talaba bo'lsa \"Ha\" tugmasini, aksincha bo'lsa \"Yo'q\" tugmasini bosing.",
+                        text: "<strong>\U0001f9d1‍🎓 Talaba:</strong>\r\nShogirt talaba bo'lsa \"Ha\" tugmasini, aksincha bo'lsa \"Yo'q\" tugmasini bosing.",
                         replyMarkup: await InlineKeyBoards.ForTalaba(),
                         cancellationToken: cancellationToken);
 
@@ -272,7 +278,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "📑 Shogirt haqida: \r\nShogirt haqida qisqacha ma'lumot bering.Misol uchun, qanday bilim va qibiliyatlarga ega ekanligi haqida yozing.",
+                        text: "<strong>📑 Shogirt haqida:</strong> \r\nShogirt haqida qisqacha ma'lumot bering. Misol uchun, qanday bilim va qobiliyatlarga ega ekanligi haqida yozing.",
                         parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
 
@@ -299,7 +305,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     user.Messages.Add(message.Text!.ToString());
                     var msg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "📌 <strong>Qo'shimcha ma'lumotlar: </strong>\r\nQoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing. ",
+                        text: "📌 <strong>Qo'shimcha ma'lumotlar: </strong>\r\nQo'shimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing. ",
                         parseMode: ParseMode.Html,
                         replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                         cancellationToken: cancellationToken);
@@ -331,8 +337,11 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
 #UstozKerak
 
-""<strong><a href='{LINK}'>🌐 EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish</a></strong>",
-                        parseMode: ParseMode.Html);
+<strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish.</a></strong>
+•
+<strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
+                        parseMode: ParseMode.Html,
+                        disableWebPagePreview: true);
                     var res = await client.SendTextMessageAsync(
                          chatId: message.Chat.Id,
                          text: "Barcha ma'lumotlar to'g'rimi?",
@@ -366,7 +375,10 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
             await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "\U0001f9d1🏻‍💼 <strong>REZYUME</strong>\r\n\r\nRezyume joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.\r\n\r\nSo'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa \"✅ To'g'ri\" tugmasini bosing, aksincha bo'lsa \"❌ Noto'g'ri\" tugmasini bosing va so'rovnomani qaytadan to'ldiring.\r\n\r\n1 VARIANT - E'lon tayor bo'lgandan kegin \"To'lov\" qadamiga o'tasiz. To'lov amalga oshirilgach e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.\r\n|\r\n2 VARIANT - E'lon tayor bo'lgandan kegin \"E'lonni joylash\" tugmasi bosilsa e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylashtiriladi.",
+                       text: "\U0001f9d1🏻‍💼 <strong>REZYUME</strong>\r\n\r\nRezyume joylashtirish uchun bir nechta savollarga javob bering." +
+                       " Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.\r\n" +
+                       "\r\nSo'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa \"✅ To'g'ri\" tugmasini bosing, aksincha bo'lsa \"❌ Noto'g'ri\" tugmasini bosing va so'rovnomani qaytadan to'ldiring.\r\n" +
+                       $"\r\nE'lon tayor bo'lgandan kegin \"✅ E'lonni joylash\" tugmasi bosilsa e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @effect_mehnat kanaliga joylashtiriladi.",
                        parseMode: ParseMode.Html,
                        cancellationToken: cancellationToken);
             await client.SendTextMessageAsync(
@@ -389,7 +401,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "🗓 <strong>Tug'ilgan sana: </strong>\r\nIsh qidiruvchining tug'ilgan sanasini kiriting." +
+                        text: "🗓 <strong>Tug'ilgan sana: </strong>\r\nIsh qidiruvchining tug'ilgan sanasini kiriting. " +
                         "Misol uchun:\r\n" +
                         "\r\n• <i>12.06.2000</i>",
                         parseMode: ParseMode.Html, cancellationToken: cancellationToken);
@@ -423,7 +435,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "💰 <strong>Ish haqi:</strong> \r\nIsh qidiruvchiga maqul ish haqini kiriting. Ish haqi miqdori, valyutasi va davriyligini yozing." +
-                        "Misol uchun:\r\n" +
+                        " Misol uchun:\r\n" +
                         "\r\n• 3.000.000 so'm - 1 oyga" +
                         "\r\n• 100 dollar - 1 ishga",
                         parseMode: ParseMode.Html, cancellationToken: cancellationToken);
@@ -444,14 +456,14 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "📑 <strong>Ish qidiruvchi haqida:</strong> \r\nIsh qidiruvchi haqida qisqacha ma'lumot bering. Misol uchun, qanday bilim va qibiliyatlarga ega ekanligi haqida yozing.Misol uchun, qanday bilim va qibiliyatlarga ega ekanligi haqida yozing.",
+                        text: "📑 <strong>Ish qidiruvchi haqida:</strong> \r\nIsh qidiruvchi haqida qisqacha ma'lumot bering. Misol uchun, qanday bilim va qibiliyatlarga ega ekanligi haqida yozing.",
                         parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     return;
                 case 7:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "📞 <strong>Aloqa:</strong> \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting." +
+                        text: "📞 <strong>Aloqa:</strong> \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting. " +
                         "Misol uchun:\r\n" +
                         "\r\n• <i>+998912345678</i>" +
                         "\r\n• <i>example@gmail.com</i>",
@@ -462,7 +474,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "🕰 <strong>Murojaat qilish vaqti:</strong> \r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting." +
+                        text: "🕰 <strong>Murojaat qilish vaqti:</strong> \r\nMurojaat qilish mumkin bo'lgan vaqtlarni kiriting. " +
                         "Misol uchun:\r\n" +
                         "\r\n• <i>9:00 - 18:00</i>",
                         parseMode: ParseMode.Html, cancellationToken: cancellationToken);
@@ -472,7 +484,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     user.Messages.Add(message.Text!.ToString());
                     var msg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> \r\nQoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing. ",
+                        text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> \r\nQo'shimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing. ",
                         parseMode: ParseMode.Html,
                         replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                         cancellationToken: cancellationToken);
@@ -483,8 +495,7 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: @$"<strong>REZYUME JOYLASH </strong>
-🧑🏻‍💼 REZYUME
+                        text: @$"<strong>🧑🏻‍💼 REZYUME</strong>
 
 ⭐️ Ish qidiruvchi: {user.Messages[0]}
 🗓 Tug'ilgan sana: {user.Messages[1]}
@@ -503,8 +514,11 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
 #Rezyume
 
-""<a href='{LINK}'>🌐 EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+<strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish.</a></strong>
+•
+<strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
                         parseMode: ParseMode.Html,
+                        disableWebPagePreview: true,
                         cancellationToken: cancellationToken);
                     var res = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
@@ -538,19 +552,19 @@ So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ T
 
             await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: @"🧑🏻 <strong>SHOGIRT KERAK</strong>
+                       text: @$"🧑🏻 <strong>SHOGIRT KERAK</strong>
 
 Shogirt kerakligi haqida e'lon joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.
 
 So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ To'g'ri"" tugmasini bosing, aksincha bo'lsa ""❌ Noto'g'ri"" tugmasini bosing va so'rovnomani qaytadan to'ldiring.
 
-E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zaxotiyoq ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylashtiriladi.",
+E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha zaxotiyoq ""EFFECT | Katta mehnat bozori"" @effect_mehnat kanaliga joylashtiriladi.",
                        parseMode: ParseMode.Html,
                        cancellationToken: cancellationToken);
 
             await client.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: "\U0001f9d1🏻‍🏫 <strong>Ustoz</strong>: \r\nUstozning Ism Familiyasini yozing.",
+                text: "\U0001f9d1🏻‍🏫 <strong>Ustoz:</strong> \r\nUstozning Ism Familiyasini yozing.",
                 parseMode: ParseMode.Html,
                 replyMarkup: new ReplyKeyboardRemove(),
                 cancellationToken: cancellationToken);
@@ -609,7 +623,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                 await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
-                  text: "📑 <strong>Ustozlik haqida:</strong> \r\nUstozlik haqida qisqacha ma'lumot bering.Misol uchun, nimalar qilinishi haqida yoki ustozlik davri qanday o'tishi haqida yozing.",
+                  text: "📑 <strong>Ustozlik haqida:</strong> \r\nUstozlik haqida qisqacha ma'lumot bering. Misol uchun, nimalar qilinishi haqida yoki ustozlik davri qanday o'tishi haqida yozing.",
                   parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                 return;
 
@@ -654,7 +668,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                 var msg = await client.SendTextMessageAsync(
                   chatId: message.Chat.Id,
-                  text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> \r\nQoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing.",
+                  text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> \r\nQo'shimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing.",
                   parseMode: ParseMode.Html,
                   replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                   cancellationToken: cancellationToken);
@@ -670,9 +684,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                 await client.SendTextMessageAsync(
                     chatId: message.Chat.Id,
-                    text: @$" <strong>SHOGIRT KERAK</strong> 
-
-🧑🏻 SHOGIRT KERAK
+                    text: @$" <strong>🧑🏻 SHOGIRT KERAK</strong> 
 
 🧑🏻‍🏫 Ustoz: {user.Messages[0]}
 📋 Ustozlik yo'nalishi: {user.Messages[1]}
@@ -689,7 +701,9 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
 #ShogirtKerak
 
-""<a href='{LINK}'>🌐 EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
+<strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish.</a></strong>
+•
+<strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
                         parseMode: ParseMode.Html);
 
                 var res = await client.SendTextMessageAsync(
@@ -730,11 +744,13 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
             await client.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: @"Ish joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.
+                text: $@"<strong>🏢 ISH</strong>
+
+Ish joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.
 
 So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ To'g'ri"" tugmasini bosing, aksincha bo'lsa ""❌ Noto'g'ri"" tugmasini bosing va so'rovnomani qaytadan to'ldiring.
 
-E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zaxotiyoq ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylashtiriladi.",
+E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zaxotiyoq ""EFFECT | Katta mehnat bozori"" @effect_mehnat kanaliga joylashtiriladi.",
                 parseMode: ParseMode.Html,
                 cancellationToken: cancellationToken);
 
@@ -772,6 +788,19 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
+                        text: "<strong>⏰ Ish vaqti:</strong> \r\nIsh vaqtini kiriting. " +
+                        "Misol uchun:\r\n" +
+                        "\r\n• <i>9:00 - 18:00</i>",
+                        parseMode: ParseMode.Html,
+                        cancellationToken: cancellationToken);
+                    await _userService.IncIshJoylashCount(message.Chat.Id);
+                    return;
+
+                case 3:
+                    user.Messages.Add(message.Text!.ToString());
+
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
                         text: "💰 <strong>Ish haqi:</strong> \r\nIsh haqi miqdori, valyutasi va davriyligini kiriting. " +
                         "Misol uchun:\r\n" +
                         "\r\n• <i>3.000.000 so'm - 1 oyga</i>" +
@@ -781,7 +810,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                     await _userService.IncIshJoylashCount(message.Chat.Id);
                     return;
 
-                case 3:
+                case 4:
                     user.Messages.Add(message.Text!.ToString());
 
                     await client.SendTextMessageAsync(
@@ -794,25 +823,25 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                     await _userService.IncIshJoylashCount(message.Chat.Id);
                     return;
 
-                case 4:
+                case 5:
                     user.Messages.Add(message.Text!.ToString());
 
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "📑 <strong>Vakansiya haqida</strong>: \r\nVakansiya haqida qisqacha ma'lumot bering." +
+                        text: "📑 <strong>Vakansiya haqida</strong>: \r\nVakansiya haqida qisqacha ma'lumot bering. " +
                         " \r\nMisol uchun, nima qilinishi kerakligi haqida yozing.",
                         parseMode: ParseMode.Html,
                         cancellationToken: cancellationToken);
                     await _userService.IncIshJoylashCount(message.Chat.Id);
                     return;
 
-                case 5:
+                case 6:
                     user.Messages.Add(message.Text!.ToString());
 
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "📞 <strong>Aloqa:</strong> \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting. " +
-                        "Misol uchun:" +
+                        "Misol uchun:\r\n" +
                         "\r\n• <i>+998912345678</i>" +
                         "\r\n• <i>example@gmail.com</i>",
                         parseMode: ParseMode.Html,
@@ -820,7 +849,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                     await _userService.IncIshJoylashCount(message.Chat.Id);
                     return;
 
-                case 6:
+                case 7:
                     user.Messages.Add(message.Text!.ToString());
 
                     await client.SendTextMessageAsync(
@@ -833,12 +862,12 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                     await _userService.IncIshJoylashCount(message.Chat.Id);
                     return;
 
-                case 7:
+                case 8:
                     user.Messages.Add(message.Text!.ToString());
 
                     var msg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> \r\nQoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing.",
+                        text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong> \r\nQo'shimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing.",
                         parseMode: ParseMode.Html,
                         replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                         cancellationToken: cancellationToken);
@@ -848,32 +877,34 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
                     return;
 
-                case 8:
+                case 9:
                     user.Messages.Add(message.Text!.ToString());
 
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: @$" <strong>ISH JOYLASH</strong> 
-
-🏢 <strong>ISH</strong>
+                        text: @$"🏢 <strong>ISH</strong>
 
 ⭐️ Ish beruvchi: {user.Messages[0]} 
 📋 Vakansiya nomi: {user.Messages[1]}
-💰 Ish haqi: {user.Messages[2]}
-🌏 Manzil: {user.Messages[3]}
+⏰ Ish vaqti: {user.Messages[2]}
+💰 Ish haqi: {user.Messages[3]}
+🌏 Manzil: {user.Messages[4]}
 
-📑 Vakansiya haqida: {user.Messages[4]}
+📑 Vakansiya haqida: {user.Messages[5]}
 
-📞 Aloqa: {user.Messages[5]}
+📞 Aloqa: {user.Messages[6]}
 ✉️ Telegram: @{user.Username}
-🕰 Murojaat qilish vaqti: {user.Messages[6]}
+🕰 Murojaat qilish vaqti: {user.Messages[7]}
 
-📌 Qo'shimcha ma'lumotlar: {user.Messages[7]}
+📌 Qo'shimcha ma'lumotlar: {user.Messages[8]}
 
 #Ish
 
-""<a href='{LINK}'>🌐 EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
-                        parseMode: ParseMode.Html);
+<strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish.</a></strong>
+•
+<strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
+                        parseMode: ParseMode.Html,
+                        disableWebPagePreview: true);
                     var res = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "Barcha ma'lumotlar to'g'rimi?",
@@ -951,7 +982,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                 return;
             }
 
-            user.Messages.Add("Qo'shimcha ma'lumot yo'q");
+            user.Messages.Add("Yo'q");
 
             if (user.Status == Status.ShogirtKerak)
             {

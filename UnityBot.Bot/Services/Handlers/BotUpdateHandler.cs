@@ -26,24 +26,32 @@ namespace UnityBot.Bot.Services.Handlers
 
         public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-            var handler = update.Type switch
-            {
-                UpdateType.Message => HandleMessageAsync(botClient, update.Message, cancellationToken),
-                UpdateType.CallbackQuery => HandleCallbackQueryAsync(botClient, update.CallbackQuery, cancellationToken),
-                _ => HandleUnknownMessageAsync(botClient, update, cancellationToken)
-            };
-
             try
             {
-                
-                await ClearMessageMethod(botClient, update.Message, cancellationToken);
-                await ClearUpdateMethod(botClient, update, cancellationToken);
 
-                await handler;
+                var handler = update.Type switch
+                {
+                    UpdateType.Message => HandleMessageAsync(botClient, update.Message, cancellationToken),
+                    UpdateType.CallbackQuery => HandleCallbackQueryAsync(botClient, update.CallbackQuery, cancellationToken),
+                    _ => HandleUnknownMessageAsync(botClient, update, cancellationToken)
+                };
+
+                try
+                {
+                    await ClearMessageMethod(botClient, update.Message, cancellationToken);
+                    await ClearUpdateMethod(botClient, update, cancellationToken);
+
+                    await handler;
+                }
+                catch (Exception ex)
+                {
+                    await handler;
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                await handler;
+                Console.WriteLine("UpdateAysncda xatolik");
+                return;
             }
         }
 
@@ -54,7 +62,9 @@ namespace UnityBot.Bot.Services.Handlers
                 Console.WriteLine("Not impelemented mesage");
             }
             catch
-            { }
+            {
+                Console.WriteLine("HandleUnknownMessageAsync error");
+            }
         }
     }
 }

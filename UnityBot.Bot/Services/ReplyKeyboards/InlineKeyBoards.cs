@@ -33,7 +33,7 @@ namespace UnityBot.Bot.Services.ReplyKeyboards
             List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>{
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("✅ Elonni joylash", "togrri"),
+                InlineKeyboardButton.WithCallbackData("✅ E'lonni joylash", "togrri"),
                 InlineKeyboardButton.WithCallbackData("❌ Bekor qilish", "notogrri"),
             }
         };
