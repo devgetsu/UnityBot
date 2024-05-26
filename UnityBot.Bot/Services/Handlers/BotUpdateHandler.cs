@@ -19,8 +19,6 @@ namespace UnityBot.Bot.Services.Handlers
         }
         public Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Error occured with telegramBot {exception}");
-
             return Task.CompletedTask;
         }
 
@@ -45,7 +43,7 @@ namespace UnityBot.Bot.Services.Handlers
                 }
                 catch (Exception ex)
                 {
-                    await handler;
+                    Console.WriteLine("Handler or CLear ex in UpdateAsync");
                 }
             }
             catch

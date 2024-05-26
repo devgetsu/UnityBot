@@ -17,19 +17,28 @@ namespace UnityBot.Bot.Services
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var bot = await _client.GetMeAsync(stoppingToken);
+            try
+            {
 
-            _logger.LogInformation("Bot starting with this username: {bot.Username}", bot.Username);
+                var bot = await _client.GetMeAsync(stoppingToken);
 
-            Console.WriteLine($"Bot starting with this username: {bot.Username}");
+                _logger.LogInformation("Bot starting with this username: {bot.Username}", bot.Username);
 
-            _client.StartReceiving(
-                _handler.HandleUpdateAsync,
-                _handler.HandlePollingErrorAsync,
-                new ReceiverOptions()
-                {
-                    ThrowPendingUpdates = true
-                }, stoppingToken);
+                Console.WriteLine($"Bot starting with this username: {bot.Username}");
+
+                _client.StartReceiving(
+                    _handler.HandleUpdateAsync,
+                    _handler.HandlePollingErrorAsync,
+                    new ReceiverOptions()
+                    {
+                        ThrowPendingUpdates = true
+                    }, stoppingToken);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ex in Bcg Service");
+            }
         }
+
     }
 }

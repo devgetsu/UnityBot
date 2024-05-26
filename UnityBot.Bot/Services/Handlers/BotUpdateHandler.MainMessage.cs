@@ -268,6 +268,7 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                     var tmsg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "<strong>\U0001f9d1‍🎓 Talaba:</strong>\r\nShogirt talaba bo'lsa \"Ha\" tugmasini, aksincha bo'lsa \"Yo'q\" tugmasini bosing.",
+                        parseMode: ParseMode.Html,
                         replyMarkup: await InlineKeyBoards.ForTalaba(),
                         cancellationToken: cancellationToken);
 
@@ -704,7 +705,8 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
 <strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish.</a></strong>
 •
 <strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
-                        parseMode: ParseMode.Html);
+                        parseMode: ParseMode.Html,
+                        disableWebPagePreview:true);
 
                 var res = await client.SendTextMessageAsync(
                     chatId: message.Chat.Id,

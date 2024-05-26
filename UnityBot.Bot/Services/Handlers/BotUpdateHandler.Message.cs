@@ -101,6 +101,7 @@ public partial class BotUpdateHandler
         }
         catch
         {
+            Console.WriteLine("Err StickerMessage asyc");
             return;
         }
     }
@@ -252,9 +253,8 @@ public partial class BotUpdateHandler
             );
 
         var user = await _userService.GetUser(message.Chat.Id);
-        if (user is not null)
+        if (user != null)
         {
-
             user.LastMessages = msg.MessageId;
         }
 
