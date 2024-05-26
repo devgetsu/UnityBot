@@ -334,7 +334,8 @@ Bizning xizmatimizdan foydalanganingiz uchun hursandmiz, ishlaringizga rivoj til
         }
         await client.SendTextMessageAsync(
            chatId: message.Chat.Id,
-           text: "<strong>Yo'nalishlar:\r\nYangi e'lon berish uchun yo'nalishni tanlang 👇</strong>\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.",
+           text: "<strong>Yo'nalishlar:</strong>\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun." +
+                "\r\n\r\n<strong>Yangi e'lon berish uchun yo'nalishni tanlang 👇</strong>", 
            replyMarkup: await InlineKeyBoards.ForMainState(),
            parseMode: ParseMode.Html,
            cancellationToken: cancellationToken);
@@ -361,7 +362,8 @@ Bizning xizmatimizdan foydalanganingiz uchun hursandmiz, ishlaringizga rivoj til
             user.LastMessages = msg.MessageId;
             await client.SendTextMessageAsync(
                 chatId: message.Chat.Id,
-                text: "<strong>Yo'nalishlar:\r\nYangi e'lon berish uchun yo'nalishni tanlang 👇</strong>\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.",
+                text: "<strong>Yo'nalishlar:</strong>\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun." +
+                "\r\n\r\n<strong>Yangi e'lon berish uchun yo'nalishni tanlang 👇</strong>",
                 replyMarkup: await InlineKeyBoards.ForMainState(),
                 parseMode: ParseMode.Html,
                 cancellationToken: cancellationToken);
