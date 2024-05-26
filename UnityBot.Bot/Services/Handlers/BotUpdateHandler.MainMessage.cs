@@ -68,7 +68,7 @@ namespace UnityBot.Bot.Services.Handlers
 
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "💰 <strong>Hisob-kitob:</strong> \r\nHisob-kitob alohida muzokara qilinsa \"Alohida muzokara qilinadi\" deb yozing. Hisob-kitob e'lon qilinsa ma'lumotlarini kiriting.Misol uchun:\r\n\r\n" +
+                       text: "💰 <strong>Hisob-kitob:</strong> \r\nHisob-kitob alohida muzokara qilinsa \"Alohida muzokara qilinadi\" deb yozing.\r\nHisob-kitob e'lon qilinsa ma'lumotlarini kiriting. Misol uchun:\r\n\r\n" +
                        "• <i>Alohida muzokara qilinadi</i>\r\n" +
                        "\r\n• <i>50/50 ishlanadi</i>" +
                        "\r\n• <i>Har sotuvdan 20%</i>",
@@ -100,7 +100,7 @@ namespace UnityBot.Bot.Services.Handlers
 
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: "📞 <strong>Aloqa:</strong> \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting.Misol uchun:\r\n" +
+                       text: "📞 <strong>Aloqa:</strong> \r\nBog'lanish uchun telefon raqam yoki elektron pochta manzilini kiriting. Misol uchun:\r\n" +
                        "\r\n• <i>+998912345678</i>" +
                        "\r\n• <i>example@gmail.com</i>",
                        parseMode: ParseMode.Html,
@@ -123,7 +123,7 @@ namespace UnityBot.Bot.Services.Handlers
                     var msg = await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
                        text: "📌 <strong>Qo'shimcha ma'lumotlar:</strong>\r\n" +
-                       "Qoshimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing.",
+                       "Qo'shimcha ma'lumotlarni kiriting. Agarda ular yo'q bo'lsa \"Qo'shimcha ma'lumotlar yo'q\" tugmasini bosing.",
                        parseMode: ParseMode.Html,
                        replyMarkup: await InlineKeyBoards.AdditionalInfo(),
                        cancellationToken: cancellationToken);
@@ -136,9 +136,8 @@ namespace UnityBot.Bot.Services.Handlers
 
                     await client.SendTextMessageAsync(
                        chatId: message.Chat.Id,
-                       text: @$" <strong>SHERIK KERAK</strong> 
+                       text: @$" <strong>🎗 SHERIK KERAK</strong> 
 
-🎗 SHERIK KERAK
 
 ⭐️ Sherik: {user.Messages[0]}
 📋 Sheriklik yo'nalishi: {user.Messages[1]}
