@@ -1070,7 +1070,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
             }
         }
 
-        private async Task NoAdditionalInfo(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
+        private async Task NoAdditionalInfo(ITelegramBotClient client, Message message, CancellationToken cancellationToken)        
         {
             var user = await _userService.GetUser(message.Chat.Id);
             if (user == null)
@@ -1078,6 +1078,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
                 Console.WriteLine("Undefined User");
                 return;
             }
+
 
             user.Messages.Add("Yo'q");
 
