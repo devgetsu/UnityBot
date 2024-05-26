@@ -28,7 +28,7 @@ namespace UnityBot.Bot.Services.UserServices
             }
         }
 
-        public async Task   CreateUser(UserModel user)
+        public async Task  CreateUser(UserModel user)
         {
             _users.Add(user);
         }

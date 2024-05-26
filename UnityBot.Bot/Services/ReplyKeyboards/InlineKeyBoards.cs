@@ -6,22 +6,23 @@ namespace UnityBot.Bot.Services.ReplyKeyboards
     {
         public static Task<InlineKeyboardMarkup> ForMainState()
         {
-            List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>{
-            new List<InlineKeyboardButton>
+            List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>
             {
-                InlineKeyboardButton.WithCallbackData("🏢 Ish joylash", "ish_joylash"),
-                InlineKeyboardButton.WithCallbackData("🧑🏻‍💼 Rezyume joylash", "rezyume_joylash"),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData("🧑🏻 Shogirt kerak", "shogirt_kerak"),
-                InlineKeyboardButton.WithCallbackData("🧑🏻‍🏫 Ustoz kerak", "ustoz_kerak"),
-            },
-            new List<InlineKeyboardButton>
-            {
-                InlineKeyboardButton.WithCallbackData("🎗 Sherik kerak", "sherik_kerak"),
-            },
-        };
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData("🏢 Ish joylash", "ish_joylash"),
+                    InlineKeyboardButton.WithCallbackData("🧑🏻‍💼 Rezyume joylash", "rezyume_joylash"),
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData("🧑🏻 Shogirt kerak", "shogirt_kerak"),
+                    InlineKeyboardButton.WithCallbackData("🧑🏻‍🏫 Ustoz kerak", "ustoz_kerak"),
+                },
+                new List<InlineKeyboardButton>
+                {
+                    InlineKeyboardButton.WithCallbackData("🎗 Sherik kerak", "sherik_kerak"),
+                },
+            };
 
             InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboardButtons);
             return Task.FromResult(inlineKeyboardMarkup);
@@ -36,6 +37,22 @@ namespace UnityBot.Bot.Services.ReplyKeyboards
                 InlineKeyboardButton.WithCallbackData("❌ Bekor qilish", "notogrri"),
             }
         };
+
+
+            InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboardButtons);
+            return Task.FromResult(inlineKeyboardMarkup);
+        }
+
+        public static Task<InlineKeyboardMarkup> ForHaYuqButton()
+        {
+            List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>{
+            new List<InlineKeyboardButton>
+            {
+                InlineKeyboardButton.WithCallbackData("✅ Ha", "hatextcorrect"),
+                InlineKeyboardButton.WithCallbackData("❌ Yo'q", "yoqtextincorrect"),
+            }
+        };
+
 
             InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboardButtons);
             return Task.FromResult(inlineKeyboardMarkup);

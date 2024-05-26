@@ -1,4 +1,5 @@
-﻿using Telegram.Bot;
+﻿using System.Threading;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using UnityBot.Bot.Models.Entities;
@@ -34,7 +35,6 @@ public partial class BotUpdateHandler
         }
 
     }
-
     private async Task HandleNotImplementedMessageAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
     {
         await client.SendTextMessageAsync(
@@ -107,7 +107,6 @@ public partial class BotUpdateHandler
             await HandleRandomTextAsync(client, message, cancellationToken);
         };
     }
-
     public async Task HandleCallbackQueryAsync(ITelegramBotClient client, CallbackQuery callbackQuery, CancellationToken cancellationToken)
     {
         var myMessage = callbackQuery.Data switch
@@ -124,6 +123,8 @@ public partial class BotUpdateHandler
             "noinfo" => NoAdditionalInfo(client, callbackQuery.Message, cancellationToken),
             "talabaekan" => TalabaEkan(client, callbackQuery.Message, cancellationToken),
             "talabaemas" => TalabaEmas(client, callbackQuery.Message, cancellationToken),
+            "hatextcorrect" => HandleTextCorrectAsync(client, callbackQuery.Message, cancellationToken),
+            "yoqtextincorrect" => NotogriElonJoylashAsync(client, callbackQuery.Message, cancellationToken),
         };
 
         try
@@ -185,13 +186,34 @@ public partial class BotUpdateHandler
     }
     private async Task HandleClearAllReplyKeysAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
     {
-       
+
         await client.EditMessageReplyMarkupAsync(
             chatId: message.Chat.Id,
             messageId: user.LastMessages,
             replyMarkup: null,
             cancellationToken: cancellationToken);
         user.LastMessages = 0;
+    }
+    #endregion
+
+    #region Checker
+
+    public async Task HandleTextCorrectAsync(ITelegramBotClient _client, Message message, CancellationToken cancellation)
+    {
+        var msg = await _client.SendTextMessageAsync(
+            chatId: message.Chat.Id,
+            text: "E'lonni joylash narxi: \"BEPUL 🕑\"\r\n\r\nℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.\r\n\r\nTayyor e'lonni \"EFFECT | Katta mehnat bozori\" @palonchi kanaliga joylash uchun \"E'lonni joylash\" tugmasini bosing, bekor qilish uchun \"Bekor qilish\" tugmasini bosing 👇",
+            replyMarkup: await InlineKeyBoards.ForConfirmation(),
+            cancellationToken: cancellation
+            );
+
+        var user = await _userService.GetUser(message.Chat.Id);
+        if (user is not null)
+        {
+
+            user.LastMessages = msg.MessageId;
+        }
+
     }
     #endregion
 
@@ -244,11 +266,9 @@ public partial class BotUpdateHandler
     {
         var msg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: @"E'lonni joylash narxi: ""BEPUL 🕑""
+                        text: @"✅ Sizning e'loningiz ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylashtirildi.
 
-ℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.
-
-Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun ""E'lonni joylash"" tugmasini bosing, bekor qilish uchun ""Bekor qilish"" tugmasini bosing 👇",
+Bizning xizmatimizdan foydalanganingiz uchun hursandmiz, ishlaringizga rivoj tilaymiz ⭐️",
                         cancellationToken: cancellationToken);
 
         var user = await _userService.GetUser(message.Chat.Id);
@@ -256,8 +276,8 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
         {
             await SendToModeratorAsync(client, message, cancellationToken);
 
-            user.LastMessages = msg.MessageId;
             user.Messages.Clear();
+
 
             await _userService.NolRuzumeCount(message.Chat.Id);
             await _userService.NolIshJoylashCount(message.Chat.Id);
@@ -267,6 +287,12 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
 
             await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
         }
+        await client.SendTextMessageAsync(
+           chatId: message.Chat.Id,
+           text: "<strong>Yo'nalishlar:</strong>\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.",
+           replyMarkup: await InlineKeyBoards.ForMainState(),
+           parseMode: ParseMode.Html,
+           cancellationToken: cancellationToken);
         return;
     }
     private async Task NotogriElonJoylashAsync(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
@@ -281,9 +307,19 @@ Tayyor e'lonni ""EFFECT | Katta mehnat bozori"" @palonchi kanaliga joylash uchun
         {
             user.Messages.Clear();
             await _userService.NolRuzumeCount(message.Chat.Id);
+            await _userService.NolIshJoylashCount(message.Chat.Id);
+            await _userService.NolShogirtKerakCount(message.Chat.Id);
+            await _userService.NolSherikKerakCount(message.Chat.Id);
+            await _userService.NolUstozKerakCount(message.Chat.Id);
             await _userService.ChangeStatus(message.Chat.Id, Status.MainPage);
 
             user.LastMessages = msg.MessageId;
+            await client.SendTextMessageAsync(
+                chatId: message.Chat.Id,
+                text: "<strong>Yo'nalishlar:</strong>\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.",
+                replyMarkup: await InlineKeyBoards.ForMainState(),
+                parseMode: ParseMode.Html,
+                cancellationToken: cancellationToken);
         }
         return;
     }
@@ -372,7 +408,7 @@ text: @$"
 📑 Shogirt haqida: {user.Messages[7]}
 
 📞 Aloqa: {user.Messages[8]}
-✉️ Telegram: {user.Username}
+✉️ Telegram: @{user.Username}
 🕰 Murojaat qilish vaqti: {user.Messages[9]}
 
 📌 Qo'shimcha ma'lumotlar: {user.Messages[10]}
@@ -436,7 +472,7 @@ cancellationToken: cancellationToken);
 
 🌐 ""<a href='{LINK}'>EFFECT | Katta mehnat bozori</a>"" kanaliga obuna bo'lish",
                 parseMode: ParseMode.Html,
-               // replyMarkup: await InlineKeyBoards.ForSendToChanel(),
+                // replyMarkup: await InlineKeyBoards.ForSendToChanel(),
                 cancellationToken: cancellationToken);
             return;
         }
