@@ -318,7 +318,6 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                         cancellationToken: cancellationToken);
                     await _userService.IncUstozKerak(message.Chat.Id);
                     user.LastMessages = msg.MessageId;
-
                     return;
                 case 10:
                     user.Messages.Add(message.Text!.ToString());
@@ -495,14 +494,12 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                     return;
 
                 case 5:
-                    user.Messages.Add(message.Text!.ToString());
                     var tmsg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "\U0001f9d1‍🎓 <strong>Talaba:</strong> \r\nIsh qidiruvchi talaba bo'lsa \"Ha\" tugmasini, aksincha bo'lsa \"Yo'q\" tugmasini bosing.",
                         parseMode: ParseMode.Html,
                         replyMarkup: await InlineKeyBoards.ForTalaba(),
                         cancellationToken: cancellationToken);
-                    await _userService.IncRezumeCount(message.Chat.Id);
                     user.LastMessages = tmsg.MessageId;
                     return;
                 case 6:
@@ -549,18 +546,18 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                     return;
                 case 10:
                     user.Messages.Add(message.Text!.ToString());
-                    if (user.Messages[6] == "Ha" || user.Messages[6] == "Yo'q")
+                    if (user.Messages[7] == "Ha" || user.Messages[7] == "Yo'q")
                     {
 
                         await client.SendTextMessageAsync(
                             chatId: message.Chat.Id,
                             text: @$"<strong>🧑🏻‍💼 REZYUME</strong>
 
-⭐️ Ish qidiruvchi: {user.Messages[0]}
-🗓 Tug'ilgan sana: {user.Messages[1]}
-💠 Mutaxassislik: {user.Messages[2]}
-🌏 Manzil: {user.Messages[3]}
-💰 Ish haqi: {user.Messages[4]}
+⭐️ Ish qidiruvchi: {user.Messages[1]}
+🗓 Tug'ilgan sana: {user.Messages[2]}
+💠 Mutaxassislik: {user.Messages[3]}
+🌏 Manzil: {user.Messages[4]}
+💰 Ish haqi: {user.Messages[5]}
 
 🧑‍🎓 Talaba: {user.Messages[6]}
 📑 Ish qidiruvchi haqida: {user.Messages[7]}
@@ -579,6 +576,7 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                             parseMode: ParseMode.Html,
                             disableWebPagePreview: true,
                             cancellationToken: cancellationToken);
+
                         var res = await client.SendTextMessageAsync(
                             chatId: message.Chat.Id,
                             text: "Barcha ma'lumotlar to'g'rimi?",
@@ -597,20 +595,20 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                             chatId: message.Chat.Id,
                             text: @$"<strong>🧑🏻‍💼 REZYUME</strong>
 
-⭐️ Ish qidiruvchi: {user.Messages[0]}
-🗓 Tug'ilgan sana: {user.Messages[1]}
-💠 Mutaxassislik: {user.Messages[2]}
-🌏 Manzil: {user.Messages[3]}
-💰 Ish haqi: {user.Messages[4]}
+⭐️ Ish qidiruvchi: {user.Messages[1]}
+🗓 Tug'ilgan sana: {user.Messages[2]}
+💠 Mutaxassislik: {user.Messages[3]}
+🌏 Manzil: {user.Messages[4]}
+💰 Ish haqi: {user.Messages[5]}
 
-🧑‍🎓 Talaba: {user.Messages[5]}
-📑 Ish qidiruvchi haqida: {user.Messages[6]}
+🧑‍🎓 Talaba: {user.Messages[6]}
+📑 Ish qidiruvchi haqida: {user.Messages[7]}
 
-📞 Aloqa: {user.Messages[7]}
+📞 Aloqa: {user.Messages[8]}
 ✉️ Telegram: @{user.Username}
-🕰 Murojaat qilish vaqti: {user.Messages[8]}
+🕰 Murojaat qilish vaqti: {user.Messages[9]}
 
-📌 Qo'shimcha ma'lumotlar: {user.Messages[9]}
+📌 Qo'shimcha ma'lumotlar: {user.Messages[10]}
 
 #Rezyume
 
@@ -669,9 +667,15 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                 parseMode: ParseMode.Html,
                 replyMarkup: new ReplyKeyboardRemove(),
                 cancellationToken: cancellationToken);
+            await _userService.IncShogirtKerakCount(message.Chat.Id);
         }
         private async Task HandleShogirtKerakBotAsync(ITelegramBotClient client, Message message, UserModel user, CancellationToken cancellationToken)
         {
+            if (user.ShogirtKerakCount == 0)
+            {
+                user.Messages.Add(message.Text!.ToString());
+                await _userService.IncShogirtKerakCount(message.Chat.Id);
+            }
             if (user.ShogirtKerakCount == 1)
             {
                 user.Messages.Add(message.Text!.ToString());
@@ -689,7 +693,7 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                 return;
             }
 
-            if (user.ShogirtKerakCount == 2)
+            else if (user.ShogirtKerakCount == 2)
             {
                 user.Messages.Add(message.Text!.ToString());
                 await _userService.IncShogirtKerakCount(message.Chat.Id);
@@ -816,7 +820,6 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                     cancellationToken: cancellationToken);
 
                 user.LastMessages = res.MessageId;
-
 
                 return;
             }
@@ -1070,7 +1073,7 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
             }
         }
 
-        private async Task NoAdditionalInfo(ITelegramBotClient client, Message message, CancellationToken cancellationToken)        
+        private async Task NoAdditionalInfo(ITelegramBotClient client, Message message, CancellationToken cancellationToken)
         {
             var user = await _userService.GetUser(message.Chat.Id);
             if (user == null)
@@ -1084,28 +1087,25 @@ E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zax
 
             if (user.Status == Status.ShogirtKerak)
             {
-                await _userService.IncShogirtKerakCount(message.Chat.Id);
                 await HandleShogirtKerakBotAsync(client, message, user, cancellationToken);
             }
-
             else if (user.Status == Status.SherikKerak)
+            {
                 await HandleSherikKerakBotAsync(client, message, user, cancellationToken);
-
+            }
             else if (user.Status == Status.RezumeJoylash)
             {
-                await _userService.IncRezumeCount(message.Chat.Id);
+
                 await HandleRezumeJoylashBotAsync(client, message, user, cancellationToken);
             }
-
             else if (user.Status == Status.IshJoylash)
+            {
                 await HandleIshJoylashBotAsync(client, message, user, cancellationToken);
-
+            }
             else if (user.Status == Status.UstozKerak)
             {
-                await _userService.IncUstozKerak(message.Chat.Id);
                 await HandleUstozKerakBotAsync(client, message, user, cancellationToken);
             }
-
             return;
         }
     }
