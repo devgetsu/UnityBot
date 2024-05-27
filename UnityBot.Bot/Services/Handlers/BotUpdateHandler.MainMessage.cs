@@ -446,7 +446,6 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                     await _userService.IncRezumeCount(message.Chat.Id);
                     goto case 1;
                 case 1:
-                    user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "🗓 <strong>Tug'ilgan sana: </strong>\r\nIsh qidiruvchining tug'ilgan sanasini kiriting. " +
@@ -494,23 +493,32 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                     return;
 
                 case 5:
+                    user.Messages.Add(message.Text!.ToString());
                     var tmsg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "\U0001f9d1‍🎓 <strong>Talaba:</strong> \r\nIsh qidiruvchi talaba bo'lsa \"Ha\" tugmasini, aksincha bo'lsa \"Yo'q\" tugmasini bosing.",
                         parseMode: ParseMode.Html,
                         replyMarkup: await InlineKeyBoards.ForTalaba(),
                         cancellationToken: cancellationToken);
-                    user.LastMessages = tmsg.MessageId;
+                    await _userService.IncRezumeCount(message.Chat.Id);
                     return;
                 case 6:
-                    user.Messages.Add(message.Text!.ToString());
+                    var wmsg = await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "\U0001f9d1‍🎓 <strong>Talaba:</strong> \r\nIsh qidiruvchi talaba bo'lsa \"Ha\" tugmasini, aksincha bo'lsa \"Yo'q\" tugmasini bosing.",
+                        parseMode: ParseMode.Html,
+                        replyMarkup: await InlineKeyBoards.ForTalaba(),
+                        cancellationToken: cancellationToken);
+                    user.LastMessages = wmsg.MessageId;
+                    return;
+                case 7:
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "📑 <strong>Ish qidiruvchi haqida:</strong> \r\nIsh qidiruvchi haqida qisqacha ma'lumot bering. Misol uchun, qanday bilim va qibiliyatlarga ega ekanligi haqida yozing.",
                         parseMode: ParseMode.Html, cancellationToken: cancellationToken);
                     await _userService.IncRezumeCount(message.Chat.Id);
                     return;
-                case 7:
+                case 8:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
@@ -522,7 +530,7 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                     await _userService.IncRezumeCount(message.Chat.Id);
                     return;
 
-                case 8:
+                case 9:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
@@ -533,7 +541,7 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                     await _userService.IncRezumeCount(message.Chat.Id);
                     return;
 
-                case 9:
+                case 10:
                     user.Messages.Add(message.Text!.ToString());
                     var msg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
@@ -544,92 +552,50 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                     await _userService.IncRezumeCount(message.Chat.Id);
                     user.LastMessages = msg.MessageId;
                     return;
-                case 10:
+                case 11:
                     user.Messages.Add(message.Text!.ToString());
-                    if (user.Messages[7] == "Ha" || user.Messages[7] == "Yo'q")
-                    {
 
-                        await client.SendTextMessageAsync(
-                            chatId: message.Chat.Id,
-                            text: @$"<strong>🧑🏻‍💼 REZYUME</strong>
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: @$"<strong>🧑🏻‍💼 REZYUME</strong>
 
-⭐️ Ish qidiruvchi: {user.Messages[1]}
-🗓 Tug'ilgan sana: {user.Messages[2]}
-💠 Mutaxassislik: {user.Messages[3]}
-🌏 Manzil: {user.Messages[4]}
-💰 Ish haqi: {user.Messages[5]}
+⭐️ Ish qidiruvchi: {user.Messages[0]}
+🗓 Tug'ilgan sana: {user.Messages[1]}
+💠 Mutaxassislik: {user.Messages[2]}
+🌏 Manzil: {user.Messages[3]}
+💰 Ish haqi: {user.Messages[4]}
 
-🧑‍🎓 Talaba: {user.Messages[6]}
-📑 Ish qidiruvchi haqida: {user.Messages[7]}
+🧑‍🎓 Talaba: {user.Messages[5]}
+📑 Ish qidiruvchi haqida: {user.Messages[6]}
 
-📞 Aloqa: {user.Messages[8]}
+📞 Aloqa: {user.Messages[7]}
 ✉️ Telegram: @{user.Username}
-🕰 Murojaat qilish vaqti: {user.Messages[9]}
+🕰 Murojaat qilish vaqti: {user.Messages[8]}
 
-📌 Qo'shimcha ma'lumotlar: {user.Messages[10]}
+📌 Qo'shimcha ma'lumotlar: {user.Messages[9]}
 
 #Rezyume
 
 <strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish</a></strong>
 •
 <strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
-                            parseMode: ParseMode.Html,
-                            disableWebPagePreview: true,
-                            cancellationToken: cancellationToken);
+                        parseMode: ParseMode.Html,
+                        disableWebPagePreview: true,
+                        cancellationToken: cancellationToken);
 
-                        var res = await client.SendTextMessageAsync(
-                            chatId: message.Chat.Id,
-                            text: "Barcha ma'lumotlar to'g'rimi?",
-                            replyMarkup: await InlineKeyBoards.ForHaYuqButton(),
-                            parseMode: ParseMode.Html,
-                            cancellationToken: cancellationToken);
+                    var res = await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "Barcha ma'lumotlar to'g'rimi?",
+                        replyMarkup: await InlineKeyBoards.ForHaYuqButton(),
+                        parseMode: ParseMode.Html,
+                        cancellationToken: cancellationToken);
 
-                        user.LastMessages = res.MessageId;
+                    user.LastMessages = res.MessageId;
 
-                        return;
-                    }
-                    else
-                    {
-
-                        await client.SendTextMessageAsync(
-                            chatId: message.Chat.Id,
-                            text: @$"<strong>🧑🏻‍💼 REZYUME</strong>
-
-⭐️ Ish qidiruvchi: {user.Messages[1]}
-🗓 Tug'ilgan sana: {user.Messages[2]}
-💠 Mutaxassislik: {user.Messages[3]}
-🌏 Manzil: {user.Messages[4]}
-💰 Ish haqi: {user.Messages[5]}
-
-🧑‍🎓 Talaba: {user.Messages[6]}
-📑 Ish qidiruvchi haqida: {user.Messages[7]}
-
-📞 Aloqa: {user.Messages[8]}
-✉️ Telegram: @{user.Username}
-🕰 Murojaat qilish vaqti: {user.Messages[9]}
-
-📌 Qo'shimcha ma'lumotlar: {user.Messages[10]}
-
-#Rezyume
-
-<strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish</a></strong>
-•
-<strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
-                            parseMode: ParseMode.Html,
-                            disableWebPagePreview: true,
-                            cancellationToken: cancellationToken);
-                        var res = await client.SendTextMessageAsync(
-                            chatId: message.Chat.Id,
-                            text: "Barcha ma'lumotlar to'g'rimi?",
-                            replyMarkup: await InlineKeyBoards.ForHaYuqButton(),
-                            parseMode: ParseMode.Html,
-                            cancellationToken: cancellationToken);
-
-                        user.LastMessages = res.MessageId;
-
-                        return;
-                    }
+                    return;
             }
+
+
         }
         #endregion
 
