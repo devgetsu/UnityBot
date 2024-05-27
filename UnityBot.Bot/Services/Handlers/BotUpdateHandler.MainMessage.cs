@@ -220,7 +220,6 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                     goto case 1;
 
                 case 1:
-                    user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "🗓 <strong>Tug'ilgan sana:</strong>\r\nShogirtning tug'ilgan sanasini kiriting. Misol uchun:\r\n" +
@@ -264,7 +263,6 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                         cancellationToken: cancellationToken);
                     await _userService.IncUstozKerak(message.Chat.Id);
                     return;
-
                 case 5:
                     user.Messages.Add(message.Text!.ToString());
                     var tmsg = await client.SendTextMessageAsync(
@@ -274,12 +272,20 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                         replyMarkup: await InlineKeyBoards.ForTalaba(),
                         cancellationToken: cancellationToken);
                     await _userService.IncUstozKerak(message.Chat.Id);
-
                     user.LastMessages = tmsg.MessageId;
                     return;
-
                 case 6:
-                    user.Messages.Add(message.Text!.ToString());
+                    var wmsg = await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: "<strong>\U0001f9d1‍🎓 Talaba:</strong>\r\nShogirt talaba bo'lsa \"Ha\" tugmasini, aksincha bo'lsa \"Yo'q\" tugmasini bosing.",
+                        parseMode: ParseMode.Html,
+                        replyMarkup: await InlineKeyBoards.ForTalaba(),
+                        cancellationToken: cancellationToken);
+
+                    user.LastMessages = wmsg.MessageId;
+                    return;
+
+                case 7:
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
                         text: "<strong>📑 Shogirt haqida:</strong> \r\nShogirt haqida qisqacha ma'lumot bering. Misol uchun, qanday bilim va qobiliyatlarga ega ekanligi haqida yozing.",
@@ -287,7 +293,7 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                     await _userService.IncUstozKerak(message.Chat.Id);
                     return;
 
-                case 7:
+                case 8:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
@@ -298,7 +304,7 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                     await _userService.IncUstozKerak(message.Chat.Id);
                     return;
 
-                case 8:
+                case 9:
                     user.Messages.Add(message.Text!.ToString());
                     await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
@@ -308,7 +314,7 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                     await _userService.IncUstozKerak(message.Chat.Id);
                     return;
 
-                case 9:
+                case 10:
                     user.Messages.Add(message.Text!.ToString());
                     var msg = await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
@@ -319,54 +325,11 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                     await _userService.IncUstozKerak(message.Chat.Id);
                     user.LastMessages = msg.MessageId;
                     return;
-                case 10:
+                case 11:
                     user.Messages.Add(message.Text!.ToString());
-                    if (user.Messages[6] == "Ha" || user.Messages[6] == "Yo'q")
-                    {
-                        await client.SendTextMessageAsync(
-                            chatId: message.Chat.Id,
-                            text: @$"
-🧑🏻‍🏫 <strong>USTOZ KERAK</strong>
-
-🧑🏻 Shogirt: {user.Messages[0]}
-🗓 Tug'ilgan sana: {user.Messages[1]}
-💠 Shogirtlik yo'nalishi: {user.Messages[2]}
-🌏 Manzil: {user.Messages[3]}
-💰 Ish haqi: {user.Messages[4]}
-
-🧑‍🎓 Talaba: {user.Messages[6]}
-📑 Shogirt haqida: {user.Messages[7]}
-
-📞 Aloqa: {user.Messages[8]}
-✉️ Telegram: @{user.Username}
-🕰 Murojaat qilish vaqti: {user.Messages[9]}
-
-📌 Qo'shimcha ma'lumotlar: {user.Messages[10]}
-
-#UstozKerak
-
-<strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish</a></strong>
-•
-<strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
-                            parseMode: ParseMode.Html,
-                            disableWebPagePreview: true);
-                        var res = await client.SendTextMessageAsync(
-                             chatId: message.Chat.Id,
-                             text: "Barcha ma'lumotlar to'g'rimi?",
-                             replyMarkup: await InlineKeyBoards.ForHaYuqButton(),
-                             parseMode: ParseMode.Html,
-                             cancellationToken: cancellationToken);
-
-                        user.LastMessages = res.MessageId;
-
-
-                        return;
-                    }
-                    else
-                    {
-                        await client.SendTextMessageAsync(
-    chatId: message.Chat.Id,
-    text: @$"
+                    await client.SendTextMessageAsync(
+                        chatId: message.Chat.Id,
+                        text: @$"
 🧑🏻‍🏫 <strong>USTOZ KERAK</strong>
 
 🧑🏻 Shogirt: {user.Messages[0]}
@@ -389,18 +352,18 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
 <strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish</a></strong>
 •
 <strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
-    parseMode: ParseMode.Html,
-    disableWebPagePreview: true);
-                        var res = await client.SendTextMessageAsync(
-                             chatId: message.Chat.Id,
-                             text: "Barcha ma'lumotlar to'g'rimi?",
-                             replyMarkup: await InlineKeyBoards.ForHaYuqButton(),
-                             parseMode: ParseMode.Html,
-                             cancellationToken: cancellationToken);
+                        parseMode: ParseMode.Html,
+                        disableWebPagePreview: true);
+                    var res = await client.SendTextMessageAsync(
+                         chatId: message.Chat.Id,
+                         text: "Barcha ma'lumotlar to'g'rimi?",
+                         replyMarkup: await InlineKeyBoards.ForHaYuqButton(),
+                         parseMode: ParseMode.Html,
+                         cancellationToken: cancellationToken);
 
-                        user.LastMessages = res.MessageId;
-                        return;
-                    }
+                    user.LastMessages = res.MessageId;
+
+                    return;
             }
         }
         #endregion
