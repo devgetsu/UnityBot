@@ -380,45 +380,9 @@ Bizning xizmatimizdan foydalanganingiz uchun hursandmiz, ishlaringizga rivoj til
 
         if (user.Status == Status.RezumeJoylash)
         {
-
-            if (user.Messages[6] == "Ha" || user.Messages[6] == "Yo'q")
-            {
-
-                await client.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: @$"<strong>🧑🏻‍💼 REZYUME</strong>
-
-⭐️ Ish qidiruvchi: {user.Messages[0]}
-🗓 Tug'ilgan sana: {user.Messages[1]}
-💠 Mutaxassislik: {user.Messages[2]}
-🌏 Manzil: {user.Messages[3]}
-💰 Ish haqi: {user.Messages[4]}
-
-🧑‍🎓 Talaba: {user.Messages[6]}
-📑 Ish qidiruvchi haqida: {user.Messages[7]}
-
-📞 Aloqa: {user.Messages[8]}
-✉️ Telegram: @{user.Username}
-🕰 Murojaat qilish vaqti: {user.Messages[9]}
-
-📌 Qo'shimcha ma'lumotlar: {user.Messages[10]}
-
-#Rezyume
-
-<strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish</a></strong>
-•
-<strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
-                    parseMode: ParseMode.Html,
-                    disableWebPagePreview: true,
-                    cancellationToken: cancellationToken);
-                return;
-            }
-            else
-            {
-
-                await client.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: @$"<strong>🧑🏻‍💼 REZYUME</strong>
+            await client.SendTextMessageAsync(
+                chatId: MainChanel,
+                text: @$"<strong>🧑🏻‍💼 REZYUME</strong>
 
 ⭐️ Ish qidiruvchi: {user.Messages[0]}
 🗓 Tug'ilgan sana: {user.Messages[1]}
@@ -440,10 +404,9 @@ Bizning xizmatimizdan foydalanganingiz uchun hursandmiz, ishlaringizga rivoj til
 <strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish</a></strong>
 •
 <strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
-                    parseMode: ParseMode.Html,
-                    disableWebPagePreview: true,
-                    cancellationToken: cancellationToken);
-            }
+                parseMode: ParseMode.Html,
+                disableWebPagePreview: true,
+                cancellationToken: cancellationToken);
             return;
         }
         else if (user.Status == Status.IshJoylash)
@@ -481,43 +444,10 @@ cancellationToken: cancellationToken);
         }
         else if (user.Status == Status.UstozKerak)
         {
-            if (user.Messages[6] == "Ha" || user.Messages[6] == "Yo'q")
-            {
-                await client.SendTextMessageAsync(
-                    chatId: message.Chat.Id,
-                    text: @$"
-🧑🏻‍🏫 <strong>USTOZ KERAK</strong>
 
-🧑🏻 Shogirt: {user.Messages[0]}
-🗓 Tug'ilgan sana: {user.Messages[1]}
-💠 Shogirtlik yo'nalishi: {user.Messages[2]}
-🌏 Manzil: {user.Messages[3]}
-💰 Ish haqi: {user.Messages[4]}
-
-🧑‍🎓 Talaba: {user.Messages[6]}
-📑 Shogirt haqida: {user.Messages[7]}
-
-📞 Aloqa: {user.Messages[8]}
-✉️ Telegram: @{user.Username}
-🕰 Murojaat qilish vaqti: {user.Messages[9]}
-
-📌 Qo'shimcha ma'lumotlar: {user.Messages[10]}
-
-#UstozKerak
-
-<strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish</a></strong>
-•
-<strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
-                    parseMode: ParseMode.Html,
-                    disableWebPagePreview: true,
-                    cancellationToken: cancellationToken);
-
-            }
-            else
-            {
-                await client.SendTextMessageAsync(
-chatId: message.Chat.Id,
-text: @$"
+            await client.SendTextMessageAsync(
+                chatId: MainChanel,
+                text: @$"
 🧑🏻‍🏫 <strong>USTOZ KERAK</strong>
 
 🧑🏻 Shogirt: {user.Messages[0]}
@@ -540,9 +470,11 @@ text: @$"
 <strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish</a></strong>
 •
 <strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
-parseMode: ParseMode.Html,
-disableWebPagePreview: true);
-            }
+                parseMode: ParseMode.Html,
+                disableWebPagePreview: true,
+                cancellationToken: cancellationToken);
+
+
             return;
         }
         else if (user.Status == Status.SherikKerak)
