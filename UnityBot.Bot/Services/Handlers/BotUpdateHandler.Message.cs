@@ -43,7 +43,7 @@ public partial class BotUpdateHandler
 
             await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: $"<strong>Assalomu alaykum, \"EFFECT | Katta mehnat bozori\" @palonchi kanali uchun e'lon yaratuvchi botiga xush kelibsiz.\r\n\r\n \"EFFECT | Katta mehnat bozori\" - ish izlayotgan odamlarga vakansiyalarni, ish beruvchilarga esa ishchilarni topishda yordam beradi. Qolaversa bir qator boshqa yo'nalishlarni ham qollab quvvatlaydi.</strong>",
+                        text: $"<strong>Assalomu alaykum, \"EFFECT | Katta mehnat bozori\" kanali uchun e'lon yaratuvchi botiga xush kelibsiz.\r\n\r\n \"EFFECT | Katta mehnat bozori\" - ish izlayotgan odamlarga vakansiyalarni, ish beruvchilarga esa ishchilarni topishda yordam beradi. Qolaversa bir qator boshqa yo'nalishlarni ham qollab quvvatlaydi.</strong>",
                         parseMode: ParseMode.Html, replyMarkup: await InlineKeyBoards.ForMainState(),
                         cancellationToken: cancellationToken);
             return;
@@ -120,7 +120,7 @@ public partial class BotUpdateHandler
 
                 var msg = await client.SendTextMessageAsync(
          chatId: message.Chat.Id,
-         text: $"\r\n<strong>Assalomu alaykum {message.From.FirstName} {message.From.LastName}, \"EFFECT | Katta mehnat bozori\" @effect_mehnat kanali uchun e'lon yaratuvchi botiga xush kelibsiz.</strong>\r\n\r\nEFFECT | Katta mehnat bozori - ish izlayotgan odamlarga vakansiyalarni, ish beruvchilarga esa ishchilarni topishda yordam beradi. Qolaversa bir qator boshqa yo'nalishlarni ham qollab quvvatlaydi.\r\r\n\n<strong>Yo'nalishlar:</strong>\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.\r\n\r\n<strong>E'lon berish uchun yo'nalishni tanlang 👇</strong>",
+         text: $"\r\n<strong>Assalomu alaykum {message.From.FirstName} {message.From.LastName}, \"EFFECT | Katta mehnat bozori\" kanali uchun e'lon yaratuvchi botiga xush kelibsiz.</strong>\r\n\r\nEFFECT | Katta mehnat bozori - ish izlayotgan odamlarga vakansiyalarni, ish beruvchilarga esa ishchilarni topishda yordam beradi. Qolaversa bir qator boshqa yo'nalishlarni ham qollab quvvatlaydi.\r\r\n\n<strong>Yo'nalishlar:</strong>\r\n• \"🏢 Ish joylash\" - ishchi topish uchun.\r\n• \"\U0001f9d1🏻‍💼 Rezyume joylash\" - ish topish uchun.\r\n• \"\U0001f9d1🏻 Shogirt kerak\" - shogirt topish uchun.\r\n• \"\U0001f9d1🏻‍🏫 Ustoz kerak\" - ustoz topish uchun.\r\n• \"🎗 Sherik kerak\" - sherik topish uchun.\r\n\r\n<strong>E'lon berish uchun yo'nalishni tanlang 👇</strong>",
          replyMarkup: await InlineKeyBoards.ForMainState(),
          parseMode: ParseMode.Html,
          cancellationToken: cancellationToken);
@@ -246,7 +246,7 @@ public partial class BotUpdateHandler
     {
         var msg = await _client.SendTextMessageAsync(
             chatId: message.Chat.Id,
-            text: $"E'lonni joylash narxi: \"BEPUL 🕑\"\r\n\r\nℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.\r\n\r\nTayyor e'lonni \"EFFECT | Katta mehnat bozori\" @effect_mehnat kanaliga joylash uchun \"✅ E'lonni joylash\" tugmasini bosing, bekor qilish uchun \"❌ Bekor qilish\" tugmasini bosing 👇",
+            text: $"E'lonni joylash narxi: \"BEPUL 🕑\"\r\n\r\nℹ️ E'lon joylashtirilgandan so'ng, u moderatorlar tomonidan ko'rib chiqiladi. Zaruriyat tug'ilganda, ma'lumotlar to'g'riligini tekshirish maqsadida e'lon muallifi bilan bog'laniladi.\r\n\r\nTayyor e'lonni \"EFFECT | Katta mehnat bozori\" kanaliga joylash uchun \"✅ E'lonni joylash\" tugmasini bosing, bekor qilish uchun \"❌ Bekor qilish\" tugmasini bosing 👇",
             replyMarkup: await InlineKeyBoards.ForConfirmation(),
             parseMode: ParseMode.Html,
             cancellationToken: cancellation
@@ -310,7 +310,7 @@ public partial class BotUpdateHandler
     {
         await client.SendTextMessageAsync(
                         chatId: message.Chat.Id,
-                        text: $@"<strong>✅ Sizning e'loningiz ""EFFECT | Katta mehnat bozori"" @effect_mehnat kanaliga joylashtirildi.</strong>
+                        text: $@"<strong>✅ Sizning e'loningiz ""EFFECT | Katta mehnat bozori"" kanaliga joylashtirildi.</strong>
 
 Bizning xizmatimizdan foydalanganingiz uchun hursandmiz, ishlaringizga rivoj tilaymiz ⭐️",
                         parseMode: ParseMode.Html,

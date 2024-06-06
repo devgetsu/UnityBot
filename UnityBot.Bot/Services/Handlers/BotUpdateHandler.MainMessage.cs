@@ -30,7 +30,7 @@ namespace UnityBot.Bot.Services.Handlers
                 text: $"<strong>🎗 SHERIK KERAK</strong>\r\n" +
                 "\r\nSherik kerakligi haqida e'lon joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.\r\n" +
                 "\r\nSo'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa \"✅ To'g'ri\" tugmasini bosing, aksincha bo'lsa \"❌ Noto'g'ri\" tugmasini bosing va so'rovnomani qaytadan to'ldiring.\r\n" +
-                $"\r\nE'lon tayor bo'lgandan kegin \"✅ E'lonni joylash\" tugmasi bosilsa e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @effect_mehnat kanaliga joylashtiriladi.",
+                $"\r\nE'lon tayor bo'lgandan kegin \"✅ E'lonni joylash\" tugmasi bosilsa e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" kanaliga joylashtiriladi.",
                  parseMode: ParseMode.Html,
                 cancellationToken: cancellationToken);
 
@@ -199,7 +199,7 @@ Ustoz kerakligi haqida e'lon joylashtirish uchun bir nechta savollarga javob ber
 
 So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ To'g'ri"" tugmasini bosing, aksincha bo'lsa ""❌ Noto'g'ri"" tugmasini bosing va so'rovnomani qaytadan to'ldiring.
 
-E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha zaxotiyoq ""EFFECT | Katta mehnat bozori"" @effect_mehnat kanaliga joylashtiriladi.",
+E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha zaxotiyoq ""EFFECT | Katta mehnat bozori"" kanaliga joylashtiriladi.",
                        parseMode: ParseMode.Html,
                        cancellationToken: cancellationToken);
 
@@ -389,7 +389,7 @@ E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha
                        text: "\U0001f9d1🏻‍💼 <strong>REZYUME</strong>\r\n\r\nRezyume joylashtirish uchun bir nechta savollarga javob bering." +
                        " Har bir javobingiz to'g'ri va ishonchli ma'lumotlardan iborat bo'lishi kerak ekanligiga e'tiborli bo'ling.\r\n" +
                        "\r\nSo'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa \"✅ To'g'ri\" tugmasini bosing, aksincha bo'lsa \"❌ Noto'g'ri\" tugmasini bosing va so'rovnomani qaytadan to'ldiring.\r\n" +
-                       $"\r\nE'lon tayor bo'lgandan kegin \"✅ E'lonni joylash\" tugmasi bosilsa e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" @effect_mehnat kanaliga joylashtiriladi.",
+                       $"\r\nE'lon tayor bo'lgandan kegin \"✅ E'lonni joylash\" tugmasi bosilsa e'lon o'sha zaxotiyoq \"EFFECT | Katta mehnat bozori\" kanaliga joylashtiriladi.",
                        parseMode: ParseMode.Html,
                        cancellationToken: cancellationToken);
             await client.SendTextMessageAsync(
@@ -586,7 +586,7 @@ Shogirt kerakligi haqida e'lon joylashtirish uchun bir nechta savollarga javob b
 
 So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ To'g'ri"" tugmasini bosing, aksincha bo'lsa ""❌ Noto'g'ri"" tugmasini bosing va so'rovnomani qaytadan to'ldiring.
 
-E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha zaxotiyoq ""EFFECT | Katta mehnat bozori"" @effect_mehnat kanaliga joylashtiriladi.",
+E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha zaxotiyoq ""EFFECT | Katta mehnat bozori"" kanaliga joylashtiriladi.",
                        parseMode: ParseMode.Html,
                        cancellationToken: cancellationToken);
 
@@ -784,7 +784,7 @@ Ish joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz t
 
 So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ To'g'ri"" tugmasini bosing, aksincha bo'lsa ""❌ Noto'g'ri"" tugmasini bosing va so'rovnomani qaytadan to'ldiring.
 
-E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zaxotiyoq ""EFFECT | Katta mehnat bozori"" @effect_mehnat kanaliga joylashtiriladi.",
+E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zaxotiyoq ""EFFECT | Katta mehnat bozori"" kanaliga joylashtiriladi.",
                 parseMode: ParseMode.Html,
                 cancellationToken: cancellationToken);
 
