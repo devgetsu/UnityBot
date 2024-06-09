@@ -378,57 +378,58 @@ Bizning xizmatimizdan foydalanganingiz uchun hursandmiz, ishlaringizga rivoj til
             return;
         }
         
-        var telegramLine = user.Username != null ? $"\n✉️ Telegram: {user.Username}" : "";
+        var telegramLine = user.Username != null ? $"\n✉️ Telegram: @{user.Username}" : "";
 
         if (user.Status == Status.RezumeJoylash)
         {
             await client.SendTextMessageAsync(
-                chatId: MainChanel,
-                text: @$"<strong>🧑🏻‍💼 REZYUME</strong>
+               chatId: MainChanel,
+               text: @$"<strong>🧑🏻‍💼 REZYUME</strong>
 
-⭐️ Ish qidiruvchi: {user.Messages[0]}
-🗓 Tug'ilgan sana: {user.Messages[1]}
-💠 Mutaxassislik: {user.Messages[2]}
-🌏 Manzil: {user.Messages[3]}
-💰 Ish haqi: {user.Messages[4]}
+<strong>⭐️ Ish qidiruvchi:</strong> {user.Messages[0]}
+<strong>🗓 Tug'ilgan sana:</strong> {user.Messages[1]}
+<strong>💠 Mutaxassislik:</strong> {user.Messages[2]}
+<strong>🌏 Manzil:</strong> {user.Messages[3]}
+<strong>💰 Ish haqi:</strong> {user.Messages[4]}
 
-🧑‍🎓 Talaba: {user.Messages[5]}
-📑 Ish qidiruvchi haqida: {user.Messages[6]}
+<strong>🧑‍🎓 Talaba:</strong> {user.Messages[5]}
+<strong>📑 Ish qidiruvchi haqida:</strong> {user.Messages[6]}
 
-📞 Aloqa: {user.Messages[7]}{telegramLine}
-🕰 Murojaat qilish vaqti: {user.Messages[8]}
+<strong>📞 Aloqa:</strong> {user.Messages[7]}{telegramLine}
+<strong>🕰 Murojaat qilish vaqti:</strong> {user.Messages[8]}
 
-📌 Qo'shimcha ma'lumotlar: {user.Messages[9]}
+<strong>📌 Qo'shimcha ma'lumotlar:</strong> {user.Messages[9]}
 
 #Rezyume
 
 <strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish</a></strong>
 •
 <strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
-                parseMode: ParseMode.Html,
-                disableWebPagePreview: true,
-                cancellationToken: cancellationToken);
+               parseMode: ParseMode.Html,
+               disableWebPagePreview: true,
+               cancellationToken: cancellationToken);
+
             return;
         }
         else if (user.Status == Status.IshJoylash)
         {
             await client.SendTextMessageAsync(
-chatId: MainChanel,
-text: @$"
+     chatId: MainChanel,
+     text: @$"
 <strong>🏢 ISH</strong>
 
-⭐️ Ish beruvchi: {user.Messages[0]} 
-📋 Vakansiya nomi: {user.Messages[1]}
-⏰ Ish vaqti: {user.Messages[2]}
-💰 Ish haqi: {user.Messages[3]}
-🌏 Manzil: {user.Messages[4]}
+<strong>⭐️ Ish beruvchi:</strong> {user.Messages[0]}
+<strong>📋 Vakansiya nomi:</strong> {user.Messages[1]}
+<strong>⏰ Ish vaqti:</strong> {user.Messages[2]}
+<strong>💰 Ish haqi:</strong> {user.Messages[3]}
+<strong>🌏 Manzil:</strong> {user.Messages[4]}
 
-📑 Vakansiya haqida: {user.Messages[5]}
+<strong>📑 Vakansiya haqida:</strong> {user.Messages[5]}
 
-📞 Aloqa: {user.Messages[6]}{telegramLine}
-🕰 Murojaat qilish vaqti: {user.Messages[7]}
+<strong>📞 Aloqa:</strong> {user.Messages[6]}{telegramLine}
+<strong>🕰 Murojaat qilish vaqti:</strong> {user.Messages[7]}
 
-📌 Qo'shimcha ma'lumotlar: {user.Messages[8]}
+<strong>📌 Qo'shimcha ma'lumotlar:</strong> {user.Messages[8]}
 
 #Ish
 
@@ -436,33 +437,32 @@ text: @$"
 •
 <strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>
 ",
-parseMode: ParseMode.Html,
-disableWebPagePreview: true,
-//replyMarkup: await InlineKeyBoards.ForSendToChanel(),
-cancellationToken: cancellationToken);
+     parseMode: ParseMode.Html,
+     disableWebPagePreview: true,
+     cancellationToken: cancellationToken);
+
             return;
         }
         else if (user.Status == Status.UstozKerak)
         {
-
             await client.SendTextMessageAsync(
                 chatId: MainChanel,
                 text: @$"
 🧑🏻‍🏫 <strong>USTOZ KERAK</strong>
 
-🧑🏻 Shogirt: {user.Messages[0]}
-🗓 Tug'ilgan sana: {user.Messages[1]}
-💠 Shogirtlik yo'nalishi: {user.Messages[2]}
-🌏 Manzil: {user.Messages[3]}
-💰 Ish haqi: {user.Messages[4]}
+<strong>🧑🏻 Shogirt:</strong> {user.Messages[0]}
+<strong>🗓 Tug'ilgan sana:</strong> {user.Messages[1]}
+<strong>💠 Shogirtlik yo'nalishi:</strong> {user.Messages[2]}
+<strong>🌏 Manzil:</strong> {user.Messages[3]}
+<strong>💰 Ish haqi:</strong> {user.Messages[4]}
 
-🧑‍🎓 Talaba: {user.Messages[5]}
-📑 Shogirt haqida: {user.Messages[6]}
+<strong>🧑‍🎓 Talaba:</strong> {user.Messages[5]}
+<strong>📑 Shogirt haqida:</strong> {user.Messages[6]}
 
-📞 Aloqa: {user.Messages[7]}{telegramLine}
-🕰 Murojaat qilish vaqti: {user.Messages[8]}
+<strong>📞 Aloqa:</strong> {user.Messages[7]}{telegramLine}
+<strong>🕰 Murojaat qilish vaqti:</strong> {user.Messages[8]}
 
-📌 Qo'shimcha ma'lumotlar: {user.Messages[9]}
+<strong>📌 Qo'shimcha ma'lumotlar:</strong> {user.Messages[9]}
 
 #UstozKerak
 
@@ -473,36 +473,36 @@ cancellationToken: cancellationToken);
                 disableWebPagePreview: true,
                 cancellationToken: cancellationToken);
 
-
             return;
         }
         else if (user.Status == Status.SherikKerak)
         {
             await client.SendTextMessageAsync(
-                   chatId: MainChanel,
-                   text: @$"
+                chatId: MainChanel,
+                text: @$"
 🎗 <strong>SHERIK KERAK</strong>
 
-⭐️ Sherik: {user.Messages[0]}
-📋 Sheriklik yo'nalishi: {user.Messages[1]}
-💰 Hisob-kitob: {user.Messages[2]}
-🌏 Manzil: {user.Messages[3]}
+<strong>⭐️ Sherik:</strong> {user.Messages[0]}
+<strong>📋 Sheriklik yo'nalishi:</strong> {user.Messages[1]}
+<strong>💰 Hisob-kitob:</strong> {user.Messages[2]}
+<strong>🌏 Manzil:</strong> {user.Messages[3]}
 
-📑 Sheriklik haqida: {user.Messages[4]}
+<strong>📑 Sheriklik haqida:</strong> {user.Messages[4]}
 
-📞 Aloqa: {user.Messages[5]}{telegramLine}
-🕰 Murojaat qilish vaqti: {user.Messages[6]}
+<strong>📞 Aloqa:</strong> {user.Messages[5]}{telegramLine}
+<strong>🕰 Murojaat qilish vaqti:</strong> {user.Messages[6]}
 
-📌 Qo'shimcha ma'lumotlar: {user.Messages[7]}
+<strong>📌 Qo'shimcha ma'lumotlar:</strong> {user.Messages[7]}
+
 #SherikKerak
 
 <strong><a href='{LINK}'>🌐 ""EFFECT | Katta mehnat bozori"" kanaliga obuna bo'lish</a></strong>
 •
 <strong><a href='{BotLINK}'>⏺ ""EFFECT | Katta mehnat bozori"" kanaliga e'lon joylash</a></strong>",
-                   parseMode: ParseMode.Html,
-                   disableWebPagePreview: true,
-                   //replyMarkup: await InlineKeyBoards.ForSendToChanel(),
-                   cancellationToken: cancellationToken);
+                parseMode: ParseMode.Html,
+                disableWebPagePreview: true,
+                cancellationToken: cancellationToken);
+
             return;
         }
         else if (user.Status == Status.ShogirtKerak)
@@ -512,17 +512,17 @@ cancellationToken: cancellationToken);
                 text: @$"
 🧑🏻 <strong>SHOGIRT KERAK</strong>
 
-🧑🏻‍🏫 Ustoz: {user.Messages[0]}
-📋 Ustozlik yo'nalishi: {user.Messages[1]}
-💰 Ish haqi: {user.Messages[2]}
-🌏 Manzil: {user.Messages[3]}
+<strong>🧑🏻‍🏫 Ustoz:</strong> {user.Messages[0]}
+<strong>📋 Ustozlik yo'nalishi:</strong> {user.Messages[1]}
+<strong>💰 Ish haqi:</strong> {user.Messages[2]}
+<strong>🌏 Manzil:</strong> {user.Messages[3]}
 
-📑 Ustozlik haqida: {user.Messages[4]}
+<strong>📑 Ustozlik haqida:</strong> {user.Messages[4]}
 
-📞 Aloqa: {user.Messages[5]}{telegramLine}
-🕰 Murojaat qilish vaqti: {user.Messages[6]}
+<strong>📞 Aloqa:</strong> {user.Messages[5]}{telegramLine}
+<strong>🕰 Murojaat qilish vaqti:</strong> {user.Messages[6]}
 
-📌 Qo'shimcha ma'lumotlar: {user.Messages[7]}
+<strong>📌 Qo'shimcha ma'lumotlar:</strong> {user.Messages[7]}
 
 #ShogirtKerak
 
@@ -533,6 +533,7 @@ cancellationToken: cancellationToken);
                 disableWebPagePreview: true,
                 cancellationToken: cancellationToken);
             return;
+
         }
     }
     #endregion
