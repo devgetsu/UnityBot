@@ -377,6 +377,8 @@ Bizning xizmatimizdan foydalanganingiz uchun hursandmiz, ishlaringizga rivoj til
         {
             return;
         }
+        
+        var telegramLine = user.Username != null ? $"\n✉️ Telegram: {user.Username}" : "";
 
         if (user.Status == Status.RezumeJoylash)
         {
@@ -393,8 +395,7 @@ Bizning xizmatimizdan foydalanganingiz uchun hursandmiz, ishlaringizga rivoj til
 🧑‍🎓 Talaba: {user.Messages[5]}
 📑 Ish qidiruvchi haqida: {user.Messages[6]}
 
-📞 Aloqa: {user.Messages[7]}
-✉️ Telegram: @{user.Username}
+📞 Aloqa: {user.Messages[7]}{telegramLine}
 🕰 Murojaat qilish vaqti: {user.Messages[8]}
 
 📌 Qo'shimcha ma'lumotlar: {user.Messages[9]}
@@ -424,8 +425,7 @@ text: @$"
 
 📑 Vakansiya haqida: {user.Messages[5]}
 
-📞 Aloqa: {user.Messages[6]}
-✉️ Telegram: @{user.Username}
+📞 Aloqa: {user.Messages[6]}{telegramLine}
 🕰 Murojaat qilish vaqti: {user.Messages[7]}
 
 📌 Qo'shimcha ma'lumotlar: {user.Messages[8]}
@@ -459,8 +459,7 @@ cancellationToken: cancellationToken);
 🧑‍🎓 Talaba: {user.Messages[5]}
 📑 Shogirt haqida: {user.Messages[6]}
 
-📞 Aloqa: {user.Messages[7]}
-✉️ Telegram: @{user.Username}
+📞 Aloqa: {user.Messages[7]}{telegramLine}
 🕰 Murojaat qilish vaqti: {user.Messages[8]}
 
 📌 Qo'shimcha ma'lumotlar: {user.Messages[9]}
@@ -491,8 +490,7 @@ cancellationToken: cancellationToken);
 
 📑 Sheriklik haqida: {user.Messages[4]}
 
-📞 Aloqa: {user.Messages[5]}
-✉️ Telegram: @{user.Username}
+📞 Aloqa: {user.Messages[5]}{telegramLine}
 🕰 Murojaat qilish vaqti: {user.Messages[6]}
 
 📌 Qo'shimcha ma'lumotlar: {user.Messages[7]}
@@ -521,8 +519,7 @@ cancellationToken: cancellationToken);
 
 📑 Ustozlik haqida: {user.Messages[4]}
 
-📞 Aloqa: {user.Messages[5]}
-✉️ Telegram: @{user.Username}
+📞 Aloqa: {user.Messages[5]}{telegramLine}
 🕰 Murojaat qilish vaqti: {user.Messages[6]}
 
 📌 Qo'shimcha ma'lumotlar: {user.Messages[7]}
