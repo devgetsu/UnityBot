@@ -378,7 +378,7 @@ Bizning xizmatimizdan foydalanganingiz uchun hursandmiz, ishlaringizga rivoj til
             return;
         }
         
-        var telegramLine = user.Username != null ? $"\n✉️ Telegram: @{user.Username}" : "";
+        var telegramLine = user.Username != null ? $"\n✉️ <strong>Telegram:</strong> @{user.Username}" : "";
 
         if (user.Status == Status.RezumeJoylash)
         {
