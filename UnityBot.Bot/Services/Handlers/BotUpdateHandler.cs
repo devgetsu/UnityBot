@@ -27,24 +27,7 @@ namespace UnityBot.Bot.Services.Handlers
         {
             try
             {
-                var getchatmember = await botClient.GetChatMemberAsync(LINK, update.Message.From.Id);
-                if (getchatmember.Status.ToString() == "Left" || getchatmember.Status.ToString() == null || getchatmember.Status.ToString() == "null" || getchatmember.Status.ToString() == "")
-                {
-                    InlineKeyboardMarkup inlineKeyboard = new(new[]
-                            {
-                    new []
-                    {
-                        InlineKeyboardButton.WithUrl(text: "EFFECT | Katta mehnat bozori", url: LINK),
-                    },
-                });
-                    await botClient.SendTextMessageAsync(
-                        chatId: update.Message.Chat.Id,
-                        text: "Boshlashdan avval kanalga obuna bo'ling! Va /start buyrug'ini kirting!",
-                        replyMarkup: inlineKeyboard,
-                        cancellationToken: cancellationToken);
-                    return;
-
-                }
+               
                 var handler = update.Type switch
                 {
                     UpdateType.Message => HandleMessageAsync(botClient, update.Message, cancellationToken),
