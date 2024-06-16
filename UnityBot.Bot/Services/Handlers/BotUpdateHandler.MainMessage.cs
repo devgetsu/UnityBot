@@ -792,7 +792,7 @@ Ish joylashtirish uchun bir nechta savollarga javob bering. Har bir javobingiz t
 
 So'rovnoma yakunida, agarda kiritilgan barcha ma'lumotlar to'g'ri bo'lsa ""✅ To'g'ri"" tugmasini bosing, aksincha bo'lsa ""❌ Noto'g'ri"" tugmasini bosing va so'rovnomani qaytadan to'ldiring.
 
-E'lon tayor bo'lgandan kegin ""E'lonni joylash"" tugmasi bosilsa e'lon o'sha zaxotiyoq ""EFFECT | Katta mehnat bozori"" kanaliga joylashtiriladi.",
+E'lon tayor bo'lgandan kegin ""✅ E'lonni joylash"" tugmasi bosilsa e'lon o'sha zaxotiyoq ""EFFECT | Katta mehnat bozori"" kanaliga joylashtiriladi.",
                 parseMode: ParseMode.Html,
                 cancellationToken: cancellationToken);
 

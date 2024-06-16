@@ -48,8 +48,8 @@ namespace UnityBot.Bot.Services.ReplyKeyboards
             List<List<InlineKeyboardButton>> inlineKeyboardButtons = new List<List<InlineKeyboardButton>>{
             new List<InlineKeyboardButton>
             {
-                InlineKeyboardButton.WithCallbackData("✅ Ha", "hatextcorrect"),
-                InlineKeyboardButton.WithCallbackData("❌ Yo'q", "yoqtextincorrect"),
+                InlineKeyboardButton.WithCallbackData("✅ To’g’ri", "hatextcorrect"),
+                InlineKeyboardButton.WithCallbackData("❌ Noto’g’ri", "yoqtextincorrect"),
             }
         };
 

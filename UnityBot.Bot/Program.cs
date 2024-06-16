@@ -1,9 +1,5 @@
-
-using Microsoft.EntityFrameworkCore;
-using Serilog;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
-using UnityBot.Bot.Persistanse;
 using UnityBot.Bot.Services;
 using UnityBot.Bot.Services.Handlers;
 using UnityBot.Bot.Services.UserServices;
